@@ -23,9 +23,34 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
+                <p>Each spinner has two wedges, like this:</p>
+                <img src="./img/spinner_no-outcome.png" style="width:40%; height:40%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>After each spin, one of the wedges will light up.<br>
+                The number on the illuminated wedge will be added to your total score.</p>
+                <p>In this example, 4 points would be added to your total score.</p>
+                <img src="./img/spinner_no-flip.png" style="width:40%; height:40%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>Usually, the wedge you land on will light up, but sometimes the opposite wedge will light up.</p>
+                <p>In this example, the opposite wedge lit up, so 2 points would be added to your total score.</p>
+                <img src="./img/spinner_flip.png" style="width:40%; height:40%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>The percentage in the center of the wheel is the probability of the opposite wedge lighting up.</p>
+                <p>In this example, there is a 25% chance of the opposite wedge lighting up.</p>
+                <img src="./img/spinner_flip.png" style="width:40%; height:40%">
+            </div>`],
+
+        postIntro: [
+            `<div class='parent'>
                 <p>To spin a prize wheel, just grab it with your cursor and give it a spin!
                 <br>Watch the animation below to see how it's done.</p>
-                <img src="./img/spinGif.gif" style="width:60%; height:60%">
+                <img src="./img/spinGif2.gif" style="width:60%; height:60%">
             </div>`,
 
             `<div class='parent'>
@@ -48,17 +73,81 @@ const exp = (function() {
         ],
     };
 
-    p.consent = {
-        type: jsPsychExternalHtml,
-        url: "./html/consent.html",
-        cont_btn: "advance",
-    };
 
-    p.intro = {
+    const intro = {
         type: jsPsychInstructions,
         pages: html.intro,
         show_clickable_nav: true,
         post_trial_gap: 500,
+        allow_keys: false,
+    };
+
+    let correctAnswers = [`There is a 50% chance of the opposite wheel lighting up.`, `There is a 0% chance of the opposite wheel lighting up.`, `3`];
+
+    const errorMessage = {
+        type: jsPsychInstructions,
+        pages: [`<div class='parent'><p>You provided the wrong answer.<br>To make sure you understand the game, please continue to re-read the instructions.</p></div>`],
+        show_clickable_nav: true,
+        allow_keys: false,
+    };
+
+    const attnChk = {
+        type: jsPsychSurveyMultiChoice,
+        preamble: `<div class='parent'>
+            <p>Please answer the following questions.</p>
+            </div>`,
+        questions: [
+            {
+                prompt: "What does it mean if the middle of a wheel says '50%'?", 
+                name: `attnChk1`, 
+                options: [`There is a 0% chance of the opposite wheel lighting up.`, `There is a 25% chance of the opposite wheel lighting up.`, `There is a 50% chance of the opposite wheel lighting up.`],
+            },
+            {
+                prompt: "What does it mean if the middle of a wheel says '0%'?", 
+                name: `attnChk2`, 
+                options: [`There is a 0% chance of the opposite wheel lighting up.`, `There is a 25% chance of the opposite wheel lighting up.`, `There is a 50% chance of the opposite wheel lighting up.`],
+            },
+            {
+                prompt: "How many points will you earn if you land on a 6 and the wedge that lights up says 3?", 
+                name: `attnChk3`, 
+                options: [`0`, `3`, `6`],
+            },
+        ],
+        scale_width: 500,
+        on_finish: (data) => {
+              const totalErrors = getTotalErrors(data, correctAnswers);
+              data.totalErrors = totalErrors;
+        },
+    };
+
+    const conditionalNode = {
+      timeline: [errorMessage],
+      conditional_function: () => {
+        const fail = jsPsych.data.get().last(1).select('totalErrors').sum() > 0 ? true : false;
+        return fail;
+      },
+    };
+
+    p.instLoop = {
+      timeline: [intro, attnChk, conditionalNode],
+      loop_function: () => {
+        const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
+        return fail;
+      },
+    };
+
+    p.postIntro = {
+        type: jsPsychInstructions,
+        pages: html.postIntro,
+        show_clickable_nav: true,
+        post_trial_gap: 500,
+        allow_keys: false,
+    };
+
+    p.consent = {
+        type: jsPsychExternalHtml,
+        url: "./html/consent.html",
+        cont_btn: "advance",
     };
 
     
@@ -90,13 +179,6 @@ const exp = (function() {
     // define each wheel
     const wheels = [
 
-
-        /*  2 2
-            3 3 6 6    ev = 4.5; v = 3
-            7 7 10 10  ev = 8.5; v = 3
-            2 2 7 7    ev = 4.5; v = 8.33
-            6 6 11 11  ev = 4.5; v = 8.33
-        */
             {sectors: [ wedges.two, wedges.four ], ev: 3, sd: 1.41, pFlip: .5},
             {sectors: [ wedges.four, wedges.six ], ev: 5, sd: 1.41, pFlip: .5},
             {sectors: [ wedges.one, wedges.five ], ev: 3, sd: 2.83, pFlip: .5},
@@ -111,6 +193,7 @@ const exp = (function() {
             {sectors: [ wedges.four, wedges.six ], ev: 5, sd: 1.41, pFlip: 0},
             {sectors: [ wedges.one, wedges.five ], ev: 3, sd: 2.83, pFlip: 0},
             {sectors: [ wedges.three, wedges.seven ], ev: 5, sd: 2.83, pFlip: 0},
+
 
         ];
 
@@ -368,6 +451,6 @@ const exp = (function() {
 
 }());
 
-const timeline = [exp.consent, exp.intro, exp.task, exp.demographics, exp.save_data];
+const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.task, exp.demographics, exp.save_data];
 
 jsPsych.run(timeline);
