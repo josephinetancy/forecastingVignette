@@ -98,12 +98,12 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: "What does it mean if the middle of a wheel says '50%'?", 
+                prompt: "What does it mean if the wheel says '50%'?", 
                 name: `attnChk1`, 
                 options: [`There is a 0% chance of the opposite wheel lighting up.`, `There is a 25% chance of the opposite wheel lighting up.`, `There is a 50% chance of the opposite wheel lighting up.`],
             },
             {
-                prompt: "What does it mean if the middle of a wheel says '0%'?", 
+                prompt: "What does it mean if the wheel says '0%'?", 
                 name: `attnChk2`, 
                 options: [`There is a 0% chance of the opposite wheel lighting up.`, `There is a 25% chance of the opposite wheel lighting up.`, `There is a 50% chance of the opposite wheel lighting up.`],
             },
