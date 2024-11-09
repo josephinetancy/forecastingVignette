@@ -190,8 +190,11 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
         }
         let sector = sectors[index];
         spinnerData.outcomes.push(parseFloat(sector.label));
-        drawSector(sectors, index);
-        updateScore(parseFloat(sector.label), "green");
+        setTimeout(() => {
+          drawSector(sectors, index);
+          updateScore(parseFloat(sector.label), "green");
+        }, 500);
+
         window.cancelAnimationFrame(req);
       };
     };
