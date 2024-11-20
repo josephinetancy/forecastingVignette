@@ -295,81 +295,31 @@ const exp = (function() {
                     <p>Please express the extent to which you disagree or agree with each statement.</p>
                 </div>`,
             questions: [
+
                 {
-                    prompt: `I enjoy challenging tasks/activities that require a lot of focus.`,
+                    prompt: `I rarely find tasks only moderately engaging—I find most activities either completely immersive or extremely boring.`,
                     name: `genFlow_1`,
                     labels: genFlowScale,
                     required: true,
                 },
+
                 {
-                    prompt: `When I am focused on a task/activity, I quickly tend to forget my surroundings (other people, time, and place).`,
+                    prompt: `I often alternate between feelings of intense engagement and complete boredom.`,
                     name: `genFlow_2`,
                     labels: genFlowScale,
                     required: true,
                 },
+
                 {
-                    prompt: `I usually experience a good flow when I do something (things that are neither too easy nor too difficult for me).`,
+                    prompt: `For me, activities are either extremely engaging or dull—there's rarely an in-between.`,
                     name: `genFlow_3`,
                     labels: genFlowScale,
                     required: true,
                 },
+
                 {
-                    prompt: `I have several different areas of interest.`,
+                    prompt: `My mood often swings between being deeply engaged in what I'm doing and feeling totally bored.`,
                     name: `genFlow_4`,
-                    labels: genFlowScale,
-                    required: true,
-                },
-                {
-                    prompt: `It is difficult for me to walk away from or quit a project I am currently working on.`,
-                    name: `genFlow_5`,
-                    labels: genFlowScale,
-                    required: true,
-                },
-                {
-                    prompt: `I become stressed in the face of difficult/challenging tasks.`,
-                    name: `genFlow_6r`,
-                    labels: genFlowScale,
-                    required: true,
-                },
-                {
-                    prompt: `It is difficult for me to maintain concentration over time.`,
-                    name: `genFlow_7r`,
-                    labels: genFlowScale,
-                    required: true,
-                },
-                {
-                    prompt: `I quickly become tired of the things I do.`,
-                    name: `genFlow_8r`,
-                    labels: genFlowScale,
-                    required: true,
-                },
-                {
-                    prompt: `I am usually satisfied with the results of my efforts across various tasks (I experience feelings of mastery).`,
-                    name: `genFlow_9`,
-                    labels: genFlowScale,
-                    required: true,
-                },
-                {
-                    prompt: `When I focus on something, I often forget to take a break.`,
-                    name: `genFlow_10`,
-                    labels: genFlowScale,
-                    required: true,
-                },
-                {
-                    prompt: `I get bored easily.`,
-                    name: `genFlow_11r`,
-                    labels: genFlowScale,
-                    required: true,
-                },
-                {
-                    prompt: `My daily tasks are exhausting rather than stimulating.`,
-                    name: `genFlow_12r`,
-                    labels: genFlowScale,
-                    required: true,
-                },
-                {
-                    prompt: `I develop an interest for most of the things I do in life.`,
-                    name: `genFlow_13`,
                     labels: genFlowScale,
                     required: true,
                 },
@@ -442,7 +392,7 @@ const exp = (function() {
     p.save_data = {
         type: jsPsychPipe,
         action: "save",
-        experiment_id: "wBFwbVxNLhxh",
+        experiment_id: "vwGeB3lWbIBU",
         filename: filename,
         data_string: ()=>jsPsych.data.get().csv()
     };
