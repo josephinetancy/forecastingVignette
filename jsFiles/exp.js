@@ -23,27 +23,34 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>Each spinner has two wedges, like this:</p>
-                <img src="./img/spinner_no-outcome.png" style="width:40%; height:40%">
+                <p>Each wheel has two wedges, like this:</p>
+                <img src="./img/p25.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
-                <p>After each spin, one of the wedges will light up.<br>
-                The number on the illuminated wedge will be added to your total score.</p>
-                <p>In this example, 4 points would be added to your total score.</p>
-                <img src="./img/spinner_no-flip.png" style="width:40%; height:40%">
+                <p>After each spin, you'll earn points.<br>
+                Usually, the number of points you earn will equal the number you land on.</p>
+                <p>In this example, the spinner landed on 4, and 4 points were earned.<br>
+                (The '+4' in the center means that 4 points were earned)</p>
+                <img src="./img/noFlip-example.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
-                <p>Usually, the wedge you land on will light up, but sometimes the opposite wedge will light up.</p>
-                <p>In this example, the opposite wedge lit up, so 2 points would be added to your total score.</p>
-                <img src="./img/spinner_flip.png" style="width:40%; height:40%">
+                <p>Sometimes, you'll experience a "reversal."</p>
+                <p>A reversal is when the number of points you earn equals the number you <strong>did not</strong> land on.</p>
+                <p>In this example of a reversal, the spinner landed on 4, but 6 points were earned.<br>
+                (The '+6' in the center means that 6 points were earned)</p>
+                <img src="./img/flip-example.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
-                <p>The percentage in the center of the wheel is the probability of the opposite wedge lighting up.</p>
-                <p>In this example, there is a 25% chance of the opposite wedge lighting up.</p>
-                <img src="./img/spinner_flip.png" style="width:40%; height:40%">
+                <p>The probability of a reversal changes from wheel to wheel.</p>
+                <p>For some wheels, reversals are very likely. For others, reversal are rare.</p>
+                <p>Before spinning a new wheel, you'll see a message like this one indicating the wheel's probability of reversal:</p>
+                <br><br<br><br>
+                <p><span style='font-size:100px'><strong>25%</strong></span>
+                <br>
+                <br><span style='font-size:40px'>Probability of Reversal</span></p>
             </div>`],
 
         postIntro: [
@@ -82,7 +89,10 @@ const exp = (function() {
         allow_keys: false,
     };
 
-    let correctAnswers = [`There is a 50% chance of the opposite wheel lighting up.`, `There is a 0% chance of the opposite wheel lighting up.`, `3`];
+    let correctAnswers = [
+        `For the next wheel, I have a 50% chance of earning points equal to the number I didn't land on.`, 
+        `For the next wheel, I have a 25% chance of earning points equal to the number I didn't land on.`, 
+        `For the next wheel, I have a 0% chance of earning points equal to the number I didn't land on.`];
 
     const errorMessage = {
         type: jsPsychInstructions,
@@ -98,19 +108,19 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: "What does it mean if the wheel says '50%'?", 
+                prompt: "What does '50% probability of reversal' mean?", 
                 name: `attnChk1`, 
-                options: [`There is a 0% chance of the opposite wheel lighting up.`, `There is a 25% chance of the opposite wheel lighting up.`, `There is a 50% chance of the opposite wheel lighting up.`],
+                options: [`For the next wheel, I have a 50% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 25% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 0% chance of earning points equal to the number I didn't land on.`],
             },
             {
-                prompt: "What does it mean if the wheel says '0%'?", 
+                prompt: "What does '25% probability of reversal' mean?", 
                 name: `attnChk2`, 
-                options: [`There is a 0% chance of the opposite wheel lighting up.`, `There is a 25% chance of the opposite wheel lighting up.`, `There is a 50% chance of the opposite wheel lighting up.`],
+                options: [`For the next wheel, I have a 50% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 25% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 0% chance of earning points equal to the number I didn't land on.`],
             },
             {
-                prompt: "How many points will you earn if you land on a 6 and the wedge that lights up says 3?", 
+                prompt: "What does '0% probability of reversal' mean?", 
                 name: `attnChk3`, 
-                options: [`0`, `3`, `6`],
+                options: [`For the next wheel, I have a 50% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 25% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 0% chance of earning points equal to the number I didn't land on.`],
             },
         ],
         scale_width: 500,
@@ -160,13 +170,13 @@ const exp = (function() {
 
     // define each wedge
     const wedges = {
-        one: {color:"#fe0000", label:"1"},
-        two: {color:"#800001", label:"2"},
-        three: {color:"#fe6a00", label:"3"},
-        four: {color:"#803400", label:"4"},
-        five: {color:"#ffd800", label:"5"},
-        six: {color:"#806b00", label:"6"},
-        seven: {color:"#00fe21", label:"7"},
+        one: {color:"#003366", label:"1"},
+        two: {color:"#8B0000", label:"2"},
+        three: {color:"#228B22", label:"3"},
+        four: {color:"#008080", label:"4"},
+        five: {color:"#800080", label:"5"},
+        six: {color:"#FF8C00", label:"6"},
+        seven: {color:"#4B0082", label:"7"},
         eight: {color:"#007f0e", label:"8"},
         nine: {color:"#0094fe", label:"9"},
         ten: {color:"#00497e", label:"10"},
@@ -202,6 +212,26 @@ const exp = (function() {
     let round = 1;  // track current round
 
     // trial: spinner
+    const pFlip = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: function() {
+            let pEM = jsPsych.timelineVariable('pFlip');
+            let pct = (pEM * 100).toFixed(0) + "%";
+            let html = `<div class='pFlip-style'>
+                            <p><span style='font-size:100px'><strong>${pct}</strong></span>
+                            <br><br><br><br>Probability of Reversal</p>
+                        </div>`;
+            return html;
+        },
+        choices: "NO_KEYS",
+        trial_duration: 3000,
+        response_ends_trial: false,
+        data: {ev: jsPsych.timelineVariable('ev'), var: jsPsych.timelineVariable('sd'), pFlip: jsPsych.timelineVariable('pFlip')},
+        on_finish: function(data) {
+            data.round = round;
+        }
+    };
+
     const spin = {
         type: jsPsychCanvasButtonResponse,
         stimulus: function(c, spinnerData) {
@@ -264,7 +294,7 @@ const exp = (function() {
 
     // timeline: main task
     p.task = {
-        timeline: [spin, flowMeasure, happinessMeasure],
+        timeline: [pFlip, spin, flowMeasure, happinessMeasure],
         repetitions: 1,
         timeline_variables: wheels,
         randomize_order: true,

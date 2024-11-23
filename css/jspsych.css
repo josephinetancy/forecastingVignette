@@ -570,10 +570,10 @@
   height: 8%;
   margin: -8%;
   color: white;
-  background: black;
+  background: white;
   box-shadow: 0 0 0 8px currentColor, 0 0px 15px 5px rgba(0, 0, 0, 0.6);
   border-radius: 10%;
-  transition: 0.8s;
+  transition: 0.1s;
   font-weight: bold;
   font-size: 1.5rem;  /* Adjust as needed */
 }
@@ -624,3 +624,11 @@
   font-size:40px;
 }
 
+.pFlip-style {
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  color: 'black';
+}

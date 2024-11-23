@@ -27,6 +27,19 @@ const filename = `${subject_id}.csv`;
 // define completion code for Prolific
 const completionCode = "COGM5GL8";
 
+// track fps
+let frames = 0, tic = performance.now(), fpsAdjust;
+(function getFpsAdjust() {
+    const req = window.requestAnimationFrame(getFpsAdjust);
+    frames++;
+    if (frames == 120) { 
+        fpsAdjust = (performance.now() - tic) / 2000;
+        jsPsych.data.addProperties({fpsAdjust: fpsAdjust});
+        frames = 0;
+        tic = performance.now();
+    };
+})();
+
 // when true, boot participant from study without redirecting to Prolific
 let boot = false;
 
@@ -54,10 +67,6 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
 
   /* get pointer */
   const pointer = document.querySelector("#spin");
-  const pct = (pEM * 100).toFixed(0) + "%"
-  pointer.innerText = `${pct}`;
-
-
 
   /* get score message */
   const scoreMsg = document.getElementById("score");
@@ -77,13 +86,15 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
   let nNonFlips = 8 - nFlips;
   let flipArray = Array(nNonFlips).fill(0).concat(Array(nFlips).fill(1));
   let flipArray_shuffle = jsPsych.randomization.repeat(flipArray, 1);
-  console.log(flipArray_shuffle, pEM)
+  console.log(flipArray_shuffle)
 
   /* spin dynamics */
-  const friction = 0.98;  // 0.995=soft, 0.99=mid, 0.98=hard
+  const friction = 0.97;  // 0.995=soft, 0.99=mid, 0.98=hard
   const angVelMin = 5; // Below that number will be treated as a stop
   let angVelMax = 0; // Random ang.vel. to acceletare to 
   let angVel = 0;    // Current angular velocity
+  let dt = (60 / 1000) * fpsAdjust;
+
 
   /* state variables */
   let isGrabbed = false;       // true when wheel is grabbed, false otherwise
@@ -160,9 +171,10 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
 
     // accelerate
     if (isAccelerating) {
-      speed *= 1.06; // Accelerate
+      speed *= (1.06 ** fpsAdjust); // Accelerate
       const req = window.requestAnimationFrame(giveMoment.bind(this, speed));
       oldAngle += speed;
+      console.log(fpsAdjust);
       lastAngles.shift();
       lastAngles.push(oldAngle);
       render(oldAngle);
@@ -171,7 +183,7 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
     // decelerate and stop
     else {
       isAccelerating = false;
-      speed *= friction; // Decelerate by friction  
+      speed *= (friction ** fpsAdjust); // Decelerate by friction  
       const req = window.requestAnimationFrame(giveMoment.bind(this, speed));
       if (Math.abs(speed) > angVelMin * .1) {
         // decelerate
@@ -184,17 +196,18 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
         speed = 0;
         currentAngle = oldAngle;
         let index = getIndex();
+        let index_flip = index;
         let flip = flipArray_shuffle.pop();
         if (flip) {
-          index = (index == 1) ? 0 : 1;
+          index_flip = (index == 1) ? 0 : 1;
         }
         let sector = sectors[index];
-        spinnerData.outcomes.push(parseFloat(sector.label));
-        setTimeout(() => {
-          drawSector(sectors, index);
-          updateScore(parseFloat(sector.label), "green");
-        }, 500);
-
+        let sectorFlip = sectors[index_flip];
+        console.log(sector);
+        spinnerData.spinOutcomes.push(parseFloat(sector.label));
+        spinnerData.pointOutcomes.push(parseFloat(sectorFlip.label));
+      //  updateScore(parseFloat(sectorFlip.label), "green");
+        updateScore(parseFloat(sectorFlip.label), sectorFlip.color);
         window.cancelAnimationFrame(req);
       };
     };
@@ -206,11 +219,14 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
   const updateScore = (points, color) => {
     score += points;
     spinnerData.score = score;
-    scoreMsg.innerHTML = `<span style="color:${color}; font-weight: bolder">${score}</span>`;
+      scoreMsg.innerHTML = `<span style="color:${color}; font-weight: bolder">${score}</span>`;
+      pointer.innerText = `+${points}`;
+      pointer.style.background = `${color}`;
     setTimeout(() => {
       scoreMsg.innerHTML = `${score}`
-      isSpinning = false;
-      drawSector(sectors, null);
+      pointer.innerText = ``;
+      pointer.style.background = `white`;
+      isSpinning = (spinnerData.spinOutcomes.length == 8) ? true : false;
       onWheel ? canvas.style.cursor = "grab" : canvas.style.cursor = "";
     }, 1000);
   };
@@ -286,8 +302,8 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
       ctx.save();
       // COLOR
       ctx.beginPath();
-    //  ctx.fillStyle = sectors[i].color;
-      ctx.fillStyle = (isSpinning && i == sector) ? "green" : "grey";
+      ctx.fillStyle = sectors[i].color;
+    //  ctx.fillStyle = (isSpinning && i == sector) ? "green" : "grey";
       ctx.moveTo(rad, rad);
       ctx.arc(rad, rad, rad - 10, ang, ang + arc);
       ctx.lineTo(rad, rad);
