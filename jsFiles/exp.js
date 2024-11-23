@@ -30,16 +30,16 @@ const exp = (function() {
             `<div class='parent'>
                 <p>After each spin, you'll earn points.<br>
                 Usually, the number of points you earn will equal the number you land on.</p>
-                <p>In this example, the spinner landed on 4, and 4 points were earned.<br>
-                (The '+4' in the center means that 4 points were earned)</p>
+                <p>In this example, the spinner landed on 6, and 6 points were earned.<br>
+                (The '+6' in the center means that 6 points were earned)</p>
                 <img src="./img/noFlip-example.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
                 <p>Sometimes, you'll experience a "reversal."</p>
                 <p>A reversal is when the number of points you earn equals the number you <strong>did not</strong> land on.</p>
-                <p>In this example of a reversal, the spinner landed on 4, but 6 points were earned.<br>
-                (The '+6' in the center means that 6 points were earned)</p>
+                <p>In this example of a reversal, the spinner landed on 6, but 4 points were earned.<br>
+                (The '+4' in the center means that 4 points were earned)</p>
                 <img src="./img/flip-example.png" style="width:40%; height:40%">
             </div>`,
 
