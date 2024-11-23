@@ -263,9 +263,7 @@ const exp = (function() {
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
-            let outcomesArray = jsPsych.data.get().select('outcomes').values;
             data.score = scoreArray[scoreArray.length - 1];
-            data.outcomes = outcomesArray[outcomesArray.length - 1];
             saveSurveyData(data);
         }
     };
@@ -284,9 +282,7 @@ const exp = (function() {
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
-            let outcomesArray = jsPsych.data.get().select('outcomes').values;
             data.score = scoreArray[scoreArray.length - 2];
-            data.outcomes = outcomesArray[outcomesArray.length - 2];
             saveSurveyData(data);
             round++;
         }
