@@ -569,9 +569,9 @@
   width: 16%;
   height: 8%;
   margin: -8%;
-  color: white;
+  color: black;
   background: white;
-  box-shadow: 0 0 0 8px currentColor, 0 0px 15px 5px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 0 8px white, 0 0px 15px 5px rgba(0, 0, 0, 0.6);
   border-radius: 10%;
   transition: 0.1s;
   font-weight: bold;
@@ -583,10 +583,14 @@
   position: absolute;
   top: -48px;
   border: 48px solid transparent;
-  border-bottom-color: currentColor;
+  border-bottom-color: white;
   border-top: none;
 }
 
+.parent {
+    position: relative;
+    width: 850px;
+}
 
 #jspsych-canvas-button-response-stimulus {
   display: inline-flex;

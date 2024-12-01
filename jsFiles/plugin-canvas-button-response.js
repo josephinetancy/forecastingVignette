@@ -100,8 +100,8 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
 
           // store data
           let spinnerData = {
-            spinOutcomes: [],
-            pointOutcomes: [],
+            pct_outcomes: [],
+            bonus_outcomes: [],
             score: 0,
             rt: null,
           };
@@ -116,8 +116,8 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
               this.jsPsych.pluginAPI.clearAllTimeouts();
               // gather the data to store for the trial
               var trial_data = {
-                  spin_outcomes: spinnerData.spinOutcomes,
-                  point_outcomes: spinnerData.pointOutcomes,
+                  pct_outcomes: spinnerData.pct_outcomes,
+                  bonus_outcomes: spinnerData.bonus_outcomes,
                   score: spinnerData.score,
                   rt: spinnerData.rt,
               };
@@ -148,7 +148,7 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
           }
           // end trial
           const waitForEnd = setInterval(function() {
-            if(spinnerData.spinOutcomes.length >= 8) {
+            if(spinnerData.pct_outcomes.length >= 8) {
               clearInterval(waitForEnd);
               setTimeout(after_response, 1500);
             }

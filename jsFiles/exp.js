@@ -17,47 +17,63 @@ const exp = (function() {
             `<div class='parent'>
                 <p><strong>Welcome to Spin the Wheel!</strong></p>
                 <p>In Spin the Wheel, you'll spin a series of prize wheels.</p>
-                <p>Each time you spin a prize wheel, you'll earn points.
-                <br>The number of points you earn depends on where the wheel lands.</p>
+                <p>Each time you spin a prize wheel, you'll earn points.</p>
                 <p>Your goal is to earn as many points as possible by spinning the prize wheels!</p>
             </div>`,
 
             `<div class='parent'>
-                <p>Each wheel has two wedges, like this:</p>
-                <img src="./img/p25.png" style="width:40%; height:40%">
+                <p>Each wheel has four wedges, like this:</p>
+                <img src="./img/spinner_80-20.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
-                <p>After each spin, you'll earn points.<br>
-                Usually, the number of points you earn will equal the number you land on.</p>
-                <p>In this example, the spinner landed on 6, and 6 points were earned.<br>
-                (The '+6' in the center means that 6 points were earned)</p>
-                <img src="./img/noFlip-example.png" style="width:40%; height:40%">
+                <p>Each wheel has a "point minimum."</p>
+                <p>The point minimum is the minimum number of points you'll earn per spin.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>Sometimes, you'll experience a "reversal."</p>
-                <p>A reversal is when the number of points you earn equals the number you <strong>did not</strong> land on.</p>
-                <p>In this example of a reversal, the spinner landed on 6, but 4 points were earned.<br>
-                (The '+4' in the center means that 4 points were earned)</p>
-                <img src="./img/flip-example.png" style="width:40%; height:40%">
-            </div>`,
-
-            `<div class='parent'>
-                <p>The probability of a reversal changes from wheel to wheel.</p>
-                <p>For some wheels, reversals are very likely. For others, reversal are rare.</p>
-                <p>Before spinning a new wheel, you'll see a message like this one indicating the wheel's probability of reversal:</p>
-                <br><br<br><br>
-                <p><span style='font-size:100px'><strong>25%</strong></span>
+                <p>Before spinning a new wheel, you'll see a message indicating its point minimum.</p>
+                <p>For example, this message indicates that the upcoming wheel has a 6-point minimum.</p>
                 <br>
-                <br><span style='font-size:40px'>Probability of Reversal</span></p>
+                <p><span style='font-size:100px'><strong>+6</strong></span></p>
+                <p><span style='font-size:40px'>Minimum Points Per Spin</span></p>            
+            </div>`,
+
+            `<div class='parent'>
+                <p>In addition to the point minimum, you can earn 10-point bonuses.</p>
+                <p>Your probability of winning a 10-point bonus depends on where you land.</p>
+                <p>For example, landing on 80% gives you an 80% of winning a 10-point bonus; landing on 20% gives you a 20% chance of winning a 10-point bonus.</p>
+                <img src="./img/spinner_80-20.png" style="width:40%; height:40%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>If you earn a 10-point bonus, the wedge will turn green.</p>
+                <p>You'll see you earned 10 points plus the minimum (e.g., +6).</p>
+                <img src="./img/spinner_bonus.png" style="width:40%; height:40%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>If you don't earn a 10-point bonus, the wedge will turn blue.</p>
+                <p>You'll see you only earned the minimum (e.g., +6).</p>
+                <img src="./img/spinner_no-bonus.png" style="width:40%; height:40%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>Different wheels give you different probabilities of earning 10-point bonuses.</p>
+                <p>This wheel gives you a 60% or 40% chance, depending on where you land.</p>
+                <img src="./img/spinner_60-40.png" style="width:40%; height:40%">
+            </div>`,
+
+           `<div class='parent'>
+                <p>This wheel gives you a 100% or 0% chance of a 10-point bonus, depending on where you land.</p>
+                <img src="./img/spinner_100-0.png" style="width:40%; height:40%">
             </div>`],
 
         postIntro: [
             `<div class='parent'>
-                <p>To spin a prize wheel, just grab it with your cursor and give it a spin!
-                <br>Watch the animation below to see how it's done.</p>
-                <img src="./img/spinGif2.gif" style="width:60%; height:60%">
+                <p>To spin a prize wheel, just grab it with your cursor and give it a spin!</p>
+                <p>Watch the animation below to see how it's done.</p>
+                <img src="./img/spin-gif.gif" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
@@ -90,9 +106,9 @@ const exp = (function() {
     };
 
     let correctAnswers = [
-        `For the next wheel, I have a 50% chance of earning points equal to the number I didn't land on.`, 
-        `For the next wheel, I have a 25% chance of earning points equal to the number I didn't land on.`, 
-        `For the next wheel, I have a 0% chance of earning points equal to the number I didn't land on.`];
+        `I have a 100% chance of winning a 10-point bonus.`, 
+        `I have a 60% chance of winning a 10-point bonus.`, 
+        `I have a 0% chance of winning a 10-point bonus.`];
 
     const errorMessage = {
         type: jsPsychInstructions,
@@ -108,19 +124,19 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: "What does '50% probability of reversal' mean?", 
+                prompt: "What does it mean if you land on a wedge that says 100%?", 
                 name: `attnChk1`, 
-                options: [`For the next wheel, I have a 50% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 25% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 0% chance of earning points equal to the number I didn't land on.`],
+                options: [`I have a 100% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 0% chance of winning a 10-point bonus.`],
             },
             {
-                prompt: "What does '25% probability of reversal' mean?", 
+                prompt: "What does it mean if you land on a wedge that says 60%?", 
                 name: `attnChk2`, 
-                options: [`For the next wheel, I have a 50% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 25% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 0% chance of earning points equal to the number I didn't land on.`],
+                options: [`I have a 100% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 0% chance of winning a 10-point bonus.`],
             },
             {
-                prompt: "What does '0% probability of reversal' mean?", 
+                prompt: "What does it mean if you land on a wedge that says 0%?", 
                 name: `attnChk3`, 
-                options: [`For the next wheel, I have a 50% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 25% chance of earning points equal to the number I didn't land on.`, `For the next wheel, I have a 0% chance of earning points equal to the number I didn't land on.`],
+                options: [`I have a 100% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 0% chance of winning a 10-point bonus.`],
             },
         ],
         scale_width: 500,
@@ -170,40 +186,29 @@ const exp = (function() {
 
     // define each wedge
     const wedges = {
-        one: {color:"#003366", label:"1"},
-        two: {color:"#8B0000", label:"2"},
-        three: {color:"#228B22", label:"3"},
-        four: {color:"#008080", label:"4"},
-        five: {color:"#800080", label:"5"},
-        six: {color:"#FF8C00", label:"6"},
-        seven: {color:"#4B0082", label:"7"},
-        eight: {color:"#007f0e", label:"8"},
-        nine: {color:"#0094fe", label:"9"},
-        ten: {color:"#00497e", label:"10"},
-        eleven: {color:"#0026ff", label:"11"},
-        twelve: {color:"#001280", label:"12"},
-        thirteen: {color:"#b100fe", label:"13"},
+        pct_100: {color:"#616360", font: 'white', label:"100%", pct: 1},
+        pct_0: {color:"#c7c8c7", font: 'black', label:"0%", pct: 0},
+        pct_80: {color:"#616360", font: 'white', label:"80%", pct: .8},
+        pct_20: {color:"#c7c8c7", font: 'black', label:"20%", pct: .2},
+        pct_60: {color:"#616360", font: 'white', label:"60%", pct: .6},
+        pct_40: {color:"#c7c8c7", font: 'black', label:"40%", pct: .4},
     };
 
 
     // define each wheel
     const wheels = [
 
-            {sectors: [ wedges.two, wedges.four ], ev: 3, sd: 1.41, pFlip: .5},
-            {sectors: [ wedges.four, wedges.six ], ev: 5, sd: 1.41, pFlip: .5},
-            {sectors: [ wedges.one, wedges.five ], ev: 3, sd: 2.83, pFlip: .5},
-            {sectors: [ wedges.three, wedges.seven ], ev: 5, sd: 2.83, pFlip: .5},
+            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], value: 2, ev: 1.5, sd: 1.5},
+            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], value: 2, ev: 1.5, sd: 1.5},
+            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], value: 2, ev: 1.5, sd: 1.5},
 
-            {sectors: [ wedges.two, wedges.four ], ev: 3, sd: 1.41, pFlip: .25},
-            {sectors: [ wedges.four, wedges.six ], ev: 5, sd: 1.41, pFlip: .25},
-            {sectors: [ wedges.one, wedges.five ], ev: 3, sd: 2.83, pFlip: .25},
-            {sectors: [ wedges.three, wedges.seven ], ev: 5, sd: 2.83, pFlip: .25},
+            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], value: 4, ev: 3, sd: 3},
+            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], value: 4, ev: 3, sd: 3},
+            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], value: 4, ev: 3, sd: 3},
 
-            {sectors: [ wedges.two, wedges.four ], ev: 3, sd: 1.41, pFlip: 0},
-            {sectors: [ wedges.four, wedges.six ], ev: 5, sd: 1.41, pFlip: 0},
-            {sectors: [ wedges.one, wedges.five ], ev: 3, sd: 2.83, pFlip: 0},
-            {sectors: [ wedges.three, wedges.seven ], ev: 5, sd: 2.83, pFlip: 0},
-
+            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], value: 6, ev: 4.5, sd: 4.5},
+            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], value: 6, ev: 4.5, sd: 4.5},
+            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], value: 6, ev: 4.5, sd: 4.5},
 
         ];
 
@@ -211,38 +216,31 @@ const exp = (function() {
 
     let round = 1;  // track current round
 
-    // trial: spinner
-    const pFlip = {
+    const pointMin = {
         type: jsPsychHtmlKeyboardResponse,
         stimulus: function() {
-            let pEM = jsPsych.timelineVariable('pFlip');
-            let pct = (pEM * 100).toFixed(0) + "%";
-            let html = `<div class='pFlip-style'>
-                            <p><span style='font-size:100px'><strong>${pct}</strong></span>
-                            <br><br><br><br>Probability of Reversal</p>
-                        </div>`;
+            let value = jsPsych.timelineVariable('value')
+            let html = `<div class='parent'>
+                <p><span style='font-size:100px'><strong>+${value}</strong></span></p>
+                <p><span style='font-size:40px'>Minimum Points Per Spin</span></p>            
+            </div>`;
             return html;
         },
         choices: "NO_KEYS",
         trial_duration: 3000,
-        response_ends_trial: false,
-        data: {ev: jsPsych.timelineVariable('ev'), var: jsPsych.timelineVariable('sd'), pFlip: jsPsych.timelineVariable('pFlip')},
-        on_finish: function(data) {
-            data.round = round;
-        }
-    };
+    };      
 
     const spin = {
         type: jsPsychCanvasButtonResponse,
         stimulus: function(c, spinnerData) {
-            createSpinner(c, spinnerData, scoreTracker, jsPsych.timelineVariable('sectors'), jsPsych.timelineVariable('pFlip'));
+            createSpinner(c, spinnerData, scoreTracker, jsPsych.timelineVariable('sectors'), jsPsych.timelineVariable('value'));
         },
         canvas_size: [500, 500],
         score: function() {
             return scoreTracker
         },
         post_trial_gap: 1000,
-        data: {ev: jsPsych.timelineVariable('ev'), var: jsPsych.timelineVariable('sd'), pFlip: jsPsych.timelineVariable('pFlip')},
+        data: {ev: jsPsych.timelineVariable('ev'), var: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value')},
         on_finish: function(data) {
             data.round = round;
             scoreTracker = data.score
@@ -259,7 +257,7 @@ const exp = (function() {
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {ev: jsPsych.timelineVariable('ev'), var: jsPsych.timelineVariable('sd'), pFlip: jsPsych.timelineVariable('pFlip')},
+        data: {ev: jsPsych.timelineVariable('ev'), var: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
@@ -278,7 +276,7 @@ const exp = (function() {
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {ev: jsPsych.timelineVariable('ev'), var: jsPsych.timelineVariable('sd'), pFlip: jsPsych.timelineVariable('pFlip')},
+        data: {ev: jsPsych.timelineVariable('ev'), var: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
@@ -290,7 +288,7 @@ const exp = (function() {
 
     // timeline: main task
     p.task = {
-        timeline: [pFlip, spin, flowMeasure, happinessMeasure],
+        timeline: [pointMin, spin, flowMeasure, happinessMeasure],
         repetitions: 1,
         timeline_variables: wheels,
         randomize_order: true,

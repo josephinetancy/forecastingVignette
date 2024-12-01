@@ -60,13 +60,14 @@ const getTotalErrors = (data, correctAnswers) => {
 };
 
 // code for spinner task
-const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
+const createSpinner = function(canvas, spinnerData, score, sectors, value) {
 
   /* get context */
   const ctx = canvas.getContext("2d"); 
 
   /* get pointer */
   const pointer = document.querySelector("#spin");
+  pointer.innerText = ``;
 
   /* get score message */
   const scoreMsg = document.getElementById("score");
@@ -80,13 +81,6 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
   const rad = wheelWidth / 2; // radius of wheel
   const PI = Math.PI;
   const arc = (2 * PI) / tot; // arc sizes in radians
-
-  /* flip array */
-  let nFlips = 8 * pEM;
-  let nNonFlips = 8 - nFlips;
-  let flipArray = Array(nNonFlips).fill(0).concat(Array(nFlips).fill(1));
-  let flipArray_shuffle = jsPsych.randomization.repeat(flipArray, 1);
-  console.log(flipArray_shuffle)
 
   /* spin dynamics */
   const friction = 0.97;  // 0.995=soft, 0.99=mid, 0.98=hard
@@ -196,18 +190,16 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
         speed = 0;
         currentAngle = oldAngle;
         let index = getIndex();
-        let index_flip = index;
-        let flip = flipArray_shuffle.pop();
-        if (flip) {
-          index_flip = (index == 1) ? 0 : 1;
-        }
         let sector = sectors[index];
-        let sectorFlip = sectors[index_flip];
-        console.log(sector);
-        spinnerData.spinOutcomes.push(parseFloat(sector.label));
-        spinnerData.pointOutcomes.push(parseFloat(sectorFlip.label));
+        let bonus = (sector.pct > Math.random()) ? 10 : 0;
+        let total_points = value + bonus;
+        let color = (bonus > 0) ? `green` : `blue`;
+        spinnerData.pct_outcomes.push(sector.pct);
+        spinnerData.bonus_outcomes.push(bonus);
       //  updateScore(parseFloat(sectorFlip.label), "green");
-        updateScore(parseFloat(sectorFlip.label), sectorFlip.color);
+        console.log(color);
+        drawSector(sectors, index, bonus, color);
+        updateScore(total_points, color);
         window.cancelAnimationFrame(req);
       };
     };
@@ -219,14 +211,11 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
   const updateScore = (points, color) => {
     score += points;
     spinnerData.score = score;
-      scoreMsg.innerHTML = `<span style="color:${color}; font-weight: bolder">${score}</span>`;
-      pointer.innerText = `+${points}`;
-      pointer.style.background = `${color}`;
+    scoreMsg.innerHTML = `<span style="color:${color}; font-weight: bolder">${score}</span>`;
     setTimeout(() => {
       scoreMsg.innerHTML = `${score}`
-      pointer.innerText = ``;
-      pointer.style.background = `white`;
-      isSpinning = (spinnerData.spinOutcomes.length == 8) ? true : false;
+      drawSector(sectors, null, null, null);
+      isSpinning = (spinnerData.pct_outcomes.length == 8) ? true : false;
       onWheel ? canvas.style.cursor = "grab" : canvas.style.cursor = "";
     }, 1000);
   };
@@ -296,14 +285,14 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
   }
 
   //* Draw sectors and prizes texts to canvas */
-  const drawSector = (sectors, sector) => {
+  const drawSector = (sectors, sector, bonus, color) => {
     for (let i = 0; i < sectors.length; i++) {
       const ang = arc * i;
       ctx.save();
       // COLOR
       ctx.beginPath();
-      ctx.fillStyle = sectors[i].color;
-    //  ctx.fillStyle = (isSpinning && i == sector) ? "green" : "grey";
+    //  ctx.fillStyle = sectors[i].color;
+      ctx.fillStyle = (isSpinning && i == sector) ? color : sectors[i].color;
       ctx.moveTo(rad, rad);
       ctx.arc(rad, rad, rad - 10, ang, ang + arc);
       ctx.lineTo(rad, rad);
@@ -316,18 +305,28 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
 
       // TEXT
       ctx.translate(rad, rad);
-      ctx.rotate( ang + arc );
+      ctx.rotate( (ang + arc / 2) + arc );
       ctx.textAlign = "center";
-      ctx.fillStyle = "#fff";
 
       if (isSpinning && i == sector) {
         ctx.font = "bolder 50px sans-serif"
+        ctx.fillStyle = 'white';
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 8;
-        ctx.strokeText(sectors[i].label, 0, -140);
-        ctx.fillText(sectors[i].label, 0, -140);
+        if (bonus != 0) {
+          ctx.strokeText(`+${value}`, 0, -160);
+          ctx.fillText(`+${value}`, 0, -160);
+          ctx.fillStyle = 'yellow';
+          ctx.strokeText(`+${bonus}`, 0, -90);
+          ctx.fillText(`+${bonus}`, 0, -90);
+        } else {
+          ctx.strokeText(`+${value}`, 0, -140);
+          ctx.fillText(`+${value}`, 0, -140);
+        }
+        
       } else {
         ctx.font = "bold 50px sans-serif"
+        ctx.fillStyle = sectors[i].font;
         ctx.fillText(sectors[i].label, 0, -140);
       }
      // ctx.fillText(sector.label, rad - 80, 10);
@@ -337,7 +336,7 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pEM) {
     }
   };
 
-  drawSector(sectors, null);
+  drawSector(sectors, null, null, null);
 
   /* add event listners */
   canvas.addEventListener('mousedown', function(e) {
