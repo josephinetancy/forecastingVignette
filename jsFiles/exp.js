@@ -32,7 +32,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>Before spinning a new wheel, you'll see a message indicating its point minimum.</p>
+                <p>Before each new wheel, you'll see a message indicating the wheel's point minimum.</p>
                 <p>For example, this message indicates that the upcoming wheel has a 6-point minimum.</p>
                 <br>
                 <p><span style='font-size:100px'><strong>+6</strong></span></p>
