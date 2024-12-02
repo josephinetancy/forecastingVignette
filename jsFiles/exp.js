@@ -48,13 +48,15 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>If you earn a 10-point bonus, the wedge will turn green.</p>
-                <p>You'll see you earned 10 points plus the minimum (e.g., +6).</p>
+                <p>You'll see you earned 10 points plus the minimum.</p>
+                <p>In this example, the minimum was 6, so the total is 16.</p>
                 <img src="./img/spinner_bonus.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
                 <p>If you don't earn a 10-point bonus, the wedge will turn blue.</p>
-                <p>You'll see you only earned the minimum (e.g., +6).</p>
+                <p>You'll see you only earned the minimum.</p>
+                <p>In this example, the minimum was 6, so the total is 6.</p>
                 <img src="./img/spinner_no-bonus.png" style="width:40%; height:40%">
             </div>`,
 
@@ -198,17 +200,17 @@ const exp = (function() {
     // define each wheel
     const wheels = [
 
-            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], value: 2, ev: 1.5, sd: 1.5},
-            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], value: 2, ev: 1.5, sd: 1.5},
-            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], value: 2, ev: 1.5, sd: 1.5},
+            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], wheel_id: 1, value: 2, ev: 7, sd: 5, mi: 1},
+            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], wheel_id: 2, value: 2, ev: 7, sd: 5, mi: .278},
+            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 3, value: 2, ev: 7, sd: 5, mi: .029},
 
-            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], value: 4, ev: 3, sd: 3},
-            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], value: 4, ev: 3, sd: 3},
-            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], value: 4, ev: 3, sd: 3},
+            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], wheel_id: 4, value: 5, ev: 10, sd: 5, mi: 1},
+            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], wheel_id: 5, value: 5, ev: 10, sd: 5, mi: .278},
+            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 6, value: 5, ev: 10, sd: 5, mi: .029},
 
-            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], value: 6, ev: 4.5, sd: 4.5},
-            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], value: 6, ev: 4.5, sd: 4.5},
-            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], value: 6, ev: 4.5, sd: 4.5},
+            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], wheel_id: 7, value: 8, ev: 13, sd: 5, mi: 1},
+            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], wheel_id: 8, value: 8, ev: 13, sd: 5, mi: .278},
+            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 9, value: 8, ev: 13, sd: 5, mi: .029},
 
         ];
 
@@ -226,6 +228,7 @@ const exp = (function() {
             </div>`;
             return html;
         },
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
         choices: "NO_KEYS",
         trial_duration: 3000,
     };      
@@ -240,7 +243,7 @@ const exp = (function() {
             return scoreTracker
         },
         post_trial_gap: 1000,
-        data: {ev: jsPsych.timelineVariable('ev'), var: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value')},
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             scoreTracker = data.score
@@ -257,7 +260,7 @@ const exp = (function() {
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {ev: jsPsych.timelineVariable('ev'), var: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value')},
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
@@ -276,7 +279,7 @@ const exp = (function() {
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {ev: jsPsych.timelineVariable('ev'), var: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value')},
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;

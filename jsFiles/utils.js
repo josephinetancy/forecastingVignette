@@ -195,10 +195,8 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
         let total_points = value + bonus;
         let color = (bonus > 0) ? `green` : `blue`;
         spinnerData.pct_outcomes.push(sector.pct);
-        spinnerData.bonus_outcomes.push(bonus);
-      //  updateScore(parseFloat(sectorFlip.label), "green");
-        console.log(color);
-        drawSector(sectors, index, bonus, color);
+        spinnerData.bonus_outcomes.push(total_points);
+        drawSector(sectors, index, total_points, color);
         updateScore(total_points, color);
         window.cancelAnimationFrame(req);
       };
@@ -310,20 +308,11 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
 
       if (isSpinning && i == sector) {
         ctx.font = "bolder 50px sans-serif"
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = (bonus > 10) ? 'yellow' : 'white';
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 8;
-        if (bonus != 0) {
-          ctx.strokeText(`+${value}`, 0, -160);
-          ctx.fillText(`+${value}`, 0, -160);
-          ctx.fillStyle = 'yellow';
-          ctx.strokeText(`+${bonus}`, 0, -90);
-          ctx.fillText(`+${bonus}`, 0, -90);
-        } else {
-          ctx.strokeText(`+${value}`, 0, -140);
-          ctx.fillText(`+${value}`, 0, -140);
-        }
-        
+        ctx.strokeText(`+${bonus}`, 0, -140);
+        ctx.fillText(`+${bonus}`, 0, -140);
       } else {
         ctx.font = "bold 50px sans-serif"
         ctx.fillStyle = sectors[i].font;
