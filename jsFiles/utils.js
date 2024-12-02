@@ -307,12 +307,12 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
       ctx.textAlign = "center";
 
       if (isSpinning && i == sector) {
-        ctx.font = "bolder 50px sans-serif"
+        ctx.font = "bolder 75px sans-serif"
         ctx.fillStyle = (bonus > 10) ? 'yellow' : 'white';
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 8;
-        ctx.strokeText(`+${bonus}`, 0, -140);
-        ctx.fillText(`+${bonus}`, 0, -140);
+        ctx.strokeText(`+${bonus}`, 0, -130);
+        ctx.fillText(`+${bonus}`, 0, -130);
       } else {
         ctx.font = "bold 50px sans-serif"
         ctx.fillStyle = sectors[i].font;
