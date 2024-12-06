@@ -59,6 +59,12 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
               pretty_name: "Score",
               default: 0,
           },
+          /** Minimum points per spin. */
+          point_minimum: {
+              type: jspsych.ParameterType.INT,
+              pretty_name: "Point minimum",
+              default: 0,
+          },
       },
   };
   /**
@@ -87,7 +93,10 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
                 trial.canvas_size[1] +
                 '"></canvas>' +
                 '<div id="spin"></div>' +
-              "</div>";
+              "</div>" +
+              '<div>' +
+                "<p><span style='font-size:35px'>Minimum: <strong>+" + trial.point_minimum + "</strong></span></p>" +
+              '</div>'
 
           //show prompt if there is one
           if (trial.prompt !== null) {
@@ -150,7 +159,7 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
           const waitForEnd = setInterval(function() {
             if(spinnerData.pct_outcomes.length >= 8) {
               clearInterval(waitForEnd);
-              setTimeout(after_response, 1500);
+              setTimeout(after_response, 2000);
             }
           }, 100);
           // hide image if timing is set

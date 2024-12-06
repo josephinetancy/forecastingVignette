@@ -23,7 +23,7 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>Each wheel has four wedges, like this:</p>
-                <img src="./img/spinner_80-20.png" style="width:40%; height:40%">
+                <img src="./img/spinner_75-25.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
@@ -33,30 +33,30 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>Before each new wheel, you'll see a message indicating the wheel's point minimum.</p>
-                <p>For example, this message indicates that the upcoming wheel has a 6-point minimum.</p>
+                <p>For example, this message indicates that the upcoming wheel has a 5-point minimum.</p>
                 <br>
-                <p><span style='font-size:100px'><strong>+6</strong></span></p>
+                <p><span style='font-size:100px'><strong>+5</strong></span></p>
                 <p><span style='font-size:40px'>Minimum Points Per Spin</span></p>            
             </div>`,
 
             `<div class='parent'>
                 <p>In addition to the point minimum, you can earn 10-point bonuses.</p>
                 <p>Your probability of winning a 10-point bonus depends on where you land.</p>
-                <p>For example, landing on 80% gives you an 80% of winning a 10-point bonus; landing on 20% gives you a 20% chance of winning a 10-point bonus.</p>
-                <img src="./img/spinner_80-20.png" style="width:40%; height:40%">
+                <p>For example, landing on 75% gives you an 75% of winning a 10-point bonus; landing on 25% gives you a 25% chance of winning a 10-point bonus.</p>
+                <img src="./img/spinner_75-25.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
                 <p>If you earn a 10-point bonus, the wedge will turn green.</p>
                 <p>You'll see you earned 10 points plus the minimum.</p>
-                <p>In this example, the minimum was 6, so the total is 16.</p>
+                <p>In this example, the minimum was 5, so the total is 15.</p>
                 <img src="./img/spinner_bonus.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
                 <p>If you don't earn a 10-point bonus, the wedge will turn blue.</p>
                 <p>You'll see you only earned the minimum.</p>
-                <p>In this example, the minimum was 6, so the total is 6.</p>
+                <p>In this example, the minimum was 5, so the total is 5.</p>
                 <img src="./img/spinner_no-bonus.png" style="width:40%; height:40%">
             </div>`,
 
@@ -67,8 +67,8 @@ const exp = (function() {
             </div>`,
 
            `<div class='parent'>
-                <p>This wheel gives you a 100% or 0% chance of a 10-point bonus, depending on where you land.</p>
-                <img src="./img/spinner_100-0.png" style="width:40%; height:40%">
+                <p>This wheel gives you a 90% or 10% chance of a 10-point bonus, depending on where you land.</p>
+                <img src="./img/spinner_90-10.png" style="width:40%; height:40%">
             </div>`],
 
         postIntro: [
@@ -108,9 +108,9 @@ const exp = (function() {
     };
 
     let correctAnswers = [
-        `I have a 100% chance of winning a 10-point bonus.`, 
+        `I have a 90% chance of winning a 10-point bonus.`, 
         `I have a 60% chance of winning a 10-point bonus.`, 
-        `I have a 0% chance of winning a 10-point bonus.`];
+        `I have a 10% chance of winning a 10-point bonus.`];
 
     const errorMessage = {
         type: jsPsychInstructions,
@@ -126,19 +126,19 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: "What does it mean if you land on a wedge that says 100%?", 
+                prompt: "What does it mean if you land on a wedge that says 90%?", 
                 name: `attnChk1`, 
-                options: [`I have a 100% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 0% chance of winning a 10-point bonus.`],
+                options: [`I have a 90% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 10% chance of winning a 10-point bonus.`],
             },
             {
                 prompt: "What does it mean if you land on a wedge that says 60%?", 
                 name: `attnChk2`, 
-                options: [`I have a 100% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 0% chance of winning a 10-point bonus.`],
+                options: [`I have a 90% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 10% chance of winning a 10-point bonus.`],
             },
             {
-                prompt: "What does it mean if you land on a wedge that says 0%?", 
+                prompt: "What does it mean if you land on a wedge that says 10%?", 
                 name: `attnChk3`, 
-                options: [`I have a 100% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 0% chance of winning a 10-point bonus.`],
+                options: [`I have a 90% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 10% chance of winning a 10-point bonus.`],
             },
         ],
         scale_width: 500,
@@ -188,10 +188,10 @@ const exp = (function() {
 
     // define each wedge
     const wedges = {
-        pct_100: {color:"#616360", font: 'white', label:"100%", pct: 1},
-        pct_0: {color:"#c7c8c7", font: 'black', label:"0%", pct: 0},
-        pct_80: {color:"#616360", font: 'white', label:"80%", pct: .8},
-        pct_20: {color:"#c7c8c7", font: 'black', label:"20%", pct: .2},
+        pct_90: {color:"#616360", font: 'white', label:"90%", pct: .9},
+        pct_10: {color:"#c7c8c7", font: 'black', label:"10%", pct: .1},
+        pct_75: {color:"#616360", font: 'white', label:"75%", pct: .75},
+        pct_25: {color:"#c7c8c7", font: 'black', label:"25%", pct: .25},
         pct_60: {color:"#616360", font: 'white', label:"60%", pct: .6},
         pct_40: {color:"#c7c8c7", font: 'black', label:"40%", pct: .4},
     };
@@ -200,16 +200,16 @@ const exp = (function() {
     // define each wheel
     const wheels = [
 
-            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], wheel_id: 1, value: 2, ev: 7, sd: 5, mi: 1},
-            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], wheel_id: 2, value: 2, ev: 7, sd: 5, mi: .278},
+            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 1, value: 2, ev: 7, sd: 5, mi: .531},
+            {sectors: [ wedges.pct_75, wedges.pct_25, wedges.pct_75, wedges.pct_25 ], wheel_id: 2, value: 2, ev: 7, sd: 5, mi: .189},
             {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 3, value: 2, ev: 7, sd: 5, mi: .029},
 
-            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], wheel_id: 4, value: 5, ev: 10, sd: 5, mi: 1},
-            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], wheel_id: 5, value: 5, ev: 10, sd: 5, mi: .278},
+            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 4, value: 5, ev: 10, sd: 5, mi: .531},
+            {sectors: [ wedges.pct_75, wedges.pct_25, wedges.pct_75, wedges.pct_25 ], wheel_id: 5, value: 5, ev: 10, sd: 5, mi: .189},
             {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 6, value: 5, ev: 10, sd: 5, mi: .029},
 
-            {sectors: [ wedges.pct_100, wedges.pct_0, wedges.pct_100, wedges.pct_0 ], wheel_id: 7, value: 8, ev: 13, sd: 5, mi: 1},
-            {sectors: [ wedges.pct_80, wedges.pct_20, wedges.pct_80, wedges.pct_20 ], wheel_id: 8, value: 8, ev: 13, sd: 5, mi: .278},
+            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 7, value: 8, ev: 13, sd: 5, mi: .531},
+            {sectors: [ wedges.pct_75, wedges.pct_25, wedges.pct_75, wedges.pct_25 ], wheel_id: 8, value: 8, ev: 13, sd: 5, mi: .189},
             {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 9, value: 8, ev: 13, sd: 5, mi: .029},
 
         ];
@@ -242,6 +242,7 @@ const exp = (function() {
         score: function() {
             return scoreTracker
         },
+        point_minimum: jsPsych.timelineVariable('value'),
         post_trial_gap: 1000,
         data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
