@@ -197,10 +197,8 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
         let color = (bonus > 0) ? `#4CAF50` : `#4682b4`;
         spinnerData.pct_outcomes.push(sector.pct);
         spinnerData.bonus_outcomes.push(total_points);
-        setTimeout(() => {
-          drawSector(sectors, index, total_points, color);
-          updateScore(total_points, color);
-        }, 500);
+        drawSector(sectors, index, total_points, color);
+        updateScore(total_points, color);
         window.cancelAnimationFrame(req);
       };
     };
