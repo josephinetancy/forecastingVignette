@@ -207,15 +207,15 @@ const exp = (function() {
     // define each wheel
     const wheels = [
 
-            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 1, value: 2, ev: 7, sd: 5, mi: .531},
+            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 1, value: 2, ev: 7, sd: 5, mi: .714},
             {sectors: [ wedges.pct_75, wedges.pct_25, wedges.pct_75, wedges.pct_25 ], wheel_id: 2, value: 2, ev: 7, sd: 5, mi: .189},
             {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 3, value: 2, ev: 7, sd: 5, mi: .029},
 
-            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 4, value: 5, ev: 10, sd: 5, mi: .531},
+            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 4, value: 5, ev: 10, sd: 5, mi: .714},
             {sectors: [ wedges.pct_75, wedges.pct_25, wedges.pct_75, wedges.pct_25 ], wheel_id: 5, value: 5, ev: 10, sd: 5, mi: .189},
             {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 6, value: 5, ev: 10, sd: 5, mi: .029},
 
-            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 7, value: 8, ev: 13, sd: 5, mi: .531},
+            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 7, value: 8, ev: 13, sd: 5, mi: .714},
             {sectors: [ wedges.pct_75, wedges.pct_25, wedges.pct_75, wedges.pct_25 ], wheel_id: 8, value: 8, ev: 13, sd: 5, mi: .189},
             {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 9, value: 8, ev: 13, sd: 5, mi: .029},
 
