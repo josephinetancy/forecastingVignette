@@ -70,7 +70,7 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
   pointer.innerText = ``;
 
   /* get score message */
-  const scoreMsg = document.getElementById("score");
+  // const scoreMsg = document.getElementById("score");
 
   /* get wheel properties */
   let wheelWidth = canvas.getBoundingClientRect()['width'];
@@ -192,11 +192,11 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
         let sector = sectors[index];
         let random_draw = Math.random();
         let bonus = (sector.pct > random_draw) ? 10 : 0;
-        console.log(sector.pct, random_draw, bonus);
         let total_points = value + bonus;
-        let color = (bonus > 0) ? `#4CAF50` : `#4682b4`;
-        spinnerData.pct_outcomes.push(sector.pct);
-        spinnerData.bonus_outcomes.push(total_points);
+        let color = `#4682b4`;
+        spinnerData.outcomes_pct = sector.pct;
+        spinnerData.outcomes_points = total_points;
+        spinnerData.outcomes_bonus = bonus;
         drawSector(sectors, index, total_points, color);
         updateScore(total_points, color);
         window.cancelAnimationFrame(req);
@@ -210,13 +210,15 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
   const updateScore = (points, color) => {
     score += points;
     spinnerData.score = score;
-    scoreMsg.innerHTML = `<span style="color:${color}; font-weight: bolder">${score}</span>`;
+    // scoreMsg.innerHTML = `<span style="color:${color}; font-weight: bolder">${score}</span>`;
+    /*
     setTimeout(() => {
       scoreMsg.innerHTML = `${score}`
       drawSector(sectors, null, null, null);
-      isSpinning = (spinnerData.pct_outcomes.length == 8) ? true : false;
+      isSpinning = (spinnerData.pct_outcomes) ? true : false;
       onWheel ? canvas.style.cursor = "grab" : canvas.style.cursor = "";
-    }, 1000);
+    }, 1500);
+    */
   };
 
   const getIndex = () => {
@@ -256,15 +258,14 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
       ctx.translate(rad, rad);
       ctx.rotate( (ang + arc / 2) + arc );
       ctx.textAlign = "center";
+      ctx.font = "bolder 45px sans-serif"
       if (isSpinning && i == sector) {
-        ctx.font = "bolder 75px sans-serif"
-        ctx.fillStyle = (bonus > 10) ? 'yellow' : 'white';
+        ctx.fillStyle = 'white';
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 8;
-        ctx.strokeText(`+${bonus}`, 0, -130);
-        ctx.fillText(`+${bonus}`, 0, -130);
+        ctx.strokeText(sectors[i].label, 0, -140);
+        ctx.fillText(sectors[i].label, 0, -140);
       } else {
-        ctx.font = "bold 45px sans-serif"
         ctx.fillStyle = sectors[i].font;
         ctx.fillText(sectors[i].label, 0, -140);
       }

@@ -636,3 +636,39 @@
   font-size: 40px;
   color: 'black';
 }
+
+.bonus-container {
+    position: relative;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    height: 465px;
+    width: 465px;
+    border: 2px solid grey; /* Dotted black border */
+}
+
+.bonus-image {
+    width: 465px;
+    height: auto;
+}
+
+.bonus-text {
+    position: absolute;
+    top: 185px;
+    left: 50%;
+    transform: translate(-55%, 0%);
+    color: #FF007F;
+    font-size: 90px;
+    font-weight: bold;
+    text-shadow: 
+      -1px -1px 0 #000, /* Black outline */
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+}
+
+.total-points {
+    margin-top: 20px;
+    font-size: 45px;
+    color: #333;
+}

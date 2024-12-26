@@ -42,22 +42,29 @@ const exp = (function() {
             `<div class='parent'>
                 <p>In addition to the point minimum, you can earn 10-point bonuses.</p>
                 <p>Your probability of winning a 10-point bonus depends on where you land.</p>
-                <p>For example, landing on 75% gives you an 75% of winning a 10-point bonus; landing on 25% gives you a 25% chance of winning a 10-point bonus.</p>
                 <img src="./img/spinner_75-25.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
-                <p>If you earn a 10-point bonus, the wedge will turn green.</p>
-                <p>You'll see you earned 10 points plus the minimum.</p>
-                <p>In this example, the minimum was 5, so the total is 15.</p>
-                <img src="./img/spinner_bonus.png" style="width:40%; height:40%">
+                <p>For example, landing on 75% gives you a 75% of winning a 10-point bonus.</p>
+                <img src="./img/spinner_75.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
-                <p>If you don't earn a 10-point bonus, the wedge will turn blue.</p>
-                <p>You'll see you only earned the minimum.</p>
-                <p>In this example, the minimum was 5, so the total is 5.</p>
-                <img src="./img/spinner_no-bonus.png" style="width:40%; height:40%">
+                <p>Landing on 25% gives you a 25% of winning a 10-point bonus.</p>
+                <img src="./img/spinner_25.png" style="width:40%; height:40%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>If you earn a 10-point bonus, you'll see a message like this one. It shows that you earned 10 points plus the minimum. (In this example, the minimum was 5, so the total is 15).</p>
+                <p>At the bottom, you'll see the total number of points you've earned.</p>
+                <img src="./img/bonus.png" style="width:40%; height:40%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>If you don't earn a 10-point bonus, you'll see a message like this one. It shows that you only earned the minimum. (In this example, the minimum was 5, so the total is 5).</p>
+                <p>At the bottom, you'll see the total number of points you've earned.</p>
+                <img src="./img/no-bonus.png" style="width:40%; height:40%">
             </div>`,
 
             `<div class='parent'>
@@ -67,8 +74,8 @@ const exp = (function() {
             </div>`,
 
            `<div class='parent'>
-                <p>This wheel gives you a 90% or 10% chance of a 10-point bonus, depending on where you land.</p>
-                <img src="./img/spinner_90-10.png" style="width:40%; height:40%">
+                <p>This wheel gives you a 95% or 5% chance of a 10-point bonus, depending on where you land.</p>
+                <img src="./img/spinner_95-5.png" style="width:40%; height:40%">
             </div>`],
 
         postIntro: [
@@ -108,9 +115,9 @@ const exp = (function() {
     };
 
     let correctAnswers = [
-        `I have a 90% chance of winning a 10-point bonus.`, 
+        `I have a 95% chance of winning a 10-point bonus.`, 
         `I have a 60% chance of winning a 10-point bonus.`, 
-        `I have a 10% chance of winning a 10-point bonus.`];
+        `I have a 5% chance of winning a 10-point bonus.`];
 
     const errorMessage = {
         type: jsPsychInstructions,
@@ -126,19 +133,19 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: "What does it mean if you land on a wedge that says 90%?", 
+                prompt: "What does it mean if you land on a wedge that says 95%?", 
                 name: `attnChk1`, 
-                options: [`I have a 90% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 10% chance of winning a 10-point bonus.`],
+                options: [`I have a 95% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 5% chance of winning a 10-point bonus.`],
             },
             {
                 prompt: "What does it mean if you land on a wedge that says 60%?", 
                 name: `attnChk2`, 
-                options: [`I have a 90% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 10% chance of winning a 10-point bonus.`],
+                options: [`I have a 95% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 5% chance of winning a 10-point bonus.`],
             },
             {
-                prompt: "What does it mean if you land on a wedge that says 10%?", 
+                prompt: "What does it mean if you land on a wedge that says 5%?", 
                 name: `attnChk3`, 
-                options: [`I have a 90% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 10% chance of winning a 10-point bonus.`],
+                options: [`I have a 95% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 5% chance of winning a 10-point bonus.`],
             },
         ],
         scale_width: 500,
@@ -188,8 +195,8 @@ const exp = (function() {
 
     // define each wedge
     const wedges = {
-        pct_90: {color:"#616360", font: 'white', label:"90%", pct: .9},
-        pct_10: {color:"#c7c8c7", font: 'black', label:"10%", pct: .1},
+        pct_90: {color:"#616360", font: 'white', label:"95%", pct: .95},
+        pct_10: {color:"#c7c8c7", font: 'black', label:"5%", pct: .05},
         pct_75: {color:"#616360", font: 'white', label:"75%", pct: .75},
         pct_25: {color:"#c7c8c7", font: 'black', label:"25%", pct: .25},
         pct_60: {color:"#616360", font: 'white', label:"60%", pct: .6},
@@ -215,7 +222,8 @@ const exp = (function() {
         ];
 
     let scoreTracker = 0; // track current score
-
+    let bonusTracker = false; // track bonuses
+    let pointsTracker = 0; // track points
     let round = 1;  // track current round
 
     const pointMin = {
@@ -236,6 +244,8 @@ const exp = (function() {
     const spin = {
         type: jsPsychCanvasButtonResponse,
         stimulus: function(c, spinnerData) {
+            let sectors_randomized = jsPsych.timelineVariable('sectors');
+            sectors_randomized = (Math.random() > .5) ? sectors_randomized.unshift(sectors_randomized.pop()) : sectors_randomized;
             createSpinner(c, spinnerData, scoreTracker, jsPsych.timelineVariable('sectors'), jsPsych.timelineVariable('value'));
         },
         canvas_size: [500, 500],
@@ -243,19 +253,47 @@ const exp = (function() {
             return scoreTracker
         },
         point_minimum: jsPsych.timelineVariable('value'),
-        post_trial_gap: 1000,
         data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             scoreTracker = data.score
+            bonusTracker = data.outcomes_bonus;
+            pointsTracker = data.outcomes_points;
         }
     };
+
+    const feedback = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: function() {
+            let value = jsPsych.timelineVariable('value');
+            let bonusColor = (bonusTracker > 0) ? '#FF007F' : 'grey';
+            let borderStyle = (bonusTracker > 0) ? '0px solid grey' : '2px solid grey';
+            let image = (bonusTracker > 0) ? '<img src="./img/bonus-points.png" class="bonus-image">' : '';
+            let html = `<div class='parent'>
+                <div class="bonus-container" style="border: ${borderStyle}">
+                    ${image}
+                    <div class="bonus-text" style="color:${bonusColor}">+${pointsTracker}</div>
+                </div>
+                <div class="total-points">Total points: ${scoreTracker}</div>
+            </div>`
+            /*
+            let html = `<div class='parent'>
+                <div style='font-size:100px; color:${bonusColor}'><p><strong>+${pointsTracker}</strong></p></div>
+                <div style='font-size:60px; margin-top:20px'><p><strong>Total Score: ${scoreTracker}</strong></p></div>
+            </div>`;
+            */
+            return html;
+        },
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
+        choices: "NO_KEYS",
+        trial_duration: 2500,
+    };    
 
     // trial: flow DV
     const flowMeasure = {
         type: jsPsychSurveyLikert,
         questions: [
-            {prompt: `During the last round of Spin the Wheel,<br>to what extent did you feel immersed and engaged in what you were doing?`,
+            {prompt: `During the last round of Spin the Wheel,<br>to what extent did you feel <b>immersed</b> and <b>engaged</b> in what you were doing?`,
             name: `flow`,
             labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']},
         ],
@@ -274,7 +312,7 @@ const exp = (function() {
     const happinessMeasure = {
         type: jsPsychSurveyLikert,
         questions: [
-            {prompt: `How happy are you right now?`,
+            {prompt: `How <b>happy</b> are you right now?`,
             name: `happiness`,
             labels: ['0<br>Very unhappy', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Very happy']},
         ],
@@ -290,9 +328,14 @@ const exp = (function() {
         }
     };
 
+    const spinLoop = {
+        timeline: [spin, feedback],
+        repetitions: 8,
+    };
+
     // timeline: main task
     p.task = {
-        timeline: [pointMin, spin, flowMeasure, happinessMeasure],
+        timeline: [pointMin, spinLoop, flowMeasure, happinessMeasure],
         repetitions: 1,
         timeline_variables: wheels,
         randomize_order: true,
