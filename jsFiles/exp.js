@@ -184,29 +184,29 @@ const exp = (function() {
 
     // define each wedge
     const wedges = {
-        one: {color: colors[0][0], font: 'white', label:"1", points: 1},
+        two: {color: colors[0][0], font: 'white', label:"2", points: 2},
         five: {color: colors[1][0], font: 'white', label:"5", points: 5},
-        nine: {color: colors[2][0], font: 'white', label:"9", points: 9},
-        eleven: {color: colors[0][1], font: 'white', label:"11", points: 11},
+        eight: {color: colors[2][0], font: 'white', label:"8", points: 8},
+        twelve: {color: colors[0][1], font: 'white', label:"12", points: 12},
         fifteen: {color: colors[1][1], font: 'white', label:"15", points: 15},
-        nineteen: {color: colors[2][1], font: 'white', label:"19", points: 19},
+        eighteen: {color: colors[2][1], font: 'white', label:"18", points: 18},
     };
 
 
     // define each wheel
     const wheels = [
 
-            {sectors: [ wedges.one, wedges.eleven ], wheel_id: 1, pUp: [1, 0], labels: ["100%", "0%"], ev: 6, sd: 5, mi: 1},
-            {sectors: [ wedges.one, wedges.eleven ], wheel_id: 2, pUp: [.8, .2], labels: ["80%", "20%"], ev: 6, sd: 5, mi: .278},
-            {sectors: [ wedges.one, wedges.eleven ], wheel_id: 3, pUp: [.6, .4], labels: ["60%", "40%"], ev: 6, sd: 5, mi: .029},
+            {sectors: [ wedges.two, wedges.twelve ], wheel_id: 1, pUp: [1, 0], labels: ["100%", "0%"], ev: 7, sd: 5, mi: 1},
+            {sectors: [ wedges.two, wedges.twelve ], wheel_id: 2, pUp: [.8, .2], labels: ["80%", "20%"], ev: 7, sd: 5, mi: .278},
+            {sectors: [ wedges.two, wedges.twelve ], wheel_id: 3, pUp: [.6, .4], labels: ["60%", "40%"], ev: 7, sd: 5, mi: .029},
 
             {sectors: [ wedges.five, wedges.fifteen ], wheel_id: 4, pUp: [1, 0], labels: ["100%", "0%"], ev: 10, sd: 5, mi: 1},
             {sectors: [ wedges.five, wedges.fifteen ], wheel_id: 5, pUp: [.8, .2], labels: ["80%", "20%"], ev: 10, sd: 5, mi: .278},
             {sectors: [ wedges.five, wedges.fifteen ], wheel_id: 6, pUp: [.6, .4], labels: ["60%", "40%"], ev: 10, sd: 5, mi: .029},
 
-            {sectors: [ wedges.eight, wedges.eighteen ], wheel_id: 7, pUp: [1, 0], labels: ["100%", "0%"], ev: 14, sd: 5, mi: 1},
-            {sectors: [ wedges.eight, wedges.nineteen ], wheel_id: 8, pUp: [.8, .2], labels: ["80%", "20%"], ev: 14, sd: 5, mi: .278},
-            {sectors: [ wedges.eight, wedges.nineteen ], wheel_id: 9, pUp: [.6, .4], labels: ["60%", "40%"], ev: 14, sd: 5, mi: .029},
+            {sectors: [ wedges.eight, wedges.eighteen ], wheel_id: 7, pUp: [1, 0], labels: ["100%", "0%"], ev: 13, sd: 5, mi: 1},
+            {sectors: [ wedges.eight, wedges.eighteen ], wheel_id: 8, pUp: [.8, .2], labels: ["80%", "20%"], ev: 13, sd: 5, mi: .278},
+            {sectors: [ wedges.eight, wedges.eighteen ], wheel_id: 9, pUp: [.6, .4], labels: ["60%", "40%"], ev: 13, sd: 5, mi: .029},
 
         ];
 
@@ -409,6 +409,6 @@ const exp = (function() {
 
 }());
 
-const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.task, exp.demographics, exp.save_data];
+const timeline = [exp.task, exp.consent, exp.instLoop, exp.postIntro, exp.task, exp.demographics, exp.save_data];
 
 jsPsych.run(timeline);
