@@ -556,10 +556,11 @@
 }
 
 /* spinner styling */
-#spin {
+#spinUp {
   font: 1rem/0 sans-serif;
   user-select: none;
  /* cursor: pointer; */
+  opacity: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -573,18 +574,49 @@
   background: white;
   box-shadow: 0 0 0 8px white, 0 0px 15px 5px rgba(0, 0, 0, 0.6);
   border-radius: 10%;
-  transition: 0.1s;
   font-weight: bold;
   font-size: 1.5rem;  /* Adjust as needed */
 }
 
-#spin::after {
+#spinUp::after {
   content: '';
   position: absolute;
-  top: -48px;
-  border: 48px solid transparent;
+  top: -46px;
+  border: 46px solid transparent;
   border-bottom-color: white;
   border-top: none;
+}
+
+/* down arrow styling */
+#spinDown {
+  font: 1rem/0 sans-serif;
+  user-select: none;
+  opacity: 0;
+ /* cursor: pointer; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16%;
+  height: 8%;
+  margin: -8%;
+  color: black;
+  background: white;
+  box-shadow: 0 0 0 8px white, 0 0px 15px 5px rgba(0, 0, 0, 0.6);
+  border-radius: 10%;
+  font-weight: bold;
+  font-size: 1.5rem;  /* Adjust as needed */
+}
+
+#spinDown::after {
+  content: '';
+  position: absolute;
+  top: 38px;
+  border: 46px solid transparent;
+  border-top-color: white;
+  border-bottom: none;
 }
 
 .parent {
@@ -667,8 +699,9 @@
       1px 1px 0 #000;
 }
 
-.total-points {
-    margin-top: 20px;
-    font-size: 45px;
-    color: #333;
+.probs {
+    font-size: 32px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 5px;
 }

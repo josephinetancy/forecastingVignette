@@ -60,17 +60,33 @@ const getTotalErrors = (data, correctAnswers) => {
 };
 
 // code for spinner task
-const createSpinner = function(canvas, spinnerData, score, sectors, value) {
+const createSpinner = function(canvas, spinnerData, score, sectors, pUp, labels) {
 
   /* get context */
   const ctx = canvas.getContext("2d"); 
+  let probOrder_array = jsPsych.randomization.repeat([0, 0, 0, 0, 0, 1, 1, 1, 1, 1], 1);
+  let up_array = Array(10*pUp[0]).fill(0).concat(Array(10*pUp[1]).fill(1));
+  up_array = jsPsych.randomization.repeat(up_array, 1);
+  probOrder = probOrder_array.pop();
+  up = probOrder == 0 ? up_array.pop() : 1 - up_array.pop();
+  const labelColors = ["green", "red"];
 
   /* get pointer */
-  const pointer = document.querySelector("#spin");
-  pointer.innerText = ``;
+  let pointer = document.querySelector("#spinUp");
+  pointer.style.opacity = '0';
+  pointer.id = up == 0 ? "spinUp" : "spinDown";
 
   /* get score message */
-  // const scoreMsg = document.getElementById("score");
+  const scoreMsg = document.getElementById("score");
+
+  /* labels */
+  const topLabel = document.getElementById("topProb");
+  const bottomLabel = document.getElementById("bottomProb");
+  topLabel.innerHTML = labels[probOrder];
+  bottomLabel.innerHTML = labels[1-probOrder];
+  topLabel.style.color = labelColors[probOrder];
+  bottomLabel.style.color = labelColors[1-probOrder];
+
 
   /* get wheel properties */
   let wheelWidth = canvas.getBoundingClientRect()['width'];
@@ -188,18 +204,17 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
         // stop spinner
         speed = 0;
         currentAngle = oldAngle;
-        let index = getIndex();
+        let index = up == 0 ? getIndex() : 1 - getIndex();
         let sector = sectors[index];
-        let random_draw = Math.random();
-        let bonus = (sector.pct > random_draw) ? 10 : 0;
-        let total_points = value + bonus;
-        let color = `#4682b4`;
-        spinnerData.outcomes_pct = sector.pct;
-        spinnerData.outcomes_points = total_points;
-        spinnerData.outcomes_bonus = bonus;
-        drawSector(sectors, index, total_points, color);
-        updateScore(total_points, color);
+        let points = sector.points;
+        spinnerData.outcomes_flip.push(up);
+        spinnerData.outcomes_points.push(points);
         window.cancelAnimationFrame(req);
+        setTimeout(() => {
+            pointer.style.opacity = '1';
+            drawSector(sectors, index, points);
+            updateScore(points, "black");
+        }, 750);
       };
     };
   };
@@ -210,15 +225,21 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
   const updateScore = (points, color) => {
     score += points;
     spinnerData.score = score;
-    // scoreMsg.innerHTML = `<span style="color:${color}; font-weight: bolder">${score}</span>`;
-    /*
+    scoreMsg.innerHTML = `<span style="color:${color}; font-weight: bolder">${score}</span>`;
     setTimeout(() => {
       scoreMsg.innerHTML = `${score}`
+      pointer.style.opacity = '0';
+      probOrder = (probOrder_array.length > 0) ? probOrder_array.pop() : probOrder;
+      up = probOrder == 0 ? up_array.pop() : 1 - up_array.pop();
+      pointer.id = up == 0 ? "spinUp" : "spinDown";
+      topLabel.innerHTML = labels[probOrder];
+      bottomLabel.innerHTML = labels[1-probOrder];
+      topLabel.style.color = labelColors[probOrder];
+      bottomLabel.style.color = labelColors[1-probOrder];
       drawSector(sectors, null, null, null);
       isSpinning = (spinnerData.pct_outcomes) ? true : false;
       onWheel ? canvas.style.cursor = "grab" : canvas.style.cursor = "";
-    }, 1500);
-    */
+    }, 1250);
   };
 
   const getIndex = () => {
@@ -236,14 +257,14 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
   }
 
   //* Draw sectors and prizes texts to canvas */
-  const drawSector = (sectors, sector, bonus, color) => {
+  const drawSector = (sectors, sector, bonus) => {
     for (let i = 0; i < sectors.length; i++) {
       const ang = arc * i;
       ctx.save();
       // COLOR
       ctx.beginPath();
     //  ctx.fillStyle = sectors[i].color;
-      ctx.fillStyle = (isSpinning && i == sector) ? color : sectors[i].color;
+      ctx.fillStyle = sectors[i].color;
       ctx.moveTo(rad, rad);
       ctx.arc(rad, rad, rad - 10, ang, ang + arc);
       ctx.lineTo(rad, rad);
@@ -256,18 +277,19 @@ const createSpinner = function(canvas, spinnerData, score, sectors, value) {
 
       // TEXT
       ctx.translate(rad, rad);
-      ctx.rotate( (ang + arc / 2) + arc );
+      ctx.rotate(ang + arc);
       ctx.textAlign = "center";
-      ctx.font = "bolder 45px sans-serif"
       if (isSpinning && i == sector) {
+        ctx.font = "bolder 100px sans-serif"
         ctx.fillStyle = 'white';
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 8;
-        ctx.strokeText(sectors[i].label, 0, -140);
-        ctx.fillText(sectors[i].label, 0, -140);
+        ctx.strokeText(sectors[i].label, 0, -100);
+        ctx.fillText(sectors[i].label, 0, -100);
       } else {
+        ctx.font = "bolder 70px sans-serif"
         ctx.fillStyle = sectors[i].font;
-        ctx.fillText(sectors[i].label, 0, -140);
+        ctx.fillText(sectors[i].label, 0, -110);
       }
 
       // RESTORE

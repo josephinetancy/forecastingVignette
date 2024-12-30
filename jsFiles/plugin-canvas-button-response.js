@@ -60,9 +60,14 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
               default: 0,
           },
           /** Minimum points per spin. */
-          point_minimum: {
-              type: jspsych.ParameterType.INT,
-              pretty_name: "Point minimum",
+          upLabel: {
+              type: jspsych.ParameterType.STRING,
+              pretty_name: "Probability of flip",
+              default: 0,
+          },
+          downLabel: {
+              type: jspsych.ParameterType.STRING,
+              pretty_name: "Probability of flip",
               default: 0,
           },
       },
@@ -82,14 +87,11 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
       trial(display_element, trial) {
           // create canvas
           var html = 
-          /*
               '<div class="score-board">' +
                 '<div class="score-board-title">Total Score</div>' +
                 '<div class="score-board-score" id="score" >' + trial.score + '</div>' +
               '</div>' +
-          */
-              '<div>' +
-                "<p><span style='font-size:35px'>Minimum: <strong>+" + trial.point_minimum + "</strong></span></p>" +
+              '<div class="probs" id="topProb"></div>' +
               '</div>' +
               '<div id="jspsych-canvas-button-response-stimulus">' +
                 '<canvas id="jspsych-canvas-stimulus" height="' +
@@ -97,8 +99,9 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
                 '" width="' +
                 trial.canvas_size[1] +
                 '"></canvas>' +
-                '<div id="spin"></div>' +
-              "</div>"
+                '<div id="spinUp"></div>' +
+              '</div>' +
+              '<div class="probs" id="bottomProb"></div>'
 
           //show prompt if there is one
           if (trial.prompt !== null) {
@@ -111,9 +114,8 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
 
           // store data
           let spinnerData = {
-            outcomes_pct: null,
-            outcomes_bonus: null,
-            outcomes_points: null,
+            outcomes_flip: [],
+            outcomes_points: [],
             score: 0,
             rt: null,
           };
@@ -128,8 +130,7 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
               this.jsPsych.pluginAPI.clearAllTimeouts();
               // gather the data to store for the trial
               var trial_data = {
-                  outcomes_pct: spinnerData.outcomes_pct,
-                  outcomes_bonus: spinnerData.outcomes_bonus,
+                  outcomes_flip: spinnerData.flip,
                   outcomes_points: spinnerData.outcomes_points,
                   score: spinnerData.score,
                   rt: spinnerData.rt,
@@ -161,9 +162,9 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
           }
           // end trial
           const waitForEnd = setInterval(function() {
-            if(spinnerData.outcomes_pct) {
+            if(spinnerData.outcomes_flip.length >= 10) {
               clearInterval(waitForEnd);
-              setTimeout(after_response, 1500);
+              setTimeout(after_response, 2000);
             }
           }, 100);
           // hide image if timing is set

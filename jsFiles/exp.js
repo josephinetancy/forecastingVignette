@@ -22,67 +22,58 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>Each wheel has four wedges, like this:</p>
-                <img src="./img/spinner_75-25.png" style="width:40%; height:40%">
+                <p>Each wheel has two numbers, like this:</p>
+                <img src="./img/spinner_no-arrow.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-                <p>Each wheel has a "point minimum."</p>
-                <p>The point minimum is the minimum number of points you'll earn per spin.</p>
+                <p>After each spin, an arrow will appear in the center of the wheel.</p>
+                <p>The arrow will point up or down.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>Before each new wheel, you'll see a message indicating the wheel's point minimum.</p>
-                <p>For example, this message indicates that the upcoming wheel has a 5-point minimum.</p>
-                <br>
-                <p><span style='font-size:100px'><strong>+5</strong></span></p>
-                <p><span style='font-size:40px'>Minimum Points Per Spin</span></p>            
+                <p>The number that the arrow points to gets added to your total score.</p>
+                <p>In this example, the arrow points up to 15, so you'd get 15 points.</p>
+                <img src="./img/spinner_up-arrow.png" style="width:50%; height:50%">      
             </div>`,
 
             `<div class='parent'>
-                <p>In addition to the point minimum, you can earn 10-point bonuses.</p>
-                <p>Your probability of winning a 10-point bonus depends on where you land.</p>
-                <img src="./img/spinner_75-25.png" style="width:40%; height:40%">
+                <p>In this example, the arrow points down to 5, so you'd get 5 points.</p>
+                <img src="./img/spinner_down-arrow.png" style="width:50%; height:50%">      
             </div>`,
 
             `<div class='parent'>
-                <p>For example, landing on 75% gives you a 75% of winning a 10-point bonus.</p>
-                <img src="./img/spinner_75.png" style="width:40%; height:40%">
+                <p>The probabaility of an up arrow is shown above the wheel.</p>
+                <p>The probability of a down arrow is shown below the wheel.</p>
+                <p>Here, there's a 80% chance of an up arrow and a 20% chance of a down arrow:</p>
+                <img src="./img/spinner_80.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-                <p>Landing on 25% gives you a 25% of winning a 10-point bonus.</p>
-                <img src="./img/spinner_25.png" style="width:40%; height:40%">
-            </div>`,
-
-            `<div class='parent'>
-                <p>If you earn a 10-point bonus, you'll see a message like this one. It shows that you earned 10 points plus the minimum. (In this example, the minimum was 5, so the total is 15).</p>
-                <p>At the bottom, you'll see the total number of points you've earned.</p>
-                <img src="./img/bonus.png" style="width:40%; height:40%">
-            </div>`,
-
-            `<div class='parent'>
-                <p>If you don't earn a 10-point bonus, you'll see a message like this one. It shows that you only earned the minimum. (In this example, the minimum was 5, so the total is 5).</p>
-                <p>At the bottom, you'll see the total number of points you've earned.</p>
-                <img src="./img/no-bonus.png" style="width:40%; height:40%">
-            </div>`,
-
-            `<div class='parent'>
-                <p>Different wheels give you different probabilities of earning 10-point bonuses.</p>
-                <p>This wheel gives you a 60% or 40% chance, depending on where you land.</p>
-                <img src="./img/spinner_60-40.png" style="width:40%; height:40%">
+                <p>After each spin, the probabilities might flip positions, like this:</p>
+                <img src="./img/spinner_20.png" style="width:50%; height:50%">
+                <p>Now, there's now a 80% chance of a down arrow and a 20% chance of an up arrow.</p>
             </div>`,
 
            `<div class='parent'>
-                <p>This wheel gives you a 95% or 5% chance of a 10-point bonus, depending on where you land.</p>
-                <img src="./img/spinner_95-5.png" style="width:40%; height:40%">
+                <p>Different wheels have different probabilities.</p>
+            </div>`,
+
+            `<div class='parent'>
+                <p>For this wheel, the probabilites are 60% and 40%.</p>
+                <img src="./img/spinner_60-40.png" style="width:50%; height:50%">
+            </div>`,
+
+           `<div class='parent'>
+                <p>For this wheel, the probabilities are 100% and 0%:</p>
+                <img src="./img/spinner_100.png" style="width:50%; height:50%">
             </div>`],
 
         postIntro: [
             `<div class='parent'>
                 <p>To spin a prize wheel, just grab it with your cursor and give it a spin!</p>
                 <p>Watch the animation below to see how it's done.</p>
-                <img src="./img/spin-gif.gif" style="width:40%; height:40%">
+                <img src="./img/spin-gif.gif" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
@@ -115,9 +106,8 @@ const exp = (function() {
     };
 
     let correctAnswers = [
-        `I have a 95% chance of winning a 10-point bonus.`, 
-        `I have a 60% chance of winning a 10-point bonus.`, 
-        `I have a 5% chance of winning a 10-point bonus.`];
+        `After each spin, I have a 60% chance of a down arrow.`, 
+        `After each spin, I have a 100% chance of an up arrow.`];
 
     const errorMessage = {
         type: jsPsychInstructions,
@@ -133,19 +123,14 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: "What does it mean if you land on a wedge that says 95%?", 
+                prompt: "What does it mean if 60% appears below a wheel?", 
                 name: `attnChk1`, 
-                options: [`I have a 95% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 5% chance of winning a 10-point bonus.`],
+                options: [`After each spin, I have a 60% chance of an up arrow.`, `After each spin, I have a 40% chance of a down arrow.`, `After each spin, I have a 60% chance of a down arrow.`],
             },
             {
-                prompt: "What does it mean if you land on a wedge that says 60%?", 
+                prompt: "What does it mean if 100% appears above a wheel?", 
                 name: `attnChk2`, 
-                options: [`I have a 95% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 5% chance of winning a 10-point bonus.`],
-            },
-            {
-                prompt: "What does it mean if you land on a wedge that says 5%?", 
-                name: `attnChk3`, 
-                options: [`I have a 95% chance of winning a 10-point bonus.`, `I have a 60% chance of winning a 10-point bonus.`, `I have a 5% chance of winning a 10-point bonus.`],
+                options: [`After each spin, I have a 100% chance of an up arrow.`, `After each spin, I have a 0% chance of an up arrow.`, `After each spin, I have a 100% chance of a down arrow.`],
             },
         ],
         scale_width: 500,
@@ -192,102 +177,59 @@ const exp = (function() {
     *
     */
 
+//    let colors = [["#E8896A", "#71B1A1"], ["#E2A76F", "#6897BB"], ["#D98F8D", "#A7C957"]];
+    let colors = [["#A6A6A6", "#595959"], ["#A6A6A6", "#595959"], ["#A6A6A6", "#595959"]];
+
+    colors = jsPsych.randomization.repeat(colors, 1);
 
     // define each wedge
     const wedges = {
-        pct_90: {color:"#616360", font: 'white', label:"95%", pct: .95},
-        pct_10: {color:"#c7c8c7", font: 'black', label:"5%", pct: .05},
-        pct_75: {color:"#616360", font: 'white', label:"75%", pct: .75},
-        pct_25: {color:"#c7c8c7", font: 'black', label:"25%", pct: .25},
-        pct_60: {color:"#616360", font: 'white', label:"60%", pct: .6},
-        pct_40: {color:"#c7c8c7", font: 'black', label:"40%", pct: .4},
+        two: {color: colors[0][0], font: 'white', label:"2", points: 2},
+        five: {color: colors[1][0], font: 'white', label:"5", points: 5},
+        eight: {color: colors[2][0], font: 'white', label:"8", points: 8},
+        twelve: {color: colors[0][1], font: 'white', label:"12", points: 12},
+        fifteen: {color: colors[1][1], font: 'white', label:"15", points: 15},
+        eighteen: {color: colors[2][1], font: 'white', label:"18", points: 18},
     };
 
 
     // define each wheel
     const wheels = [
 
-            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 1, value: 2, ev: 7, sd: 5, mi: .714},
-            {sectors: [ wedges.pct_75, wedges.pct_25, wedges.pct_75, wedges.pct_25 ], wheel_id: 2, value: 2, ev: 7, sd: 5, mi: .189},
-            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 3, value: 2, ev: 7, sd: 5, mi: .029},
+            {sectors: [ wedges.two, wedges.twelve ], wheel_id: 1, pUp: [1, 0], labels: ["100%", "0%"], ev: 3.5, sd: 1.5, mi: .714},
+            {sectors: [ wedges.two, wedges.twelve ], wheel_id: 2, pUp: [.8, .2], labels: ["80%", "20%"], ev: 3.5, sd: 1.5, mi: .189},
+            {sectors: [ wedges.two, wedges.twelve ], wheel_id: 3, pUp: [.6, .4], labels: ["60%", "40%"], ev: 3.5, sd: 1.5, mi: .029},
 
-            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 4, value: 5, ev: 10, sd: 5, mi: .714},
-            {sectors: [ wedges.pct_75, wedges.pct_25, wedges.pct_75, wedges.pct_25 ], wheel_id: 5, value: 5, ev: 10, sd: 5, mi: .189},
-            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 6, value: 5, ev: 10, sd: 5, mi: .029},
+            {sectors: [ wedges.five, wedges.fifteen ], wheel_id: 4, pUp: [1, 0], labels: ["100%", "0%"], ev: 5.5, sd: 1.5, mi: .714},
+            {sectors: [ wedges.five, wedges.fifteen ], wheel_id: 5, pUp: [.8, .2], labels: ["80%", "20%"], ev: 5.5, sd: 1.5, mi: .189},
+            {sectors: [ wedges.five, wedges.fifteen ], wheel_id: 6, pUp: [.6, .4], labels: ["60%", "40%"], ev: 5.5, sd: 1.5, mi: .029},
 
-            {sectors: [ wedges.pct_90, wedges.pct_10, wedges.pct_90, wedges.pct_10 ], wheel_id: 7, value: 8, ev: 13, sd: 5, mi: .714},
-            {sectors: [ wedges.pct_75, wedges.pct_25, wedges.pct_75, wedges.pct_25 ], wheel_id: 8, value: 8, ev: 13, sd: 5, mi: .189},
-            {sectors: [ wedges.pct_60, wedges.pct_40, wedges.pct_60, wedges.pct_40 ], wheel_id: 9, value: 8, ev: 13, sd: 5, mi: .029},
+            {sectors: [ wedges.eight, wedges.eighteen ], wheel_id: 7, pUp: [1, 0], labels: ["100%", "0%"], ev: 7.5, sd: 1.5, mi: .714},
+            {sectors: [ wedges.eight, wedges.eighteen ], wheel_id: 8, pUp: [.8, .2], labels: ["80%", "20%"], ev: 7.5, sd: 1.5, mi: .189},
+            {sectors: [ wedges.eight, wedges.eighteen ], wheel_id: 9, pUp: [.6, .4], labels: ["60%", "40%"], ev: 7.5, sd: 1.5, mi: .029},
 
         ];
 
     let scoreTracker = 0; // track current score
-    let bonusTracker = false; // track bonuses
-    let pointsTracker = 0; // track points
     let round = 1;  // track current round
-
-    const pointMin = {
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: function() {
-            let value = jsPsych.timelineVariable('value')
-            let html = `<div class='parent'>
-                <p><span style='font-size:100px'><strong>+${value}</strong></span></p>
-                <p><span style='font-size:40px'>Minimum Points Per Spin</span></p>            
-            </div>`;
-            return html;
-        },
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
-        choices: "NO_KEYS",
-        trial_duration: 3000,
-    };      
 
     const spin = {
         type: jsPsychCanvasButtonResponse,
         stimulus: function(c, spinnerData) {
             let sectors_randomized = jsPsych.timelineVariable('sectors');
             sectors_randomized = (Math.random() > .5) ? sectors_randomized.unshift(sectors_randomized.pop()) : sectors_randomized;
-            createSpinner(c, spinnerData, scoreTracker, jsPsych.timelineVariable('sectors'), jsPsych.timelineVariable('value'));
+            createSpinner(c, spinnerData, scoreTracker, jsPsych.timelineVariable('sectors'), jsPsych.timelineVariable('pUp'), jsPsych.timelineVariable('labels'));
         },
-        canvas_size: [500, 500],
+        canvas_size: [475, 475],
         score: function() {
             return scoreTracker
         },
-        point_minimum: jsPsych.timelineVariable('value'),
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('pUp'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             scoreTracker = data.score
-            bonusTracker = data.outcomes_bonus;
-            pointsTracker = data.outcomes_points;
         }
     };
-
-    const feedback = {
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: function() {
-            let value = jsPsych.timelineVariable('value');
-            let bonusColor = (bonusTracker > 0) ? '#FF007F' : 'grey';
-            let borderStyle = (bonusTracker > 0) ? '0px solid grey' : '2px solid grey';
-            let image = (bonusTracker > 0) ? '<img src="./img/bonus-points.png" class="bonus-image">' : '';
-            let html = `<div class='parent'>
-                <div class="bonus-container" style="border: ${borderStyle}">
-                    ${image}
-                    <div class="bonus-text" style="color:${bonusColor}">+${pointsTracker}</div>
-                </div>
-                <div class="total-points">Total points: ${scoreTracker}</div>
-            </div>`
-            /*
-            let html = `<div class='parent'>
-                <div style='font-size:100px; color:${bonusColor}'><p><strong>+${pointsTracker}</strong></p></div>
-                <div style='font-size:60px; margin-top:20px'><p><strong>Total Score: ${scoreTracker}</strong></p></div>
-            </div>`;
-            */
-            return html;
-        },
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
-        choices: "NO_KEYS",
-        trial_duration: 2500,
-    };    
 
     // trial: flow DV
     const flowMeasure = {
@@ -299,7 +241,7 @@ const exp = (function() {
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('pUp'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
@@ -318,7 +260,7 @@ const exp = (function() {
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('value'), mi: jsPsych.timelineVariable('mi')},
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('pUp'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
@@ -328,14 +270,9 @@ const exp = (function() {
         }
     };
 
-    const spinLoop = {
-        timeline: [spin, feedback],
-        repetitions: 8,
-    };
-
     // timeline: main task
     p.task = {
-        timeline: [pointMin, spinLoop, flowMeasure, happinessMeasure],
+        timeline: [spin, flowMeasure, happinessMeasure],
         repetitions: 1,
         timeline_variables: wheels,
         randomize_order: true,
