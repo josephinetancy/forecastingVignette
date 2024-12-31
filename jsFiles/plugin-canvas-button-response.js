@@ -114,7 +114,7 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
 
           // store data
           let spinnerData = {
-            outcomes_flip: [],
+            outcomes_wedges: [],
             outcomes_points: [],
             score: 0,
             rt: null,
@@ -130,7 +130,7 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
               this.jsPsych.pluginAPI.clearAllTimeouts();
               // gather the data to store for the trial
               var trial_data = {
-                  outcomes_flip: spinnerData.flip,
+                  outcomes_wedges: spinnerData.outcomes_wedges,
                   outcomes_points: spinnerData.outcomes_points,
                   score: spinnerData.score,
                   rt: spinnerData.rt,

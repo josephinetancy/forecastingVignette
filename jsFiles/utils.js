@@ -64,7 +64,6 @@ const createSpinner = function(canvas, spinnerData, score, sectors, reliability,
 
   /* get context */
   const ctx = canvas.getContext("2d"); 
-  console.log(reliability);
 
   /* pointer variables */
   const directions = ["pointUp", "pointRight", "pointDown", "pointLeft"];
@@ -206,15 +205,18 @@ const createSpinner = function(canvas, spinnerData, score, sectors, reliability,
         speed = 0;
         currentAngle = oldAngle;
         flip = flip_array.pop();
-        let sectorIdx = getIndex() + direction_idx;
-        sectorIdx = (sectorIdx < 4) ? sectorIdx : sectorIdx % 4;
-        let flipIndex = flip == 0 ? sectorIdx : flipFunc([0, 1, 2, 3], sectorIdx);
-        let sector = sectors[flipIndex];
+        let sectorIdx_real = getIndex() + direction_idx;
+        sectorIdx_real = (sectorIdx_real < 4) ? sectorIdx_real : sectorIdx_real % 4;
+        let sectorIdx_mod = flip == 0 ? sectorIdx_real : flipFunc([0, 1, 2, 3], sectorIdx_real);
+        let sector = sectors[sectorIdx_mod];
         let points = sector.points;
+        let sector_real = sectors[sectorIdx_real];
+        let points_real = sector_real.points;
         spinnerData.outcomes_points.push(points);
+        spinnerData.outcomes_wedges.push(points_real);
         window.cancelAnimationFrame(req);
         setTimeout(() => {
-          drawSector(sectors, flipIndex, points);
+          drawSector(sectors, sectorIdx_mod, points);
           updateScore(points, "black");
         }, 0);
       };
