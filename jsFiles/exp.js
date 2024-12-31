@@ -17,56 +17,83 @@ const exp = (function() {
             `<div class='parent'>
                 <p><strong>Welcome to Spin the Wheel!</strong></p>
                 <p>In Spin the Wheel, you'll spin a series of prize wheels.</p>
-                <p>Each time you spin a prize wheel, you'll earn points.</p>
-                <p>Your goal is to earn as many points as possible by spinning the prize wheels!</p>
+                <p>With each spin, you'll earn points.</p>
+                <p>Your goal is to earn as many points as possible!</p>
             </div>`,
 
             `<div class='parent'>
-                <p>Each wheel has two numbers, like this:</p>
-                <img src="./img/spinner_no-arrow.png" style="width:50%; height:50%">
+                <p>Each wheel is divided into four wedges, like this:</p>
+                <img src="./img/arrow-blank.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-                <p>After each spin, an arrow will appear in the center of the wheel.</p>
-                <p>The arrow will point up or down.</p>
+                <p>When the wheel stops spinning, one of the wedges will activate.</p>
+                <p>The activated wedge will turn black, like this:</p>
+                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-                <p>The number that the arrow points to gets added to your total score.</p>
-                <p>In this example, the arrow points up to 15, so you'd get 15 points.</p>
-                <img src="./img/spinner_up-arrow.png" style="width:50%; height:50%">      
+                <p>The number on the activated wedge is added to your total score.</p>
+                <p>In this example, you'd gain 4 points.</p>
+                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-                <p>In this example, the arrow points down to 5, so you'd get 5 points.</p>
-                <img src="./img/spinner_down-arrow.png" style="width:50%; height:50%">      
+                <p>Usually, the activated wedge is the one the arrow points to when the wheel stops.</p>
+                <p>This is called a "standard outcome."</p>
+                <p>Below is an example of a standard outcome.</p>
+                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-                <p>The probabaility of an up arrow is shown above the wheel.</p>
-                <p>The probability of a down arrow is shown below the wheel.</p>
-                <p>Here, there's a 80% chance of an up arrow and a 20% chance of a down arrow:</p>
-                <img src="./img/spinner_80.png" style="width:50%; height:50%">
+                <p>Occasionally, a random wedge will activate instead.</p>
+                <p>This is called a "random outcome."</p>
+                <p>Here's an example of a random outcome:</p>
+                <img src="./img/random-outcome.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-                <p>After each spin, the probabilities might flip positions, like this:</p>
-                <img src="./img/spinner_20.png" style="width:50%; height:50%">
-                <p>Now, there's now a 80% chance of a down arrow and a 20% chance of an up arrow.</p>
-            </div>`,
-
-           `<div class='parent'>
-                <p>Different wheels have different probabilities.</p>
+                <p>The chance of a standard outcome is displayed at the center of each wheel.</p>
+                <p>This wheel has an 80% chance of a standard outcome and a 20% chance of a random outcome:</p>
+                <img src="./img/arrow-80-up.png" style="width:50%; height:50%">      
             </div>`,
 
             `<div class='parent'>
-                <p>For this wheel, the probabilites are 60% and 40%.</p>
-                <img src="./img/spinner_60-40.png" style="width:50%; height:50%">
+                <p>Different wheels have different probabilities of standard outcomes.</p>
             </div>`,
 
-           `<div class='parent'>
-                <p>For this wheel, the probabilities are 100% and 0%:</p>
-                <img src="./img/spinner_100.png" style="width:50%; height:50%">
+            `<div class='parent'>
+                <p>This wheel has a 60% chance of a standard outcome and a 40% chance of a random outcome:</p>
+                <img src="./img/arrow-60-up.png" style="width:50%; height:50%">      
+            </div>`,
+
+            `<div class='parent'>
+                <p>This wheel has a 100% chance of a standard outcome and a 0% chance of a random outcome:</p>
+                <img src="./img/arrow-100-up.png" style="width:50%; height:50%">      
+            </div>`,
+
+            `<div class='parent'>
+                <p>After each spin, the arrow at the center of the wheel will change directions.</p>
+            </div>`,
+
+            `<div class='parent'>
+                <p>Sometimes the arrow will point up:</p>
+                <img src="./img/arrow-80-up.png" style="width:50%; height:50%">      
+            </div>`,
+
+            `<div class='parent'>
+                <p>Sometimes the arrow will point right:</p>
+                <img src="./img/arrow-80-right.png" style="width:50%; height:50%">      
+            </div>`,
+
+            `<div class='parent'>
+                <p>Sometimes the arrow will point left:</p>
+                <img src="./img/arrow-80-left.png" style="width:50%; height:50%">      
+            </div>`,
+
+            `<div class='parent'>
+                <p>Sometimes the arrow will point down:</p>
+                <img src="./img/arrow-80-down.png" style="width:50%; height:50%">      
             </div>`],
 
         postIntro: [
@@ -105,9 +132,7 @@ const exp = (function() {
         allow_keys: false,
     };
 
-    let correctAnswers = [
-        `After each spin, I have a 60% chance of a down arrow.`, 
-        `After each spin, I have a 100% chance of an up arrow.`];
+    let correctAnswers = [`60%`, `80%`, `100%`, `Earn as many points as possible.`];
 
     const errorMessage = {
         type: jsPsychInstructions,
@@ -123,14 +148,24 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: "What does it mean if 60% appears below a wheel?", 
+                prompt: `What are your chances of earning 10 points if you land on a 10 and the wheel says "60%"?`, 
                 name: `attnChk1`, 
-                options: [`After each spin, I have a 60% chance of an up arrow.`, `After each spin, I have a 40% chance of a down arrow.`, `After each spin, I have a 60% chance of a down arrow.`],
+                options: [`60%`, `80%`, `100%`],
             },
             {
-                prompt: "What does it mean if 100% appears above a wheel?", 
+                prompt: `What are your chances of earning 10 points if you land on a 10 and the wheel says "80%"?`, 
                 name: `attnChk2`, 
-                options: [`After each spin, I have a 100% chance of an up arrow.`, `After each spin, I have a 0% chance of an up arrow.`, `After each spin, I have a 100% chance of a down arrow.`],
+                options: [`60%`, `80%`, `100%`],
+            },
+            {
+                prompt: `What are your chances of earning 10 points if you land on a 10 and the wheel says "100%"?`, 
+                name: `attnChk3`, 
+                options: [`60%`, `80%`, `100%`],
+            },
+            {
+                prompt: `What is your goal?`, 
+                name: `attnChk4`, 
+                options: [`Get as many standard outcomes as possible.`, `Get as many random outcomes as possible.`, `Earn as many points as possible.`],
             },
         ],
         scale_width: 500,
@@ -178,35 +213,46 @@ const exp = (function() {
     */
 
 //    let colors = [["#E8896A", "#71B1A1"], ["#E2A76F", "#6897BB"], ["#D98F8D", "#A7C957"]];
-    let colors = [["#A6A6A6", "#595959"], ["#A6A6A6", "#595959"], ["#A6A6A6", "#595959"]];
+    let colors = [
+        ["#D4A373", "#81B29A", "#E07A5F", "#3D405B"], 
+        ["#6A9FB5", "#F4D35E", "#EE964B", "#736CED"], 
+        ["#EF476F", "#FFD166", "#06D6A0", "#118AB2"]];
 
     colors = jsPsych.randomization.repeat(colors, 1);
 
     // define each wedge
     const wedges = {
-        two: {color: colors[0][0], font: 'white', label:"2", points: 2},
-        five: {color: colors[1][0], font: 'white', label:"5", points: 5},
-        eight: {color: colors[2][0], font: 'white', label:"8", points: 8},
-        twelve: {color: colors[0][1], font: 'white', label:"12", points: 12},
-        fifteen: {color: colors[1][1], font: 'white', label:"15", points: 15},
-        eighteen: {color: colors[2][1], font: 'white', label:"18", points: 18},
+        one: {color: colors[0][0], font: 'white', label:"1", points: 1},
+        three: {color: colors[0][1], font: 'white', label:"3", points: 3},
+        five: {color: colors[0][2], font: 'white', label:"5", points: 5},
+        seven: {color: colors[0][3], font: 'white', label:"7", points: 7},
+
+        four: {color: colors[1][0], font: 'white', label:"4", points: 4},
+        six: {color: colors[1][1], font: 'white', label:"6", points: 6},
+        eight: {color: colors[1][2], font: 'white', label:"8", points: 8},
+        ten: {color: colors[1][3], font: 'white', label:"10", points: 10},
+
+        seven: {color: colors[2][0], font: 'white', label:"7", points: 7},
+        nine: {color: colors[2][1], font: 'white', label:"9", points: 9},
+        eleven: {color: colors[2][2], font: 'white', label:"11", points: 11},
+        thirteen: {color: colors[2][3], font: 'white', label:"13", points: 13},
     };
 
 
     // define each wheel
     const wheels = [
 
-            {sectors: [ wedges.two, wedges.twelve ], wheel_id: 1, pUp: [1, 0], labels: ["100%", "0%"], ev: 7, sd: 5, mi: 1},
-            {sectors: [ wedges.two, wedges.twelve ], wheel_id: 2, pUp: [.8, .2], labels: ["80%", "20%"], ev: 7, sd: 5, mi: .278},
-            {sectors: [ wedges.two, wedges.twelve ], wheel_id: 3, pUp: [.6, .4], labels: ["60%", "40%"], ev: 7, sd: 5, mi: .029},
+            {sectors: [ wedges.one, wedges.three, wedges.five, wedges.seven ], wheel_id: 1, reliability: 1, label: "100%", ev: 4, sd: 2, mi: 2},
+            {sectors: [ wedges.one, wedges.three, wedges.five, wedges.seven ], wheel_id: 2, reliability: .8, label: "80%", ev: 4, sd: 2, mi: .961},
+            {sectors: [ wedges.one, wedges.three, wedges.five, wedges.seven ], wheel_id: 3, reliability: .6, label: "60%", ev: 4, sd: 2, mi: .395},
 
-            {sectors: [ wedges.five, wedges.fifteen ], wheel_id: 4, pUp: [1, 0], labels: ["100%", "0%"], ev: 10, sd: 5, mi: 1},
-            {sectors: [ wedges.five, wedges.fifteen ], wheel_id: 5, pUp: [.8, .2], labels: ["80%", "20%"], ev: 10, sd: 5, mi: .278},
-            {sectors: [ wedges.five, wedges.fifteen ], wheel_id: 6, pUp: [.6, .4], labels: ["60%", "40%"], ev: 10, sd: 5, mi: .029},
+            {sectors: [ wedges.four, wedges.six, wedges.eight, wedges.ten ], wheel_id: 4, reliability: 1, label: "100%", ev: 7, sd: 2, mi: 2},
+            {sectors: [ wedges.four, wedges.six, wedges.eight, wedges.ten ], wheel_id: 5, reliability: .8, label: "80%", ev: 7, sd: 2, mi: .961},
+            {sectors: [ wedges.four, wedges.six, wedges.eight, wedges.ten ], wheel_id: 6, reliability: .6, label: "60%", ev: 7, sd: 2, mi: .395},
 
-            {sectors: [ wedges.eight, wedges.eighteen ], wheel_id: 7, pUp: [1, 0], labels: ["100%", "0%"], ev: 13, sd: 5, mi: 1},
-            {sectors: [ wedges.eight, wedges.eighteen ], wheel_id: 8, pUp: [.8, .2], labels: ["80%", "20%"], ev: 13, sd: 5, mi: .278},
-            {sectors: [ wedges.eight, wedges.eighteen ], wheel_id: 9, pUp: [.6, .4], labels: ["60%", "40%"], ev: 13, sd: 5, mi: .029},
+            {sectors: [ wedges.seven, wedges.nine, wedges.eleven, wedges.thirteen ], wheel_id: 7, reliability: 1, label: "100%", ev: 10, sd: 2, mi: 2},
+            {sectors: [ wedges.seven, wedges.nine, wedges.eleven, wedges.thirteen ], wheel_id: 8, reliability: .8, label: "80%", ev: 10, sd: 2, mi: .961},
+            {sectors: [ wedges.seven, wedges.nine, wedges.eleven, wedges.thirteen ], wheel_id: 9, reliability: .6, label: "60%", ev: 10, sd: 2, mi: .395},
 
         ];
 
@@ -216,15 +262,13 @@ const exp = (function() {
     const spin = {
         type: jsPsychCanvasButtonResponse,
         stimulus: function(c, spinnerData) {
-            let sectors_randomized = jsPsych.timelineVariable('sectors');
-            sectors_randomized = (Math.random() > .5) ? sectors_randomized.unshift(sectors_randomized.pop()) : sectors_randomized;
-            createSpinner(c, spinnerData, scoreTracker, jsPsych.timelineVariable('sectors'), jsPsych.timelineVariable('pUp'), jsPsych.timelineVariable('labels'));
+            createSpinner(c, spinnerData, scoreTracker, jsPsych.timelineVariable('sectors'), jsPsych.timelineVariable('reliability'), jsPsych.timelineVariable('label'));
         },
         canvas_size: [475, 475],
         score: function() {
             return scoreTracker
         },
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('pUp'), mi: jsPsych.timelineVariable('mi')},
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             scoreTracker = data.score
@@ -235,13 +279,13 @@ const exp = (function() {
     const flowMeasure = {
         type: jsPsychSurveyLikert,
         questions: [
-            {prompt: `During the last round,<br>how <b>immersed</b> and <b>engaged</b> did you feel spinning the wheel?`,
+            {prompt: `During the last round,<br>how <b>immersed</b> and <b>engaged</b> did you feel in what you were doing?`,
             name: `flow`,
             labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']},
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('pUp'), mi: jsPsych.timelineVariable('mi')},
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
@@ -260,7 +304,7 @@ const exp = (function() {
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('pUp'), mi: jsPsych.timelineVariable('mi')},
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), value: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;

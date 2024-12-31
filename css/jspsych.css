@@ -560,63 +560,58 @@
   font: 1rem/0 sans-serif;
   user-select: none;
  /* cursor: pointer; */
-  opacity: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 58%;
-  left: 50%;
-  width: 16%;
-  height: 8%;
-  margin: -8%;
-  color: black;
-  background: white;
-  box-shadow: 0 0 0 8px white, 0 0px 15px 5px rgba(0, 0, 0, 0.6);
-  border-radius: 10%;
-  font-weight: bold;
-  font-size: 1.5rem;  /* Adjust as needed */
-}
-
-#spinUp::after {
-  content: '';
-  position: absolute;
-  top: -46px;
-  border: 46px solid transparent;
-  border-bottom-color: white;
-  border-top: none;
-}
-
-/* down arrow styling */
-#spinDown {
-  font: 1rem/0 sans-serif;
-  user-select: none;
-  opacity: 0;
- /* cursor: pointer; */
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 16%;
-  height: 8%;
-  margin: -8%;
-  color: black;
-  background: white;
-  box-shadow: 0 0 0 8px white, 0 0px 15px 5px rgba(0, 0, 0, 0.6);
+  width: 14%;
+  height: 14%;
+  margin: -7%;
+  color: white;
+  background: black;
+  box-shadow: 0 0 0 4px white, 0 0px 15px 5px rgba(0, 0, 0, 0.6);
   border-radius: 10%;
   font-weight: bold;
-  font-size: 1.5rem;  /* Adjust as needed */
+  font-size: 1.4rem;  /* Adjust as needed */
 }
 
-#spinDown::after {
+
+.pointUp::after {
   content: '';
   position: absolute;
-  top: 38px;
-  border: 46px solid transparent;
+  top: -35px;
+  border: 35px solid transparent;
+  border-bottom-color: white;
+  border-top: none;
+}
+
+.pointDown::after {
+  content: '';
+  position: absolute;
+  top: 66px;
+  border: 35px solid transparent;
   border-top-color: white;
   border-bottom: none;
+}
+
+.pointLeft::after {
+  content: '';
+  position: absolute;
+  left: -35px;
+  border: 35px solid transparent;
+  border-right-color: white;
+  border-left: none;
+}
+
+.pointRight::after {
+  content: '';
+  position: absolute;
+  left: 66px;
+  border: 35px solid transparent;
+  border-left-color: white;
+  border-right: none;
 }
 
 .parent {

@@ -60,33 +60,34 @@ const getTotalErrors = (data, correctAnswers) => {
 };
 
 // code for spinner task
-const createSpinner = function(canvas, spinnerData, score, sectors, pUp, labels) {
+const createSpinner = function(canvas, spinnerData, score, sectors, reliability, label) {
 
   /* get context */
   const ctx = canvas.getContext("2d"); 
-  let probOrder_array = jsPsych.randomization.repeat([0, 0, 0, 0, 0, 1, 1, 1, 1, 1], 1);
-  let up_array = Array(10*pUp[0]).fill(0).concat(Array(10*pUp[1]).fill(1));
-  up_array = jsPsych.randomization.repeat(up_array, 1);
-  probOrder = probOrder_array.pop();
-  up = probOrder == 0 ? up_array.pop() : 1 - up_array.pop();
-  const labelColors = ["green", "red"];
+  console.log(reliability);
+
+  /* pointer variables */
+  const directions = ["pointUp", "pointRight", "pointDown", "pointLeft"];
+  const direction_idxs = jsPsych.randomization.repeat([0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3], 1);
+
+  /* flip variables */
+  const nFlips = 10 * reliability;
+  let flip_array = Array(nFlips).fill(0).concat(Array(10-nFlips).fill(1));
+  flip_array = jsPsych.randomization.repeat(flip_array, 1);
+  const flipFunc = function(arr, n) {
+    const filteredArr = arr.filter((_, index) => index !== n);
+    const randomIndex = Math.floor(Math.random() * filteredArr.length);
+    return filteredArr[randomIndex];
+  }
 
   /* get pointer */
   let pointer = document.querySelector("#spinUp");
-  pointer.style.opacity = '0';
-  pointer.id = up == 0 ? "spinUp" : "spinDown";
+  let direction_idx = direction_idxs.pop();
+  pointer.className = directions[direction_idx];
+  pointer.innerHTML = label;
 
   /* get score message */
   const scoreMsg = document.getElementById("score");
-
-  /* labels */
-  const topLabel = document.getElementById("topProb");
-  const bottomLabel = document.getElementById("bottomProb");
-  topLabel.innerHTML = labels[probOrder];
-  bottomLabel.innerHTML = labels[1-probOrder];
-  topLabel.style.color = labelColors[probOrder];
-  bottomLabel.style.color = labelColors[1-probOrder];
-
 
   /* get wheel properties */
   let wheelWidth = canvas.getBoundingClientRect()['width'];
@@ -204,17 +205,18 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pUp, labels)
         // stop spinner
         speed = 0;
         currentAngle = oldAngle;
-        let index = up == 0 ? getIndex() : 1 - getIndex();
-        let sector = sectors[index];
+        flip = flip_array.pop();
+        let sectorIdx = getIndex() + direction_idx;
+        sectorIdx = (sectorIdx < 4) ? sectorIdx : sectorIdx % 4;
+        let flipIndex = flip == 0 ? sectorIdx : flipFunc([0, 1, 2, 3], sectorIdx);
+        let sector = sectors[flipIndex];
         let points = sector.points;
-        spinnerData.outcomes_flip.push(up);
         spinnerData.outcomes_points.push(points);
         window.cancelAnimationFrame(req);
         setTimeout(() => {
-            pointer.style.opacity = '1';
-            drawSector(sectors, index, points);
-            updateScore(points, "black");
-        }, 750);
+          drawSector(sectors, flipIndex, points);
+          updateScore(points, "black");
+        }, 0);
       };
     };
   };
@@ -228,16 +230,11 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pUp, labels)
     scoreMsg.innerHTML = `<span style="color:${color}; font-weight: bolder">${score}</span>`;
     setTimeout(() => {
       scoreMsg.innerHTML = `${score}`
-      pointer.style.opacity = '0';
-      probOrder = (probOrder_array.length > 0) ? probOrder_array.pop() : probOrder;
-      up = probOrder == 0 ? up_array.pop() : 1 - up_array.pop();
-      pointer.id = up == 0 ? "spinUp" : "spinDown";
-      topLabel.innerHTML = labels[probOrder];
-      bottomLabel.innerHTML = labels[1-probOrder];
-      topLabel.style.color = labelColors[probOrder];
-      bottomLabel.style.color = labelColors[1-probOrder];
       drawSector(sectors, null, null, null);
-      isSpinning = (spinnerData.pct_outcomes) ? true : false;
+      isSpinning = (spinnerData.outcomes_points.length >= 10) ? true : false;
+      direction_idx = (spinnerData.outcomes_points.length >= 10) ? direction_idx : direction_idxs.pop();
+      pointer.className = directions[direction_idx];
+      pointer.innerHTML = label;
       onWheel ? canvas.style.cursor = "grab" : canvas.style.cursor = "";
     }, 1250);
   };
@@ -263,8 +260,7 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pUp, labels)
       ctx.save();
       // COLOR
       ctx.beginPath();
-    //  ctx.fillStyle = sectors[i].color;
-      ctx.fillStyle = sectors[i].color;
+      ctx.fillStyle = (isSpinning && i == sector) ? "black" : sectors[i].color;
       ctx.moveTo(rad, rad);
       ctx.arc(rad, rad, rad - 10, ang, ang + arc);
       ctx.lineTo(rad, rad);
@@ -277,18 +273,18 @@ const createSpinner = function(canvas, spinnerData, score, sectors, pUp, labels)
 
       // TEXT
       ctx.translate(rad, rad);
-      ctx.rotate(ang + arc);
+      ctx.rotate( (ang + arc / 2) + arc );
       ctx.textAlign = "center";
+      ctx.fillStyle = 'white';
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 5;
       if (isSpinning && i == sector) {
         ctx.font = "bolder 100px sans-serif"
-        ctx.fillStyle = 'white';
-        ctx.strokeStyle = 'black';
-        ctx.lineWidth = 8;
         ctx.strokeText(sectors[i].label, 0, -100);
         ctx.fillText(sectors[i].label, 0, -100);
       } else {
         ctx.font = "bolder 70px sans-serif"
-        ctx.fillStyle = sectors[i].font;
+        ctx.strokeText(sectors[i].label, 0, -110);
         ctx.fillText(sectors[i].label, 0, -110);
       }
 
