@@ -93,8 +93,8 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
                 trial.canvas_size[1] +
                 '"></canvas>' +
                 '<div id="spinUp"></div>' +
-              '</div>' +
-              '<div class="probs"><b>' + trial.random_prob + '</b><br>chance of random outcome</div>'
+              '</div>' 
+            //  + '<div class="probs"><b>' + trial.random_prob + '</b><br>chance of random outcome</div>'
 
           //show prompt if there is one
           if (trial.prompt !== null) {

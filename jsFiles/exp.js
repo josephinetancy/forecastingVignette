@@ -39,7 +39,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>Typically, the wedge that lands on the arrow is the one that will activate.</p>
+                <p>Typically, the wedge that lands on the arrow will activate.</p>
                 <p>This is called a "standard outcome."</p>
                 <p>Below is an example of a standard outcome.</p>
                 <img src="./img/standard-outcome.png" style="width:50%; height:50%">
@@ -53,28 +53,13 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>The chance of a random outcome is displayed below each wheel.</p>
-                <p>This wheel has a 25% chance of a random outcome. For example, if you land on 9, you'd have a 25% chance of earning 5, 7, or 11 points and a 75% chance of earning 9 points.</p>
-                <img src="./img/arrow-25.png" style="width:50%; height:50%">      
+                <p>The chance of a standard outcome changes from wheel to wheel.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>Different wheels have different probabilities of random outcomes.</p>
-            </div>`,
-
-            `<div class='parent'>
-                <p>This wheel has a 0% chance of a random outcome. For example, if you land on 9, you'd have a 0% chance of earning 5, 7, or 11 points and a 100% chance of earning 9 points.</p>
-                <img src="./img/arrow-0.png" style="width:50%; height:50%">      
-            </div>`,
-
-            `<div class='parent'>
-                <p>This wheel has a 50% chance of a random outcome. For example, if you land on 9, you'd have a 50% chance of earning 5, 7, or 11 points and a 50% chance of earning 9 points.</p>
-                <img src="./img/arrow-50.png" style="width:50%; height:50%">      
-            </div>`,
-
-            `<div class='parent'>
-                <p>This wheel has a 75% chance of a random outcome. For example, if you land on 9, you'd have a 75% chance of earning 5, 7, or 11 points and a 25% chance of earning 9 points.</p>
-                <img src="./img/arrow-75.png" style="width:50%; height:50%">      
+                <p>The chance of a standard outcome is displayed before each wheel.</p>
+                <p>For example, this message means that the next wheel has a 75% chance of a standard outcome and a 25% chance of a random outcome.</p>
+                <img src="./img/outcome-75.png" style="width:70%; height:70%">      
             </div>`,
 
             `<div class='parent'>
@@ -110,7 +95,7 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>Throughout Spin the Wheel, you'll answer questions about your feelings.</p>
-                <p>Specifically, you'll report how <strong>immersed and engrossed</strong> you feel while spinning each wheel,<br>
+                <p>Specifically, you'll report how <strong>immersed and engaged</strong> you feel while spinning each wheel,<br>
                 as well as how <strong>happy</strong> you currently feel.</p>
             </div>`,      
 
@@ -137,7 +122,7 @@ const exp = (function() {
         allow_keys: false,
     };
 
-    let correctAnswers = [`25%`, `50%`, `75%`, `100%`, `Earn as many points as possible.`];
+    let correctAnswers = [`100%`, `75%`, `50%`, `25%`, `Earn as many points as possible.`];
 
     const errorMessage = {
         type: jsPsychInstructions,
@@ -153,22 +138,22 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: `If you land on a 9 and there's a 75% chance of a random outcome, what are your chances of earning 9 points?`, 
+                prompt: `If you land on a 9 and there's a 100% chance of a standard outcome, what are your chances of earning 9 points?`, 
                 name: `attnChk1`, 
                 options: ['100%', '75%', '50%', '25%'],
             },
             {
-                prompt: `If you land on a 9 and there's a 50% chance of a random outcome, what are your chances of earning 9 points?`, 
+                prompt: `If you land on a 9 and there's a 75% chance of a standard outcome, what are your chances of earning 9 points?`, 
                 name: `attnChk2`, 
                 options: ['100%', '75%', '50%', '25%'],
             },
             {
-                prompt: `If you land on a 9 and there's a 25% chance of a random outcome, what are your chances of earning 9 points?`, 
+                prompt: `If you land on a 9 and there's a 50% chance of a standard outcome, what are your chances of earning 9 points?`, 
                 name: `attnCh3`, 
                 options: ['100%', '75%', '50%', '25%'],
             },
             {
-                prompt: `If you land on a 9 and there's a 0% chance of a random outcome, what are your chances of earning 9 points?`, 
+                prompt: `If you land on a 9 and there's a 25% chance of a standard outcome, what are your chances of earning 9 points?`, 
                 name: `attnCh4`, 
                 options: ['100%', '75%', '50%', '25%'],
             },
@@ -252,20 +237,39 @@ const exp = (function() {
     // define each wheel
     const wheels = [
 
-            {sectors: [ wedges.one, wedges.three, wedges.five_1, wedges.seven_1 ], wheel_id: 1, reliability: 1, label: "0%", ev: 4, sd: 2, mi: 2},
-            {sectors: [ wedges.one, wedges.three, wedges.five_1, wedges.seven_1 ], wheel_id: 2, reliability: .75, label: "25%", ev: 4, sd: 2, mi: .792},
+            {sectors: [ wedges.one, wedges.three, wedges.five_1, wedges.seven_1 ], wheel_id: 1, reliability: 1, label: "100%", ev: 4, sd: 2, mi: 2},
+            {sectors: [ wedges.one, wedges.three, wedges.five_1, wedges.seven_1 ], wheel_id: 2, reliability: .75, label: "75%", ev: 4, sd: 2, mi: .792},
             {sectors: [ wedges.one, wedges.three, wedges.five_1, wedges.seven_1 ], wheel_id: 3, reliability: .5, label: "50%", ev: 4, sd: 2, mi: .208},
-            {sectors: [ wedges.one, wedges.three, wedges.five_1, wedges.seven_1 ], wheel_id: 3, reliability: .25, label: "75%", ev: 4, sd: 2, mi: 0},
+            {sectors: [ wedges.one, wedges.three, wedges.five_1, wedges.seven_1 ], wheel_id: 4, reliability: .25, label: "25%", ev: 4, sd: 2, mi: 0},
 
-            {sectors: [ wedges.five_2, wedges.seven_2, wedges.nine, wedges.eleven ], wheel_id: 1, reliability: 1, label: "0%", ev: 8, sd: 2, mi: 2},
-            {sectors: [ wedges.five_2, wedges.seven_2, wedges.nine, wedges.eleven ], wheel_id: 2, reliability: .75, label: "25%", ev: 8, sd: 2, mi: .792},
-            {sectors: [ wedges.five_2, wedges.seven_2, wedges.nine, wedges.eleven ], wheel_id: 3, reliability: .5, label: "50%", ev: 8, sd: 2, mi: .208},
-            {sectors: [ wedges.five_2, wedges.seven_2, wedges.nine, wedges.eleven ], wheel_id: 3, reliability: .25, label: "75%", ev: 8, sd: 2, mi: 0},
+            {sectors: [ wedges.five_2, wedges.seven_2, wedges.nine, wedges.eleven ], wheel_id: 5, reliability: 1, label: "100%", ev: 8, sd: 2, mi: 2},
+            {sectors: [ wedges.five_2, wedges.seven_2, wedges.nine, wedges.eleven ], wheel_id: 6, reliability: .75, label: "75%", ev: 8, sd: 2, mi: .792},
+            {sectors: [ wedges.five_2, wedges.seven_2, wedges.nine, wedges.eleven ], wheel_id: 7, reliability: .5, label: "50%", ev: 8, sd: 2, mi: .208},
+            {sectors: [ wedges.five_2, wedges.seven_2, wedges.nine, wedges.eleven ], wheel_id: 8, reliability: .25, label: "25%", ev: 8, sd: 2, mi: 0},
 
         ];
 
     let scoreTracker = 0; // track current score
     let round = 1;  // track current round
+
+    const preSpin = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: function() {
+            let pct = jsPsych.timelineVariable('label');
+            let html = `<div class='pFlip-style'>
+                            <p><span style='font-size:100px'><strong>${pct}</strong></span>
+                            <br><br><br>chance of standard outcome</p>
+                        </div>`;
+            return html;
+        },
+        choices: "NO_KEYS",
+        trial_duration: 5000,
+        response_ends_trial: false,
+        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
+        on_finish: function(data) {
+            data.round = round;
+        }
+    };
 
     const spin = {
         type: jsPsychCanvasButtonResponse,
@@ -288,7 +292,7 @@ const exp = (function() {
     const flowMeasure = {
         type: jsPsychSurveyLikert,
         questions: [
-            {prompt: `During the last round,<br>how <b>immersed</b> and <b>engrossed</b> did you feel spinning the wheel?`,
+            {prompt: `During the last round of Spin the Wheel,<br>to what extent did you feel <b>immersed</b> and <b>engaged</b> in what you were doing?`,
             name: `flow`,
             labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']},
         ],
@@ -325,7 +329,7 @@ const exp = (function() {
 
     // timeline: main task
     p.task = {
-        timeline: [spin, flowMeasure, happinessMeasure],
+        timeline: [preSpin, spin, flowMeasure, happinessMeasure],
         repetitions: 1,
         timeline_variables: wheels,
         randomize_order: true,
