@@ -27,7 +27,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>When the wheel stops spinning, one of the wedges will activate.</p>
+                <p>When a wheel stops spinning, one of the wedges will activate.</p>
                 <p>The activated wedge will turn black, like this:</p>
                 <img src="./img/standard-outcome.png" style="width:50%; height:50%">
             </div>`,
