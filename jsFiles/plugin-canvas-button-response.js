@@ -60,12 +60,7 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
               default: 0,
           },
           /** Minimum points per spin. */
-          upLabel: {
-              type: jspsych.ParameterType.STRING,
-              pretty_name: "Probability of flip",
-              default: 0,
-          },
-          downLabel: {
+          random_prob: {
               type: jspsych.ParameterType.STRING,
               pretty_name: "Probability of flip",
               default: 0,
@@ -91,8 +86,6 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
                 '<div class="score-board-title">Total Score</div>' +
                 '<div class="score-board-score" id="score" >' + trial.score + '</div>' +
               '</div>' +
-              '<div class="probs" id="topProb"></div>' +
-              '</div>' +
               '<div id="jspsych-canvas-button-response-stimulus">' +
                 '<canvas id="jspsych-canvas-stimulus" height="' +
                 trial.canvas_size[0] +
@@ -101,7 +94,7 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
                 '"></canvas>' +
                 '<div id="spinUp"></div>' +
               '</div>' +
-              '<div class="probs" id="bottomProb"></div>'
+              '<div class="probs"><b>' + trial.random_prob + '</b><br>chance of random outcome</div>'
 
           //show prompt if there is one
           if (trial.prompt !== null) {
@@ -162,7 +155,7 @@ var jsPsychCanvasButtonResponse = (function (jspsych) {
           }
           // end trial
           const waitForEnd = setInterval(function() {
-            if(spinnerData.outcomes_points.length >= 10) {
+            if(spinnerData.outcomes_points.length >= 12) {
               clearInterval(waitForEnd);
               setTimeout(after_response, 1250);
             }

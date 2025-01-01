@@ -570,7 +570,7 @@
   height: 14%;
   margin: -7%;
   color: white;
-  background: black;
+  background: white;
   box-shadow: 0 0 0 4px white, 0 0px 15px 5px rgba(0, 0, 0, 0.6);
   border-radius: 10%;
   font-weight: bold;
@@ -697,6 +697,5 @@
 .probs {
     font-size: 32px;
     color: black;
-    font-weight: bold;
-    margin-bottom: 5px;
+    line-height: 37px;
 }

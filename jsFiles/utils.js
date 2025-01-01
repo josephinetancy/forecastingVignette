@@ -70,8 +70,8 @@ const createSpinner = function(canvas, spinnerData, score, sectors, reliability,
   const direction_idxs = jsPsych.randomization.repeat([0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3], 1);
 
   /* flip variables */
-  const nFlips = 10 * reliability;
-  let flip_array = Array(nFlips).fill(0).concat(Array(10-nFlips).fill(1));
+  const nFlips = 12 * reliability;
+  let flip_array = Array(nFlips).fill(0).concat(Array(12-nFlips).fill(1));
   flip_array = jsPsych.randomization.repeat(flip_array, 1);
   const flipFunc = function(arr, n) {
     const filteredArr = arr.filter((_, index) => index !== n);
@@ -233,8 +233,8 @@ const createSpinner = function(canvas, spinnerData, score, sectors, reliability,
     setTimeout(() => {
       scoreMsg.innerHTML = `${score}`
       drawSector(sectors, null, null, null);
-      isSpinning = (spinnerData.outcomes_points.length >= 10) ? true : false;
-      direction_idx = (spinnerData.outcomes_points.length >= 10) ? direction_idx : direction_idxs.pop();
+      isSpinning = (spinnerData.outcomes_points.length >= 12) ? true : false;
+      direction_idx = (spinnerData.outcomes_points.length >= 12) ? direction_idx : direction_idxs.pop();
       pointer.className = directions[direction_idx];
       pointer.innerHTML = label;
       onWheel ? canvas.style.cursor = "grab" : canvas.style.cursor = "";
