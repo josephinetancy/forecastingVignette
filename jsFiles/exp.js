@@ -54,7 +54,7 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>The chance of a standard outcome is displayed at the center of each wheel.</p>
-                <p>This wheel has an 70% chance of a standard outcome and a 30% chance of a random outcome:</p>
+                <p>This wheel has a 70% chance of a standard outcome and a 30% chance of a random outcome:</p>
                 <img src="./img/arrow-70-up.png" style="width:50%; height:50%">      
             </div>`,
 
