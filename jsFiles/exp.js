@@ -54,7 +54,7 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>The chance of a random outcome is displayed below each wheel.</p>
-                <p>This wheel has a 25% chance of a random outcome. If you land on 9, for instance, you'd have a 25% chance of earning 5, 7, or 11 points and a 75% chance of earning 9 points.</p>
+                <p>This wheel has a 25% chance of a random outcome. For example, if you land on 9, you'd have a 25% chance of earning 5, 7, or 11 points and a 75% chance of earning 9 points.</p>
                 <img src="./img/arrow-25.png" style="width:50%; height:50%">      
             </div>`,
 
@@ -63,17 +63,17 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>This wheel has a 0% chance of a random outcome. If you land on 9, for instance, you'd have a 0% chance of earning 5, 7, or 11 points and a 100% chance of earning 9 points.</p>
+                <p>This wheel has a 0% chance of a random outcome. For example, if you land on 9, you'd have a 0% chance of earning 5, 7, or 11 points and a 100% chance of earning 9 points.</p>
                 <img src="./img/arrow-0.png" style="width:50%; height:50%">      
             </div>`,
 
             `<div class='parent'>
-                <p>This wheel has a 50% chance of a random outcome. If you land on 9, for instance, you'd have a 50% chance of earning 5, 7, or 11 points and a 50% chance of earning 9 points.</p>
+                <p>This wheel has a 50% chance of a random outcome. For example, if you land on 9, you'd have a 50% chance of earning 5, 7, or 11 points and a 50% chance of earning 9 points.</p>
                 <img src="./img/arrow-50.png" style="width:50%; height:50%">      
             </div>`,
 
             `<div class='parent'>
-                <p>This wheel has a 75% chance of a random outcome. If you land on 9, for instance, you'd have a 75% chance of earning 5, 7, or 11 points and a 25% chance of earning 9 points.</p>
+                <p>This wheel has a 75% chance of a random outcome. For example, if you land on 9, you'd have a 75% chance of earning 5, 7, or 11 points and a 25% chance of earning 9 points.</p>
                 <img src="./img/arrow-75.png" style="width:50%; height:50%">      
             </div>`,
 
