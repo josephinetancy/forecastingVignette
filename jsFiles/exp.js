@@ -157,22 +157,22 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: `If you land on a 10 and there's a 75% chance of a random outcome, what are your chances of earning 10 points?`, 
+                prompt: `If you land on a 9 and there's a 75% chance of a random outcome, what are your chances of earning 9 points?`, 
                 name: `attnChk1`, 
                 options: ['100%', '75%', '50%', '25%'],
             },
             {
-                prompt: `If you land on a 10 and there's a 50% chance of a random outcome, what are your chances of earning 10 points?`, 
+                prompt: `If you land on a 9 and there's a 50% chance of a random outcome, what are your chances of earning 9 points?`, 
                 name: `attnChk2`, 
                 options: ['100%', '75%', '50%', '25%'],
             },
             {
-                prompt: `If you land on a 10 and there's a 25% chance of a random outcome, what are your chances of earning 10 points?`, 
+                prompt: `If you land on a 9 and there's a 25% chance of a random outcome, what are your chances of earning 9 points?`, 
                 name: `attnCh3`, 
                 options: ['100%', '75%', '50%', '25%'],
             },
             {
-                prompt: `If you land on a 10 and there's a 0% chance of a random outcome, what are your chances of earning 10 points?`, 
+                prompt: `If you land on a 9 and there's a 0% chance of a random outcome, what are your chances of earning 9 points?`, 
                 name: `attnCh4`, 
                 options: ['100%', '75%', '50%', '25%'],
             },
