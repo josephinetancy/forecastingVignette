@@ -275,17 +275,17 @@ const createSpinner = function(canvas, spinnerData, score, sectors, reliability,
 
       // TEXT
       ctx.translate(rad, rad);
-      ctx.rotate( (ang + arc / 2) + arc );
+      ctx.rotate( (ang + arc / .5) + arc );
       ctx.textAlign = "center";
       ctx.fillStyle = 'white';
       ctx.strokeStyle = 'black';
       ctx.lineWidth = 5;
       if (isSpinning && i == sector) {
-        ctx.font = "bolder 100px sans-serif"
+        ctx.font = "bolder 80px sans-serif"
         ctx.strokeText(sectors[i].label, 0, -100);
         ctx.fillText(sectors[i].label, 0, -100);
       } else {
-        ctx.font = "bolder 70px sans-serif"
+        ctx.font = "bolder 50px sans-serif"
         ctx.strokeText(sectors[i].label, 0, -110);
         ctx.fillText(sectors[i].label, 0, -110);
       }

@@ -292,7 +292,7 @@ function sample(array, size, replace = false, probs = null) {
 
 function generateWedges() {
     const n_numbers = 20;
-    const n_wedges = 4;
+    const n_wedges = 10;
     const superset = Array.from({ length: n_numbers }, (_, i) => i + 1);
     const cardinality = sample([...Array(n_wedges).keys()].map(x => x + 1), 1)[0];
     const subset = sample([...superset], cardinality, false);
