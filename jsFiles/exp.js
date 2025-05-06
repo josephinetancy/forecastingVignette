@@ -207,6 +207,8 @@ const exp = (function() {
     *
     */
 
+/*
+
     let colors = [
      //   ["#D4A373", "#81B29A", "#E07A5F", "#3D405B"], 
         ["#6A9FB5", "#F4D35E", "#EE964B", "#736CED"], 
@@ -214,25 +216,171 @@ const exp = (function() {
     ];
 
     colors = jsPsych.randomization.repeat(colors, 1);
-
+*/
     // define each wedge
+
+    const wedges = {
+  one:       { color: "#fe0000", font: 'white', label: "1",  points: 1 },
+  two:       { color: "#800001", font: 'white', label: "2",  points: 2 },
+  three:     { color: "#fe6a00", font: 'white', label: "3",  points: 3 },
+  four:      { color: "#803400", font: 'white', label: "4",  points: 4 },
+  five:      { color: "#ffd800", font: 'white', label: "5",  points: 5 },
+  six:       { color: "#806b00", font: 'white', label: "6",  points: 6 },
+  seven:     { color: "#00fe21", font: 'white', label: "7",  points: 7 },
+  eight:     { color: "#007f0e", font: 'white', label: "8",  points: 8 },
+  nine:      { color: "#0094fe", font: 'white', label: "9",  points: 9 },
+  ten:       { color: "#00497e", font: 'white', label: "10", points: 10 },
+  eleven:    { color: "#0026ff", font: 'white', label: "11", points: 11 },
+  twelve:    { color: "#001280", font: 'white', label: "12", points: 12 },
+  thirteen:  { color: "#e6194b", font: 'white', label: "13", points: 13 },
+  fourteen:  { color: "#3cb44b", font: 'white', label: "14", points: 14 },
+  fifteen:   { color: "#838996", font: 'white', label: "15", points: 15 },
+  sixteen:   { color: "#4363d8", font: 'white', label: "16", points: 16 },
+  seventeen: { color: "#f58231", font: 'white', label: "17", points: 17 },
+  eighteen:  { color: "#911eb4", font: 'white', label: "18", points: 18 },
+  nineteen:  { color: "#46f0f0", font: 'white', label: "19", points: 19 },
+  twenty:    { color: "#f032e6", font: 'white', label: "20", points: 20 }
+};
+
+
+
+/*
     const wedges = {
         one: {color: colors[0][0], font: 'white', label:"1", points: 1},
         three: {color: colors[0][1], font: 'white', label:"3", points: 3},
         five_1: {color: colors[0][2], font: 'white', label:"5", points: 5},
         seven_1: {color: colors[0][3], font: 'white', label:"7", points: 7},
-/*
-        three: {color: colors[1][0], font: 'white', label:"3", points: 3},
-        five: {color: colors[1][1], font: 'white', label:"5", points: 5},
-        seven: {color: colors[1][2], font: 'white', label:"7", points: 7},
-        nine: {color: colors[1][3], font: 'white', label:"9", points: 9},
-*/
+
         five_2: {color: colors[1][0], font: 'white', label:"5", points: 5},
         seven_2: {color: colors[1][1], font: 'white', label:"7", points: 7},
         nine: {color: colors[1][2], font: 'white', label:"9", points: 9},
         eleven: {color: colors[1][3], font: 'white', label:"11", points: 11},
-    };
+    }; 
 
+*/
+
+function getRandomDirichlet(alpha) {
+    const gammaSamples = alpha.map(a => {
+        let sum = 0;
+        for (let i = 0; i < 12; i++) sum += Math.random();
+        return -Math.log(sum / 12) * a;
+    });
+    const total = gammaSamples.reduce((a, b) => a + b, 0);
+    return gammaSamples.map(v => v / total);
+};
+
+function sample(array, size, replace = false, probs = null) {
+    const result = [];
+    const weights = probs ? [...probs] : Array(array.length).fill(1);
+
+    for (let i = 0; i < size; i++) {
+        const totalWeight = weights.reduce((a, b) => a + b, 0);
+        let r = Math.random() * totalWeight;
+        let j = 0;
+        while (r > weights[j]) {
+            r -= weights[j];
+            j++;
+        };
+        result.push(array[j]);
+        if (!replace) {
+            weights.splice(j, 1);
+            array.splice(j, 1);
+        };
+    };
+    return result;
+};
+
+function generateWedges() {
+    const n_numbers = 20;
+    const n_wedges = 4;
+    const superset = Array.from({ length: n_numbers }, (_, i) => i + 1);
+    const cardinality = sample([...Array(n_wedges).keys()].map(x => x + 1), 1)[0];
+    const subset = sample([...superset], cardinality, false);
+    const alpha_param = Array(cardinality).fill(1);
+    const probs = getRandomDirichlet(alpha_param);
+    const n_remainder = n_wedges - cardinality;
+    let final_set;
+
+    if (cardinality === 1) {
+        final_set = Array(n_wedges).fill(subset[0]);
+    } else if (cardinality === 10) {
+        final_set = subset.slice().sort((a, b) => a - b);
+    } else {
+        const remainder = sample([...subset], n_remainder, true, probs);
+        final_set = subset.concat(remainder).sort((a, b) => a - b);
+    }
+
+    return final_set;
+}
+
+function mapToWedges(numbers) {
+    const numberNames = [
+        'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+        'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
+        'seventeen', 'eighteen', 'nineteen', 'twenty'
+    ];
+    return numbers.map(num => wedges[numberNames[num - 1]]);
+}
+
+function calculateEV(numbers) {
+    const sum = numbers.reduce((a, b) => a + b, 0);
+    return sum / numbers.length;
+}
+
+function calculateSD(numbers) {
+    const mean = calculateEV(numbers);
+    const variance = numbers.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / numbers.length;
+    return Math.sqrt(variance);
+}
+
+function calculateUniformity(numbers) {
+    const unique = new Set(numbers);
+    return unique.size / numbers.length;
+}
+
+function calculateCardinality(numbers) {
+    const unique = new Set(numbers);
+    return unique.size;
+}
+
+const reliabilityOptions = [
+  { reliability: 1, label: '100%' },
+  { reliability: 0.75, label: '75%' },
+  { reliability: 0.25, label: '25%' },
+  { reliability: 0.1, label: '10%' }
+];
+
+// Randomly pick one
+const randomIndex = Math.floor(Math.random() * reliabilityOptions.length);
+const { reliability, label } = reliabilityOptions[randomIndex];
+
+// Generate the 10-number set for jsPsych timeline
+const finalNumbers = generateWedges();
+const sectors = mapToWedges(finalNumbers);
+
+//const sectors = Object.values(wedges);
+
+const ev = calculateEV(finalNumbers);
+const sd = calculateSD(finalNumbers);
+const uniformity = calculateUniformity(finalNumbers);
+const cardinality = calculateCardinality(finalNumbers);
+
+
+// Your timeline variable:
+const spinnerTrialData = [
+    {
+        sectors: sectors,
+        ev: ev,
+        sd: sd,
+        uniformity: uniformity,
+        cardinality: cardinality,
+        reliability: reliability,
+        label: label,
+        arrangement: '1'.repeat(20)  // string of twenty 1's
+    }
+];
+
+console.log(spinnerTrialData)
 
     // define each wheel
     const wheels = [
@@ -331,7 +479,7 @@ const exp = (function() {
     p.task = {
         timeline: [preSpin, spin, flowMeasure, happinessMeasure],
         repetitions: 1,
-        timeline_variables: wheels,
+        timeline_variables: spinnerTrialData,
         randomize_order: true,
     };
 
@@ -466,6 +614,8 @@ const exp = (function() {
 
 }());
 
-const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.task, exp.demographics, exp.save_data];
+const timeline = [exp.task];
+
+// const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.task, exp.demographics, exp.save_data];
 
 jsPsych.run(timeline);
