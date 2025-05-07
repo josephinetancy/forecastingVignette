@@ -66,7 +66,7 @@ const createSpinner = function(canvas, spinnerData, score, sectors, reliability,
   const ctx = canvas.getContext("2d"); 
 
   /* pointer variables */
-  const directions = ["pointUp", "pointRight", "pointDown", "pointLeft"];
+  const directions = ["pointRight", "pointDown", "pointLeft", "pointUp"];
   const direction_idxs = jsPsych.randomization.repeat([0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3], 1);
 
   /* flip variables */
@@ -205,9 +205,8 @@ const createSpinner = function(canvas, spinnerData, score, sectors, reliability,
         speed = 0;
         currentAngle = oldAngle;
         flip = flip_array.pop();
-        let sectorIdx_real = getIndex() + direction_idx;
-        sectorIdx_real = (sectorIdx_real < 4) ? sectorIdx_real : sectorIdx_real % 4;
-        let sectorIdx_mod = flip == 0 ? sectorIdx_real : flipFunc([0, 1, 2, 3], sectorIdx_real);
+        let sectorIdx_real = getIndex(direction_idx);
+        let sectorIdx_mod = flip == 0 ? sectorIdx_real : flipFunc([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], sectorIdx_real);
         let sector = sectors[sectorIdx_mod];
         let points = sector.points;
         let sector_real = sectors[sectorIdx_real];
@@ -241,18 +240,11 @@ const createSpinner = function(canvas, spinnerData, score, sectors, reliability,
     }, 1250);
   };
 
-  const getIndex = () => {
-    let normAngle = 0;
-    let modAngle = currentAngle % 360;
-    if (modAngle > 270) {
-      normAngle = 360 - modAngle + 270;
-    } else if (modAngle < -90) { 
-      normAngle =  -modAngle - 90;
-    } else {
-      normAngle = 270 - modAngle;
-    }
-    let sector = Math.floor(normAngle / (360 / tot))
-    return sector
+const getIndex = (direction_idx) => {
+    let normAngle = 90 * direction_idx;
+    let modAngle = ((currentAngle % 360) + 360) % 360;
+    let norm = (normAngle - modAngle + 360) % 360;
+    return Math.floor(norm / (360 / tot));
   }
 
   //* Draw sectors and prizes texts to canvas */
@@ -282,12 +274,12 @@ const createSpinner = function(canvas, spinnerData, score, sectors, reliability,
       ctx.lineWidth = 5;
       if (isSpinning && i == sector) {
         ctx.font = "bolder 80px sans-serif"
-        ctx.strokeText(sectors[i].label, 0, -100);
-        ctx.fillText(sectors[i].label, 0, -100);
+        ctx.strokeText(sectors[i].label, 0, -140);
+        ctx.fillText(sectors[i].label, 0, -140);
       } else {
         ctx.font = "bolder 50px sans-serif"
-        ctx.strokeText(sectors[i].label, 0, -110);
-        ctx.fillText(sectors[i].label, 0, -110);
+        ctx.strokeText(sectors[i].label, 0, -150);
+        ctx.fillText(sectors[i].label, 0, -150);
       }
 
       // RESTORE
