@@ -13,7 +13,7 @@ const exp = (function() {
     */
 
     const html = {
-        intro: [
+        introPlay: [
             `<div class='parent'>
                 <p><strong>Welcome to Spin the Wheel!</strong></p>
                 <p>In Spin the Wheel, you'll spin a series of prize wheels.</p>
@@ -22,7 +22,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>Each wheel is divided into four wedges, like this:</p>
+                <p>Each wheel is divided into 10 wedges, like this:</p>
                 <img src="./img/arrow-up.png" style="width:50%; height:50%">
             </div>`,
 
@@ -85,6 +85,80 @@ const exp = (function() {
                 <p>Sometimes the arrow will point down:</p>
                 <img src="./img/arrow-down.png" style="width:50%; height:50%">      
             </div>`],
+        introPredict: [
+            `<div class='parent'>
+                <p><strong>Welcome to Spin the Wheel!</strong></p>
+                <p>In Spin the Wheel, participants will see a series of prize wheels.</p>
+                <p>With each spin, participants will earn points.</p>
+                <p>THe participant's goal is to earn as many points as possible!</p>
+            </div>`,
+
+            `<div class='parent'>
+                <p>Each wheel is divided into 10 wedges, like this:</p>
+                <img src="./img/arrow-up.png" style="width:50%; height:50%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>When a wheel stops spinning, one of the wedges will activate.</p>
+                <p>The activated wedge will turn black, like this:</p>
+                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>The number on the activated wedge is added to a participant's total score.</p>
+                <p>In this example, the participant gained 5 points.</p>
+                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>Typically, the wedge that lands on the arrow will activate.</p>
+                <p>This is called a "standard outcome."</p>
+                <p>Below is an example of a standard outcome.</p>
+                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>Occasionally, a random wedge will activate instead.</p>
+                <p>This is called a "random outcome."</p>
+                <p>Here's an example of a random outcome:</p>
+                <img src="./img/random-outcome.png" style="width:50%; height:50%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>The chance of a standard outcome changes from wheel to wheel.</p>
+            </div>`,
+
+            `<div class='parent'>
+                <p>The chance of a standard outcome is displayed before each wheel.</p>
+                <p>For example, this message means that the next wheel has a 75% chance of a standard outcome and a 25% chance of a random outcome.</p>
+                <img src="./img/outcome-75.png" style="width:70%; height:70%">      
+            </div>`,
+
+            `<div class='parent'>
+                <p>After each spin, the arrow at the center of the wheel will change directions.</p>
+            </div>`,
+
+            `<div class='parent'>
+                <p>Sometimes the arrow will point up:</p>
+                <img src="./img/arrow-up.png" style="width:50%; height:50%">      
+            </div>`,
+
+            `<div class='parent'>
+                <p>Sometimes the arrow will point right:</p>
+                <img src="./img/arrow-right.png" style="width:50%; height:50%">      
+            </div>`,
+
+            `<div class='parent'>
+                <p>Sometimes the arrow will point left:</p>
+                <img src="./img/arrow-left.png" style="width:50%; height:50%">      
+            </div>`,
+
+            `<div class='parent'>
+                <p>Sometimes the arrow will point down:</p>
+                <img src="./img/arrow-down.png" style="width:50%; height:50%">      
+            </div>`],
+
+
 
         postIntro: [
             `<div class='parent'>
@@ -114,9 +188,9 @@ const exp = (function() {
     };
 
 
-    const intro = {
+    const introPredict = {
         type: jsPsychInstructions,
-        pages: html.intro,
+        pages: html.introPredict,
         show_clickable_nav: true,
         post_trial_gap: 500,
         allow_keys: false,
@@ -179,7 +253,7 @@ const exp = (function() {
     };
 
     p.instLoop = {
-      timeline: [intro, attnChk, conditionalNode],
+      timeline: [introPredict, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
@@ -614,7 +688,7 @@ console.log(spinnerTrialData)
 
 }());
 
-const timeline = [exp.task];
+const timeline = [exp.instLoop, exp.postIntro, exp.task];
 
 // const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.task, exp.demographics, exp.save_data];
 
