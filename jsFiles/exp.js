@@ -420,8 +420,8 @@ function calculateCardinality(numbers) {
 const reliabilityOptions = [
   { reliability: 1, label: '100%' },
   { reliability: 0.75, label: '75%' },
-  { reliability: 0.25, label: '25%' },
-  { reliability: 0.1, label: '10%' }
+  { reliability: 0.50, label: '50%' },
+  { reliability: .25, label: '25%' }
 ];
 
 // Randomly pick one
@@ -688,7 +688,7 @@ console.log(spinnerTrialData)
 
 }());
 
-const timeline = [exp.instLoop, exp.postIntro, exp.task];
+const timeline = [exp.task];
 
 // const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.task, exp.demographics, exp.save_data];
 
