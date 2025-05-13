@@ -694,7 +694,7 @@ console.log(spinnerTrialData)
 
 }());
 
-const timeline = [exp.task];
+const timeline = [exp.task,  exp.demographics];
 
 // const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.task, exp.demographics, exp.save_data];
 
