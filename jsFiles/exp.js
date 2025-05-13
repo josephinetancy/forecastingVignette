@@ -419,9 +419,15 @@ function calculateCardinality(numbers) {
 
 const reliabilityOptions = [
   { reliability: 1, label: '100%' },
-  { reliability: 0.75, label: '75%' },
+  { reliability: 0.90, label: '90%' },
+  { reliability: 0.80, label: '80%' },
+  { reliability: 0.70, label: '70%' },
+  { reliability: 0.60, label: '60%' },
   { reliability: 0.50, label: '50%' },
-  { reliability: .25, label: '25%' }
+  { reliability: 0.40, label: '40%' },
+  { reliability: 0.30, label: '30%' },
+  { reliability: 0.20, label: '20%' },
+  { reliability: .10, label: '10%' }
 ];
 
 // Randomly pick one
@@ -551,8 +557,8 @@ console.log(spinnerTrialData)
 
     // timeline: main task
     p.task = {
-        timeline: [preSpin, spin, flowMeasure, happinessMeasure],
-        repetitions: 1,
+        timeline: [preSpin, spin, flowMeasure],
+        repetitions: 3,
         timeline_variables: spinnerTrialData,
         randomize_order: true,
     };

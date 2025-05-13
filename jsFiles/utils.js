@@ -72,9 +72,9 @@ const createSpinner = function(canvas, spinnerData, score, sectors, reliability,
   const direction_idxs = jsPsych.randomization.repeat([0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3], 1);
 
   /* flip variables */
-  const nFlips = noOfSpins * reliability;
-  let flip_array = Array(nFlips).fill(0).concat(Array(noOfSpins-nFlips).fill(1));
-  flip_array = jsPsych.randomization.repeat(flip_array, 1);
+//  const nFlips = noOfSpins * reliability;
+//  let flip_array = Array(nFlips).fill(0).concat(Array(noOfSpins-nFlips).fill(1));
+//  flip_array = jsPsych.randomization.repeat(flip_array, 1);
   const flipFunc = function(arr, n) {
     const filteredArr = arr.filter((_, index) => index !== n);
     const randomIndex = Math.floor(Math.random() * filteredArr.length);
@@ -206,9 +206,11 @@ const createSpinner = function(canvas, spinnerData, score, sectors, reliability,
         // stop spinner
         speed = 0;
         currentAngle = oldAngle;
-        flip = flip_array.pop();
+        const flip = Math.random() < reliability ? 0 : 1;
         let sectorIdx_real = getIndex(direction_idx);
-        let sectorIdx_mod = flip == 0 ? sectorIdx_real : flipFunc([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], sectorIdx_real);
+        const sectorIdx_mod = flip === 0
+        ? sectorIdx_real
+        : flipFunc([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], sectorIdx_real);
         let sector = sectors[sectorIdx_mod];
         let points = sector.points;
         let sector_real = sectors[sectorIdx_real];
