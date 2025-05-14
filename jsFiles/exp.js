@@ -87,10 +87,10 @@ const exp = (function() {
             </div>`],
         introPredict: [
             `<div class='parent'>
-                <p><strong>Welcome to Spin the Wheel!</strong></p>
-                <p>In Spin the Wheel, participants will see a series of prize wheels.</p>
-                <p>With each spin, participants will earn points.</p>
-                <p>THe participant's goal is to earn as many points as possible!</p>
+                <p><strong>Welcome to Guess the Feeling!</strong></p>
+                <p>In Guess the Feeling, you'll see a series of prize wheels that another participant will spin.</p>
+                <p>The participant will spin the wheel and earn points.</p>
+                <p>Your goal is to predict how they'll feel while spinning the wheel.</p>
             </div>`,
 
             `<div class='parent'>
@@ -158,6 +158,24 @@ const exp = (function() {
                 <img src="./img/arrow-down.png" style="width:50%; height:50%">      
             </div>`],
 
+            postPredict: [
+            `<div class='parent'>
+                <p>Participants will spin the wheel like this.</p>
+                <p>Watch the animation below to see how it's done.</p>
+                <img src="./img/spin-gif.gif" style="width:50%; height:50%">
+            </div>`,
+
+            `<div class='parent'>
+                <p>Throughout Guess the Feeling, you'll answer questions about how a participant might feel.</p>
+                <p>Specifically, you'll report how <strong>immersed and engaged</strong> you think they feel while spinning each wheel,<br>
+                as well as how <strong>happy</strong> they feel.</p>
+            </div>`,      
+
+            `<div class='parent'>
+                <p>You're ready to start playing Guess the Feeling!</p>
+                <p>Continue to the next screen to begin.</p>
+            </div>`,      
+        ],
 
 
         postIntro: [
@@ -168,7 +186,7 @@ const exp = (function() {
             </div>`,
 
             `<div class='parent'>
-                <p>Throughout Spin the Wheel, you'll answer questions about your feelings.</p>
+                <p>Throughout Spin the Wheel, you'll answer questions about how you feel.</p>
                 <p>Specifically, you'll report how <strong>immersed and engaged</strong> you feel while spinning each wheel,<br>
                 as well as how <strong>happy</strong> you currently feel.</p>
             </div>`,      
@@ -196,7 +214,7 @@ const exp = (function() {
         allow_keys: false,
     };
 
-    let correctAnswers = [`100%`, `75%`, `50%`, `25%`, `Earn as many points as possible.`];
+    let correctAnswers = [`100%`, `80%`, `40%`, `10%`, `Guess what participants might feel from spinning the wheel.`];
 
     const errorMessage = {
         type: jsPsychInstructions,
@@ -212,29 +230,29 @@ const exp = (function() {
             </div>`,
         questions: [
             {
-                prompt: `If you land on a 9 and there's a 100% chance of a standard outcome, what are your chances of earning 9 points?`, 
+                prompt: `If a participant lands on a 9 and there's a 100% chance of a standard outcome, what are their chances of earning 9 points?`, 
                 name: `attnChk1`, 
-                options: ['100%', '75%', '50%', '25%'],
+                options: ['100%', '80%', '40%', '10%'],
             },
             {
-                prompt: `If you land on a 9 and there's a 75% chance of a standard outcome, what are your chances of earning 9 points?`, 
+                prompt: `If a participant lands on a 9 and there's a 80% chance of a standard outcome, what are their chances of earning 9 points?`, 
                 name: `attnChk2`, 
-                options: ['100%', '75%', '50%', '25%'],
+                options: ['100%', '80%', '40%', '10%'],
             },
             {
-                prompt: `If you land on a 9 and there's a 50% chance of a standard outcome, what are your chances of earning 9 points?`, 
+                prompt: `If a participant lands on a 9 and there's a 40% chance of a standard outcome, what are their chances of earning 9 points?`, 
                 name: `attnCh3`, 
-                options: ['100%', '75%', '50%', '25%'],
+                options: ['100%', '80%', '40%', '15%'],
             },
             {
-                prompt: `If you land on a 9 and there's a 25% chance of a standard outcome, what are your chances of earning 9 points?`, 
+                prompt: `If a participant lands on a 9 and there's a 10% chance of a standard outcome, what are their chances of earning 9 points?`, 
                 name: `attnCh4`, 
-                options: ['100%', '75%', '50%', '25%'],
+                options: ['100%', '80%', '40%', '10%'],
             },
             {
                 prompt: `What is your goal?`, 
                 name: `attnChk5`, 
-                options: [`Get as many standard outcomes as possible.`, `Get as many random outcomes as possible.`, `Earn as many points as possible.`],
+                options: [`Guess what participants might feel from spinning the wheel.`, `Spin the wheel and earn points.`],
             },
         ],
         scale_width: 500,
@@ -263,6 +281,14 @@ const exp = (function() {
     p.postIntro = {
         type: jsPsychInstructions,
         pages: html.postIntro,
+        show_clickable_nav: true,
+        post_trial_gap: 500,
+        allow_keys: false,
+    };
+
+    p.postPredict = {
+        type: jsPsychInstructions,
+        pages: html.postPredict,
         show_clickable_nav: true,
         post_trial_gap: 500,
         allow_keys: false,
@@ -418,37 +444,31 @@ function calculateCardinality(numbers) {
 }
 
 const reliabilityOptions = [
-  { reliability: 1, label: '100%' },
-  { reliability: 0.90, label: '90%' },
-  { reliability: 0.80, label: '80%' },
-  { reliability: 0.70, label: '70%' },
-  { reliability: 0.60, label: '60%' },
-  { reliability: 0.50, label: '50%' },
-  { reliability: 0.40, label: '40%' },
-  { reliability: 0.30, label: '30%' },
-  { reliability: 0.20, label: '20%' },
-  { reliability: .10, label: '10%' }
-];
-
-// Randomly pick one
-const randomIndex = Math.floor(Math.random() * reliabilityOptions.length);
-const { reliability, label } = reliabilityOptions[randomIndex];
-
-// Generate the 10-number set for jsPsych timeline
-const finalNumbers = generateWedges();
-const sectors = mapToWedges(finalNumbers);
-
-//const sectors = Object.values(wedges);
-
-const ev = calculateEV(finalNumbers);
-const sd = calculateSD(finalNumbers);
-const uniformity = calculateUniformity(finalNumbers);
-const cardinality = calculateCardinality(finalNumbers);
+        { reliability: 1, label: '100%' },
+        { reliability: 0.90, label: '90%' },
+        { reliability: 0.80, label: '80%' },
+        { reliability: 0.70, label: '70%' },
+        { reliability: 0.60, label: '60%' },
+        { reliability: 0.50, label: '50%' },
+        { reliability: 0.40, label: '40%' },
+        { reliability: 0.30, label: '30%' },
+        { reliability: 0.20, label: '20%' },
+        { reliability: 0.10, label: '10%' }
+    ];
 
 
-// Your timeline variable:
-const spinnerTrialData = [
-    {
+function createSpinnerTrialData() {
+    const finalNumbers = generateWedges();
+    const sectors = mapToWedges(finalNumbers);
+    const ev = calculateEV(finalNumbers);
+    const sd = calculateSD(finalNumbers);
+    const uniformity = calculateUniformity(finalNumbers);
+    const cardinality = calculateCardinality(finalNumbers);
+    
+    const randomIndex = Math.floor(Math.random() * reliabilityOptions.length);
+    const { reliability, label } = reliabilityOptions[randomIndex];
+
+    return {
         sectors: sectors,
         ev: ev,
         sd: sd,
@@ -456,10 +476,12 @@ const spinnerTrialData = [
         cardinality: cardinality,
         reliability: reliability,
         label: label,
-        arrangement: '1'.repeat(20)  // string of twenty 1's
-    }
-];
+        arrangement: '1'.repeat(20)
+    };
+}
 
+
+const spinnerTrialData = createSpinnerTrialData();
 console.log(spinnerTrialData)
 
     // define each wheel
@@ -509,7 +531,7 @@ console.log(spinnerTrialData)
             return scoreTracker
         },
         random_prob: jsPsych.timelineVariable('label'),
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
+        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability')},
         on_finish: function(data) {
             data.round = round;
             scoreTracker = data.score
@@ -555,14 +577,21 @@ console.log(spinnerTrialData)
         }
     };
 
-    // timeline: main task
-    p.task = {
-        timeline: [preSpin, spin, flowMeasure],
-        repetitions: 3,
-        timeline_variables: spinnerTrialData,
-        randomize_order: true,
-    };
+    // timeline: 
+const nRepeats = 3;
+const spinBlocks = [];
 
+for (let i = 0; i < nRepeats; i++) {
+    spinBlocks.push({
+        timeline: [preSpin, spin, flowMeasure],
+        timeline_variables: [createSpinnerTrialData()]
+    });
+}
+
+p.task = {
+    timeline: spinBlocks,
+    randomize_order: false, 
+};
    /*
     *
     *   Demographics
@@ -694,7 +723,7 @@ console.log(spinnerTrialData)
 
 }());
 
-const timeline = [exp.task,  exp.demographics];
+const timeline = [exp.instLoop, exp.postPredict, exp.task];
 
 // const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.task, exp.demographics, exp.save_data];
 
