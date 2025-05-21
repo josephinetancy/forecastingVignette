@@ -579,7 +579,6 @@ const previewWheel2Data = {
 
 
 const spinnerTrialData = createSpinnerTrialData();
-console.log(spinnerTrialData)
 
 /* 
     // define each wheel
@@ -665,11 +664,6 @@ let secondPreview = true;
         }
     };
 
-/*
-const createStaticSpinner = function(canvas, sectors) {
-  drawWheelOnce(canvas, sectors);
-  canvas.style.cursor = 'default';
-}; */
 
 const staticSpin = {
   type: jsPsychSurveyLikert,
@@ -695,19 +689,9 @@ const staticSpin = {
     drawWheelOnce(canvas, sectors);
   },
   on_finish: function (data) {
-    const response = JSON.parse(data.responses);
-    data.predicted_engagement_rating = response.predicted_engagement;
+    saveSurveyData(data);
+    console.log(data)
   },
-  timeline_variables: [
-    {
-      sectors: [
-        { color: '#f44336', label: '10 pts' },
-        { color: '#4caf50', label: '20 pts' },
-        { color: '#2196f3', label: '30 pts' },
-        { color: '#ff9800', label: '40 pts' }
-      ]
-    }
-  ]
 };
 
 
@@ -775,16 +759,6 @@ for (let i = 0; i < nRepeats; i++) {
 }
 
 
-const nRepeatsStatic = 3;
-const staticSpinBlocks = [];
-
-for (let i = 0; i < nRepeatsStatic; i++) {
-    staticSpinBlocks.push({
-        timeline: [staticSpin, flowMeasure],  // no preSpin here
-        timeline_variables: [createSpinnerTrialData()]  // or a variant for static if needed
-    });
-}
-
 p.preview = {
     timeline: [previewBlock1, previewBlock2],
     randomize_order: false, 
@@ -794,6 +768,19 @@ p.task = {
     timeline: [...spinBlocks],
     randomize_order: false, 
 };
+
+
+
+const nRepeatsStatic = 3;
+const staticSpinBlocks = [];
+
+for (let i = 0; i < nRepeatsStatic; i++) {
+    staticSpinBlocks.push({
+        timeline: [staticSpin],  
+        timeline_variables: [createSpinnerTrialData()]  // or a variant for static if needed
+    });
+}
+
 
 p.taskPredict = {
     timeline: [...staticSpinBlocks],
@@ -941,7 +928,7 @@ if (randomAssignment === 1) {
   timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task];
 } else {
   // timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.taskPredict];
-  timeline = [exp.taskPredict];
+  timeline = [exp.taskPredict,  exp.task];
 
 }
 
