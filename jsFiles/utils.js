@@ -316,6 +316,43 @@ const getIndex = (direction_idx) => {
 
 };
 
+function drawWheelOnce(canvas, sectors) {
+  const ctx = canvas.getContext('2d');
+  const radius = canvas.width / 2;
+  const arc = (2 * Math.PI) / sectors.length;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = 0; i < sectors.length; i++) {
+    const angle = arc * i;
+    const sector = sectors[i];
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(radius, radius);
+    ctx.fillStyle = sector.color;
+    ctx.arc(radius, radius, radius - 10, angle, angle + arc);
+    ctx.lineTo(radius, radius);
+    ctx.fill();
+
+    // Outline
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.restore();
+
+    // Draw label
+    ctx.save();
+    ctx.translate(radius, radius);
+    ctx.rotate(angle + arc / 2);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 18px sans-serif';
+    ctx.fillText(sector.label, 0, -radius * 0.6);
+    ctx.restore();
+  }
+}
+
 
 
 

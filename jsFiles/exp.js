@@ -1,6 +1,8 @@
 
 
-const randomAssignment = Math.floor(Math.random() * 2) + 1; 
+// const randomAssignment = Math.floor(Math.random() * 2) + 1; 
+const randomAssignment = 2;
+
 console.log(randomAssignment) 
 //1 = play, 2 = predict
 
@@ -182,7 +184,7 @@ var textNew = {
 
             `<div class='parent'>
                 <p>You're ready to start playing Guess the Feeling!</p>
-                <p>You'll practice with two wheels first. </p>
+                <p>To practice, you'll play as if you were a participant for the first two wheels. </p>
                 <p>Continue to the next screen to begin.</p>
             </div>`,      
         ],
@@ -254,7 +256,13 @@ var textNew = {
     };
 
 
-    let correctAnswers = [`100%`, `80%`, `40%`, `10%`, `Guess what participants might feel from spinning the wheel.`];
+let correctAnswers = [`100%`, `80%`, `40%`, `10%`];
+
+if (randomAssignment === 2) {
+  correctAnswers.push(`Guess what participants might feel from spinning the wheel.`);
+} else {
+  correctAnswers.push(`Spin the wheel and earn points.`);
+}
 
     const errorMessage = {
         type: jsPsychInstructions,
@@ -292,7 +300,7 @@ var textNew = {
             {
                 prompt: `What is your goal?`, 
                 name: `attnChk5`, 
-                options: [`Guess what participants might feel from spinning the wheel.`, `Spin the wheel and earn points.`],
+                options: [`Spin the wheel and earn points.`,`Guess what participants might feel from spinning the wheel.`],
             },
         ],
         scale_width: 500,
@@ -657,6 +665,52 @@ let secondPreview = true;
         }
     };
 
+/*
+const createStaticSpinner = function(canvas, sectors) {
+  drawWheelOnce(canvas, sectors);
+  canvas.style.cursor = 'default';
+}; */
+
+const staticSpin = {
+  type: jsPsychSurveyLikert,
+  preamble: `
+    <div style="text-align:center;">
+      <canvas id="staticWheelCanvas" width="475" height="475" style="border:1px solid #ccc; margin-bottom: 30px;"></canvas>
+      <div style="font-size: 18px; margin-bottom: 20px;">
+
+      </div>
+    </div>
+  `,
+  questions: [
+    {prompt: `During the last round of <b>Spin the Wheel</b>,<br> to what extent did you think another participant will feel <b>immersed</b> and <b>engaged</b> in what they were doing?`,
+      name: 'predicted_flow',
+      labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely'],
+      required: true,
+      horizontal: true
+    }
+  ],
+  on_load: function () {
+    const canvas = document.getElementById('staticWheelCanvas');
+    const sectors = jsPsych.timelineVariable('sectors');
+    drawWheelOnce(canvas, sectors);
+  },
+  on_finish: function (data) {
+    const response = JSON.parse(data.responses);
+    data.predicted_engagement_rating = response.predicted_engagement;
+  },
+  timeline_variables: [
+    {
+      sectors: [
+        { color: '#f44336', label: '10 pts' },
+        { color: '#4caf50', label: '20 pts' },
+        { color: '#2196f3', label: '30 pts' },
+        { color: '#ff9800', label: '40 pts' }
+      ]
+    }
+  ]
+};
+
+
     // trial: flow DV
     const flowMeasure = {
         type: jsPsychSurveyLikert,
@@ -667,12 +721,13 @@ let secondPreview = true;
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
+        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
             data.score = scoreArray[scoreArray.length - 1];
             saveSurveyData(data);
+            scoreTracker = 0; 
         }
     };
 
@@ -686,7 +741,7 @@ let secondPreview = true;
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
+        data: {v: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
@@ -719,8 +774,19 @@ for (let i = 0; i < nRepeats; i++) {
     });
 }
 
+
+const nRepeatsStatic = 3;
+const staticSpinBlocks = [];
+
+for (let i = 0; i < nRepeatsStatic; i++) {
+    staticSpinBlocks.push({
+        timeline: [staticSpin, flowMeasure],  // no preSpin here
+        timeline_variables: [createSpinnerTrialData()]  // or a variant for static if needed
+    });
+}
+
 p.preview = {
-    timeline: [previewBlock1, previewBlock2, ...spinBlocks],
+    timeline: [previewBlock1, previewBlock2],
     randomize_order: false, 
 };
 
@@ -729,6 +795,10 @@ p.task = {
     randomize_order: false, 
 };
 
+p.taskPredict = {
+    timeline: [...staticSpinBlocks],
+    randomize_order: false, 
+};
 
    /*
     *
@@ -870,7 +940,9 @@ let timeline;
 if (randomAssignment === 1) {
   timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task];
 } else {
-  timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.task];
+  // timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.taskPredict];
+  timeline = [exp.taskPredict];
+
 }
 
 
