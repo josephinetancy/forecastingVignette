@@ -667,14 +667,18 @@ let secondPreview = true;
 
 const staticSpin = {
   type: jsPsychSurveyLikert,
-  preamble: `
+  preamble:  function() {
+   let pct = jsPsych.timelineVariable('label');
+    let html = `
+    <p style="font-size:30px;">
+    <strong>${pct} chance of standard outcome</strong>
     <div style="text-align:center;">
       <canvas id="staticWheelCanvas" width="475" height="475" style="border:1px solid #ccc; margin-bottom: 30px;"></canvas>
       <div style="font-size: 18px; margin-bottom: 20px;">
-
       </div>
-    </div>
-  `,
+    </div>`;
+     return html;
+        },
   questions: [
     {prompt: `To what extent do you think another participant will feel <b>immersed</b> and <b>engaged</b> in spinning this wheel?`,
       name: 'predicted_flow',
@@ -796,12 +800,20 @@ p.taskPredict = {
     p.demographics = (function() {
 
 
-        const taskComplete = {
+        const taskCompletePlay = {
             type: jsPsychInstructions,
             pages: html.postTaskPlay,
             show_clickable_nav: true,
             post_trial_gap: 500,
         };
+
+        const taskCompletePredict = {
+            type: jsPsychInstructions,
+            pages: html.postTaskPredict,
+            show_clickable_nav: true,
+            post_trial_gap: 500,
+        };
+
 
         const genFlowScale = ['-2<br>Totally<br>Disagree', '-1<br>Disagree', '0<br>Neither agree<br>nor disagree', '1<br>Agree', '2<br>Totally<br>Agree'];
 
@@ -890,10 +902,17 @@ p.taskPredict = {
                 saveSurveyData(data); 
             },
         }; 
+let demos;
 
-        const demos = {
-            timeline: [taskComplete, flowGenQuestions, gender, age, ethnicity, english, finalWord]
-        };
+if (randomAssignment === 1) {
+    demos = {
+        timeline: [taskCompletePlay, gender, age, ethnicity, english, finalWord]
+    };
+} else {
+    demos = {
+        timeline: [taskCompletePredict, gender, age, ethnicity, english, finalWord]
+    };
+}
 
         return demos;
 
@@ -928,7 +947,7 @@ if (randomAssignment === 1) {
   timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task];
 } else {
   // timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.taskPredict];
-  timeline = [exp.taskPredict,  exp.task];
+  timeline = [exp.taskPredict, exp.demographics];
 
 }
 
