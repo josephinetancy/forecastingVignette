@@ -1,5 +1,10 @@
 
 
+const randomAssignment = Math.floor(Math.random() * 2) + 1; 
+console.log(randomAssignment) 
+//1 = play, 2 = predict
+
+
 const exp = (function() {
 
 
@@ -11,6 +16,10 @@ const exp = (function() {
     *   INSTRUCTIONS
     *
     */
+
+var textNew = {
+    game: [2].includes(randomAssignment) ? 'Guess the Feeling' : 'Spin the Wheel',
+}
 
     const html = {
         introPlay: [
@@ -173,12 +182,13 @@ const exp = (function() {
 
             `<div class='parent'>
                 <p>You're ready to start playing Guess the Feeling!</p>
+                <p>You'll practice with two wheels first. </p>
                 <p>Continue to the next screen to begin.</p>
             </div>`,      
         ],
 
 
-        postIntro: [
+        postPlay: [
             `<div class='parent'>
                 <p>To spin a prize wheel, just grab it with your cursor and give it a spin!</p>
                 <p>Watch the animation below to see how it's done.</p>
@@ -197,9 +207,30 @@ const exp = (function() {
             </div>`,      
         ],
 
-        postTask: [
+        readyPlay: [
+            `<div class='parent'>
+             <p>You're now ready to play Spin the Wheel!</p> 
+             <p> Click "Next" to continue. </p>
+        </div>`
+        ],
+
+        readyPredict: [
+            `<div class='parent'>
+             <p>You're now ready to play Guess the Feeling!</p> 
+             <p> Click "Next" to continue. </p>
+        </div>`
+        ],
+
+        postTaskPlay: [
             `<div class='parent'>
                 <p>Spin the Wheel is now complete!</p>
+                <p>To finish this study, please continue to answer a few final questions.</p>
+            </div>`
+        ],
+
+        postTaskPredict: [
+            `<div class='parent'>
+                <p>Guess the Feeling is now complete!</p>
                 <p>To finish this study, please continue to answer a few final questions.</p>
             </div>`
         ],
@@ -213,6 +244,15 @@ const exp = (function() {
         post_trial_gap: 500,
         allow_keys: false,
     };
+
+    const introPlay = {
+        type: jsPsychInstructions,
+        pages: html.introPlay,
+        show_clickable_nav: true,
+        post_trial_gap: 500,
+        allow_keys: false,
+    };
+
 
     let correctAnswers = [`100%`, `80%`, `40%`, `10%`, `Guess what participants might feel from spinning the wheel.`];
 
@@ -242,7 +282,7 @@ const exp = (function() {
             {
                 prompt: `If a participant lands on a 9 and there's a 40% chance of a standard outcome, what are their chances of earning 9 points?`, 
                 name: `attnCh3`, 
-                options: ['100%', '80%', '40%', '15%'],
+                options: ['100%', '80%', '40%', '10%'],
             },
             {
                 prompt: `If a participant lands on a 9 and there's a 10% chance of a standard outcome, what are their chances of earning 9 points?`, 
@@ -270,7 +310,7 @@ const exp = (function() {
       },
     };
 
-    p.instLoop = {
+    p.instLoopPredict = {
       timeline: [introPredict, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
@@ -278,9 +318,17 @@ const exp = (function() {
       },
     };
 
-    p.postIntro = {
+    p.instLoopPlay = {
+      timeline: [introPlay, attnChk, conditionalNode],
+      loop_function: () => {
+        const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
+        return fail;
+      },
+    };
+
+    p.postPlay = {
         type: jsPsychInstructions,
-        pages: html.postIntro,
+        pages: html.postPlay,
         show_clickable_nav: true,
         post_trial_gap: 500,
         allow_keys: false,
@@ -289,6 +337,22 @@ const exp = (function() {
     p.postPredict = {
         type: jsPsychInstructions,
         pages: html.postPredict,
+        show_clickable_nav: true,
+        post_trial_gap: 500,
+        allow_keys: false,
+    };
+
+    p.readyPlay = {
+        type: jsPsychInstructions,
+        pages: html.readyPlay,
+        show_clickable_nav: true,
+        post_trial_gap: 500,
+        allow_keys: false,
+    };
+
+    p.readyPredict = {
+        type: jsPsychInstructions,
+        pages: html.readyPredict,
         show_clickable_nav: true,
         post_trial_gap: 500,
         allow_keys: false,
@@ -343,7 +407,6 @@ const exp = (function() {
 };
 
 
-
 /*
     const wedges = {
         one: {color: colors[0][0], font: 'white', label:"1", points: 1},
@@ -394,22 +457,19 @@ function generateWedges() {
     const n_numbers = 20;
     const n_wedges = 10;
     const superset = Array.from({ length: n_numbers }, (_, i) => i + 1);
-    const cardinality = sample([...Array(n_wedges).keys()].map(x => x + 1), 1)[0];
+    const cardinality = sample([...Array(n_wedges - 1).keys()].map(x => x + 2), 1)[0]; // cardinality is always more than 2
     const subset = sample([...superset], cardinality, false);
     const alpha_param = Array(cardinality).fill(1);
     const probs = getRandomDirichlet(alpha_param);
     const n_remainder = n_wedges - cardinality;
     let final_set;
 
-    if (cardinality === 1) {
-        final_set = Array(n_wedges).fill(subset[0]);
-    } else if (cardinality === 10) {
+   if (cardinality === 10) {
         final_set = subset.slice().sort((a, b) => a - b);
     } else {
         const remainder = sample([...subset], n_remainder, true, probs);
         final_set = subset.concat(remainder).sort((a, b) => a - b);
     }
-
     return final_set;
 }
 
@@ -481,9 +541,39 @@ function createSpinnerTrialData() {
 }
 
 
+/* for preview */
+
+const previewNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const previewSectors = mapToWedges(previewNumbers);
+
+const previewWheel1Data = {
+  sectors: previewSectors,
+  ev: calculateEV(previewNumbers),
+  sd: calculateSD(previewNumbers),
+  uniformity: calculateUniformity(previewNumbers),
+  cardinality: calculateCardinality(previewNumbers),
+  reliability: 1,
+  label: '100%',
+  arrangement: '1'.repeat(20)
+};
+
+const previewWheel2Data = {
+  sectors: previewSectors,
+  ev: calculateEV(previewNumbers),
+  sd: calculateSD(previewNumbers),
+  uniformity: calculateUniformity(previewNumbers),
+  cardinality: calculateCardinality(previewNumbers),
+  reliability: 0.1,
+  label: '10%',
+  arrangement: '1'.repeat(20)
+};
+
+
 const spinnerTrialData = createSpinnerTrialData();
 console.log(spinnerTrialData)
 
+/* 
     // define each wheel
     const wheels = [
 
@@ -497,7 +587,7 @@ console.log(spinnerTrialData)
             {sectors: [ wedges.five_2, wedges.seven_2, wedges.nine, wedges.eleven ], wheel_id: 7, reliability: .5, label: "50%", ev: 8, sd: 2, mi: .208},
             {sectors: [ wedges.five_2, wedges.seven_2, wedges.nine, wedges.eleven ], wheel_id: 8, reliability: .25, label: "25%", ev: 8, sd: 2, mi: 0},
 
-        ];
+        ]; */
 
     let scoreTracker = 0; // track current score
     let round = 1;  // track current round
@@ -515,9 +605,38 @@ console.log(spinnerTrialData)
         choices: "NO_KEYS",
         trial_duration: 5000,
         response_ends_trial: false,
-        data: {wheel_id: jsPsych.timelineVariable('wheel_id'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
+        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability')},
         on_finish: function(data) {
             data.round = round;
+        }
+    };
+
+
+let secondPreview = true; 
+    const preSpinPractice = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: function() {
+            let pct = jsPsych.timelineVariable('label');
+            let html = `<div class="pFlip-style">
+  <p style="font-size:30px;">
+    <strong><u><p>${textNew.game}</p> <p>Practice Round</u></strong></p>
+  </p>
+  <p style="font-size:100px;">
+    <strong>${pct}</strong>
+  </p>
+  <p>
+    Chance of standard outcome
+  </p>
+</div>`;
+            return html;
+        },
+        choices: "NO_KEYS",
+        trial_duration: 5000,
+        response_ends_trial: false,
+        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability')},
+        on_finish: function(data) {
+            data.round = round;
+            secondPreview = true;
         }
     };
 
@@ -577,7 +696,19 @@ console.log(spinnerTrialData)
         }
     };
 
-    // timeline: 
+
+//for preview
+const previewBlock1 = {
+  timeline: [preSpinPractice, spin, flowMeasure],
+  timeline_variables: [previewWheel1Data]
+};
+
+const previewBlock2 = {
+  timeline: [preSpinPractice, spin, flowMeasure],
+  timeline_variables: [previewWheel2Data]
+};
+
+// for actual task
 const nRepeats = 3;
 const spinBlocks = [];
 
@@ -588,10 +719,17 @@ for (let i = 0; i < nRepeats; i++) {
     });
 }
 
-p.task = {
-    timeline: spinBlocks,
+p.preview = {
+    timeline: [previewBlock1, previewBlock2, ...spinBlocks],
     randomize_order: false, 
 };
+
+p.task = {
+    timeline: [...spinBlocks],
+    randomize_order: false, 
+};
+
+
    /*
     *
     *   Demographics
@@ -603,7 +741,7 @@ p.task = {
 
         const taskComplete = {
             type: jsPsychInstructions,
-            pages: html.postTask,
+            pages: html.postTaskPlay,
             show_clickable_nav: true,
             post_trial_gap: 500,
         };
@@ -714,7 +852,7 @@ p.task = {
     p.save_data = {
         type: jsPsychPipe,
         action: "save",
-        experiment_id: "vwGeB3lWbIBU",
+        experiment_id: "V5SY9Ulc6ReW",
         filename: filename,
         data_string: ()=>jsPsych.data.get().csv()
     };
@@ -723,7 +861,18 @@ p.task = {
 
 }());
 
-const timeline = [exp.instLoop, exp.postPredict, exp.task];
+
+
+// const timeline = [exp.instLoop, exp.postPlay, exp.preview, exp.readyPlay, exp.task];
+let timeline;
+
+
+if (randomAssignment === 1) {
+  timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task];
+} else {
+  timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.task];
+}
+
 
 // const timeline = [exp.consent, exp.instLoop, exp.postIntro, exp.task, exp.demographics, exp.save_data];
 
