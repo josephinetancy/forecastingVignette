@@ -318,40 +318,45 @@ const getIndex = (direction_idx) => {
 
 function drawWheelOnce(canvas, sectors) {
   const ctx = canvas.getContext('2d');
-  const radius = canvas.width / 2;
+  const rad = canvas.width / 2;
   const arc = (2 * Math.PI) / sectors.length;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   for (let i = 0; i < sectors.length; i++) {
-    const angle = arc * i;
+    const ang = arc * i;
     const sector = sectors[i];
 
     ctx.save();
+
+    // --- SECTOR ARC ---
     ctx.beginPath();
-    ctx.moveTo(radius, radius);
     ctx.fillStyle = sector.color;
-    ctx.arc(radius, radius, radius - 10, angle, angle + arc);
-    ctx.lineTo(radius, radius);
+    ctx.moveTo(rad, rad);
+    ctx.arc(rad, rad, rad - 10, ang, ang + arc);
+    ctx.lineTo(rad, rad);
     ctx.fill();
 
-    // Outline
-    ctx.strokeStyle = '#333';
+    // --- SECTOR OUTLINE ---
+    ctx.strokeStyle = 'black';
     ctx.lineWidth = 2;
     ctx.stroke();
-    ctx.restore();
 
-    // Draw label
-    ctx.save();
-    ctx.translate(radius, radius);
-    ctx.rotate(angle + arc / 2);
+    // --- TEXT ---
+    ctx.translate(rad, rad);
+    ctx.rotate( (ang + arc / .5) + arc );
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#fff';
-    ctx.font = 'bold 18px sans-serif';
-    ctx.fillText(sector.label, 0, -radius * 0.6);
+    ctx.fillStyle = 'white';
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 5;
+    ctx.font = 'bolder 50px sans-serif';
+    ctx.strokeText(sector.label, 0, -rad * 0.6);
+    ctx.fillText(sector.label, 0, -rad * 0.6);
+
     ctx.restore();
   }
 }
+
 
 
 

@@ -682,7 +682,7 @@ const staticSpin = {
     </div>
   `,
   questions: [
-    {prompt: `During the last round of <b>Spin the Wheel</b>,<br> to what extent did you think another participant will feel <b>immersed</b> and <b>engaged</b> in what they were doing?`,
+    {prompt: `To what extent do you think another participant will feel <b>immersed</b> and <b>engaged</b> in spinning this wheel?`,
       name: 'predicted_flow',
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely'],
       required: true,
