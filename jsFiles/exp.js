@@ -948,7 +948,7 @@ let timeline;
 
 
 if (randomAssignment === 1) {
-  timeline = [exp.preview, exp.readyPlay, exp.task, exp.demographics];
+   timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
   timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.taskPredict, exp.demographics];
