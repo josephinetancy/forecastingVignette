@@ -183,7 +183,7 @@ var textNew = {
 
             `<div class='parent'>
                 <p>Throughout Guess the Feeling, you'll answer questions about how a participant might feel.</p>
-                <p>Specifically, you'll report how <strong>immersed and engaged</strong> you think they feel while spinning each wheel.<br>
+                <p>Specifically, you'll report how <strong>immersed</strong> and <strong>engaged</strong> you think they feel while spinning each wheel.<br>
             </div>`,      
 
             `<div class='parent'>
