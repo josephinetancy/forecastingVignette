@@ -21,6 +21,9 @@ const exp = (function() {
 
 var textNew = {
     game: [2].includes(randomAssignment) ? 'Guess the Feeling' : 'Spin the Wheel',
+    attnchk1: [2].includes(randomAssignment) ? 'a participant' : 'you',
+    their: [2].includes(randomAssignment) ? 'their' : 'your',
+    s: [2].includes(randomAssignment) ? 's' : '',
 }
 
     const html = {
@@ -277,22 +280,22 @@ if (randomAssignment === 2) {
             </div>`,
         questions: [
             {
-                prompt: `If a participant lands on a 9 and there's a 100% chance of a standard outcome, what are their chances of earning 9 points?`, 
+                prompt: `If ${textNew.attnchk1} land${textNew.s} on a 9 and there's a 100% chance of a standard outcome, what are ${textNew.their} chances of earning 9 points?`, 
                 name: `attnChk1`, 
                 options: ['100%', '80%', '40%', '10%'],
             },
             {
-                prompt: `If a participant lands on a 9 and there's a 80% chance of a standard outcome, what are their chances of earning 9 points?`, 
+                prompt: `If ${textNew.attnchk1} land${textNew.s} on a 9 and there's a 80% chance of a standard outcome, what are ${textNew.their} chances of earning 9 points?`, 
                 name: `attnChk2`, 
                 options: ['100%', '80%', '40%', '10%'],
             },
             {
-                prompt: `If a participant lands on a 9 and there's a 40% chance of a standard outcome, what are their chances of earning 9 points?`, 
+                prompt: `If ${textNew.attnchk1} land${textNew.s} on a 9 and there's a 40% chance of a standard outcome, what are ${textNew.their} chances of earning 9 points?`, 
                 name: `attnCh3`, 
                 options: ['100%', '80%', '40%', '10%'],
             },
             {
-                prompt: `If a participant lands on a 9 and there's a 10% chance of a standard outcome, what are their chances of earning 9 points?`, 
+                prompt: `If ${textNew.attnchk1} land${textNew.s} on a 9 and there's a 10% chance of a standard outcome, what are ${textNew.their} chances of earning 9 points?`, 
                 name: `attnCh4`, 
                 options: ['100%', '80%', '40%', '10%'],
             },
