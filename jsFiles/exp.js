@@ -1,7 +1,7 @@
 
 
-// const randomAssignment = Math.floor(Math.random() * 2) + 1; 
-const randomAssignment = 1;
+ const randomAssignment = Math.floor(Math.random() * 2) + 1; 
+// const randomAssignment = 2;
 
 console.log(randomAssignment) 
 //1 = play, 2 = predict
@@ -101,11 +101,11 @@ var textNew = {
                 <p><strong>Welcome to Guess the Feeling!</strong></p>
                 <p>In Guess the Feeling, you'll see a series of prize wheels that another participant will spin.</p>
                 <p>The participant will spin the wheel and earn points.</p>
-                <p>Your goal is to predict how they'll feel while spinning the wheel.</p>
+                <p>Your goal is to guess how they'll feel while spinning the wheel.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>Each wheel is divided into 10 wedges, like this:</p>
+                <p>Each wheel that a participant spins is divided into 10 wedges, like this:</p>
                 <img src="./img/arrow-up.png" style="width:70%; height:70%">
             </div>`,
 
@@ -116,7 +116,7 @@ var textNew = {
             </div>`,
 
             `<div class='parent'>
-                <p>The number on the activated wedge is added to a participant's total score.</p>
+                <p>The number on the activated wedge is added to the participant's total score.</p>
                 <p>In this example, the participant gained 1 point.</p>
                 <img src="./img/standard-outcome.png" style="width:70%; height:70%">
             </div>`,
@@ -171,7 +171,7 @@ var textNew = {
 
             postPredict: [
             `<div class='parent'>
-                <p>Participants will spin the wheel like this.</p>
+                <p>Participants will spin the wheel by grabbing it with their cursor and giving it a spin.</p>
                 <p>Watch the animation below to see how it's done.</p>
                 <img src="./img/spin-gif.gif" style="width:70%; height:70%">
             </div>`,
@@ -191,7 +191,7 @@ var textNew = {
 
         postPlay: [
             `<div class='parent'>
-                <p>To spin a prize wheel, just grab it with your cursor and give it a spin!</p>
+                <p>To spin a prize wheel, just grab it with your cursor and give it a spin.</p>
                 <p>Watch the animation below to see how it's done.</p>
                 <img src="./img/spin-gif.gif" style="width:70%; height:70%">
             </div>`,
@@ -660,6 +660,7 @@ let secondPreview = true;
         on_finish: function(data) {
             data.round = round;
             scoreTracker = data.score
+            scoreTracker = 0; 
         }
     };
 
@@ -679,7 +680,7 @@ const staticSpin = {
      return html;
         },
   questions: [
-    {prompt: `To what extent do you think another participant will feel <b>immersed</b> and <b>engaged</b> in spinning this wheel?`,
+    {prompt: `To what extent do you think a typical participant will feel <b>immersed</b> and <b>engaged</b> when spinning this wheel?`,
       name: 'predicted_flow',
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely'],
       required: true,
@@ -714,7 +715,6 @@ const staticSpin = {
             let scoreArray = jsPsych.data.get().select('score').values;
             data.score = scoreArray[scoreArray.length - 1];
             saveSurveyData(data);
-            scoreTracker = 0; 
         }
     };
 
@@ -741,12 +741,12 @@ const staticSpin = {
 
 //for preview
 const previewBlock1 = {
-  timeline: [preSpinPractice, spin, flowMeasure],
+  timeline: [preSpinPractice, spin],
   timeline_variables: [previewWheel1Data]
 };
 
 const previewBlock2 = {
-  timeline: [preSpinPractice, spin, flowMeasure],
+  timeline: [preSpinPractice, spin],
   timeline_variables: [previewWheel2Data]
 };
 
