@@ -1,7 +1,7 @@
 
 
 // const randomAssignment = Math.floor(Math.random() * 2) + 1; 
-const randomAssignment = 2;
+const randomAssignment = 1;
 
 console.log(randomAssignment) 
 //1 = play, 2 = predict
@@ -34,33 +34,33 @@ var textNew = {
 
             `<div class='parent'>
                 <p>Each wheel is divided into 10 wedges, like this:</p>
-                <img src="./img/arrow-up.png" style="width:50%; height:50%">
+                <img src="./img/arrow-up.png" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
                 <p>When a wheel stops spinning, one of the wedges will activate.</p>
                 <p>The activated wedge will turn black, like this:</p>
-                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
+                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
                 <p>The number on the activated wedge is added to your total score.</p>
-                <p>In this example, you'd gain 5 points.</p>
-                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
+                <p>In this example, you'd gain 1 point.</p>
+                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
                 <p>Typically, the wedge that lands on the arrow will activate.</p>
                 <p>This is called a "standard outcome."</p>
                 <p>Below is an example of a standard outcome.</p>
-                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
+                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
                 <p>Occasionally, a random wedge will activate instead.</p>
                 <p>This is called a "random outcome."</p>
                 <p>Here's an example of a random outcome:</p>
-                <img src="./img/random-outcome.png" style="width:50%; height:50%">
+                <img src="./img/random-outcome.png" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
@@ -79,22 +79,22 @@ var textNew = {
 
             `<div class='parent'>
                 <p>Sometimes the arrow will point up:</p>
-                <img src="./img/arrow-up.png" style="width:50%; height:50%">      
+                <img src="./img/arrow-up.png" style="width:70%; height:70%">      
             </div>`,
 
             `<div class='parent'>
                 <p>Sometimes the arrow will point right:</p>
-                <img src="./img/arrow-right.png" style="width:50%; height:50%">      
+                <img src="./img/arrow-right.png" style="width:70%; height:70%">      
             </div>`,
 
             `<div class='parent'>
                 <p>Sometimes the arrow will point left:</p>
-                <img src="./img/arrow-left.png" style="width:50%; height:50%">      
+                <img src="./img/arrow-left.png" style="width:70%; height:70%">      
             </div>`,
 
             `<div class='parent'>
                 <p>Sometimes the arrow will point down:</p>
-                <img src="./img/arrow-down.png" style="width:50%; height:50%">      
+                <img src="./img/arrow-down.png" style="width:70%; height:70%">      
             </div>`],
         introPredict: [
             `<div class='parent'>
@@ -106,33 +106,33 @@ var textNew = {
 
             `<div class='parent'>
                 <p>Each wheel is divided into 10 wedges, like this:</p>
-                <img src="./img/arrow-up.png" style="width:50%; height:50%">
+                <img src="./img/arrow-up.png" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
                 <p>When a wheel stops spinning, one of the wedges will activate.</p>
                 <p>The activated wedge will turn black, like this:</p>
-                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
+                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
                 <p>The number on the activated wedge is added to a participant's total score.</p>
-                <p>In this example, the participant gained 5 points.</p>
-                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
+                <p>In this example, the participant gained 1 point.</p>
+                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
                 <p>Typically, the wedge that lands on the arrow will activate.</p>
                 <p>This is called a "standard outcome."</p>
                 <p>Below is an example of a standard outcome.</p>
-                <img src="./img/standard-outcome.png" style="width:50%; height:50%">
+                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
                 <p>Occasionally, a random wedge will activate instead.</p>
                 <p>This is called a "random outcome."</p>
                 <p>Here's an example of a random outcome:</p>
-                <img src="./img/random-outcome.png" style="width:50%; height:50%">
+                <img src="./img/random-outcome.png" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
@@ -151,35 +151,34 @@ var textNew = {
 
             `<div class='parent'>
                 <p>Sometimes the arrow will point up:</p>
-                <img src="./img/arrow-up.png" style="width:50%; height:50%">      
+                <img src="./img/arrow-up.png" style="width:70%; height:70%">      
             </div>`,
 
             `<div class='parent'>
                 <p>Sometimes the arrow will point right:</p>
-                <img src="./img/arrow-right.png" style="width:50%; height:50%">      
+                <img src="./img/arrow-right.png" style="width:70%; height:70%">      
             </div>`,
 
             `<div class='parent'>
                 <p>Sometimes the arrow will point left:</p>
-                <img src="./img/arrow-left.png" style="width:50%; height:50%">      
+                <img src="./img/arrow-left.png" style"width:70%; height:70%">      
             </div>`,
 
             `<div class='parent'>
                 <p>Sometimes the arrow will point down:</p>
-                <img src="./img/arrow-down.png" style="width:50%; height:50%">      
+                <img src="./img/arrow-down.png" style="width:70%; height:70%">      
             </div>`],
 
             postPredict: [
             `<div class='parent'>
                 <p>Participants will spin the wheel like this.</p>
                 <p>Watch the animation below to see how it's done.</p>
-                <img src="./img/spin-gif.gif" style="width:50%; height:50%">
+                <img src="./img/spin-gif.gif" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
                 <p>Throughout Guess the Feeling, you'll answer questions about how a participant might feel.</p>
-                <p>Specifically, you'll report how <strong>immersed and engaged</strong> you think they feel while spinning each wheel,<br>
-                as well as how <strong>happy</strong> they feel.</p>
+                <p>Specifically, you'll report how <strong>immersed and engaged</strong> you think they feel while spinning each wheel.<br>
             </div>`,      
 
             `<div class='parent'>
@@ -194,17 +193,17 @@ var textNew = {
             `<div class='parent'>
                 <p>To spin a prize wheel, just grab it with your cursor and give it a spin!</p>
                 <p>Watch the animation below to see how it's done.</p>
-                <img src="./img/spin-gif.gif" style="width:50%; height:50%">
+                <img src="./img/spin-gif.gif" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
                 <p>Throughout Spin the Wheel, you'll answer questions about how you feel.</p>
-                <p>Specifically, you'll report how <strong>immersed and engaged</strong> you feel while spinning each wheel,<br>
-                as well as how <strong>happy</strong> you currently feel.</p>
+                <p>Specifically, you'll report how <strong>immersed and engaged</strong> you feel while spinning each wheel.<br>
             </div>`,      
 
             `<div class='parent'>
                 <p>You're ready to start playing Spin the Wheel!</p>
+                <p>You'll practice with the first two wheels. </p>
                 <p>Continue to the next screen to begin.</p>
             </div>`,      
         ],
@@ -944,10 +943,10 @@ let timeline;
 
 
 if (randomAssignment === 1) {
-  timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task];
+  timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
+ // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
-  // timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.taskPredict];
-  timeline = [exp.taskPredict, exp.demographics];
+  timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.taskPredict, exp.demographics];
 
 }
 

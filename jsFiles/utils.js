@@ -1,5 +1,5 @@
 
-let noOfSpins = 1;
+let noOfSpins = 5;
 
 // initialize jsPsych
 const jsPsych = initJsPsych({
