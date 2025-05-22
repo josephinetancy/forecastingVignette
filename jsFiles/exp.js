@@ -91,14 +91,15 @@ var textNew = {
             </div>`,
 
             `<div class='parent'>
-                <p>Sometimes the arrow will point left:</p>
-                <img src="./img/arrow-left.png" style="width:70%; height:70%">      
+                <p>Sometimes the arrow will point down:</p>
+                <img src="./img/arrow-down.png" style="width:70%; height:70%">      
             </div>`,
 
             `<div class='parent'>
-                <p>Sometimes the arrow will point down:</p>
-                <img src="./img/arrow-down.png" style="width:70%; height:70%">      
-            </div>`],
+                <p>Sometimes the arrow will point left:</p>
+                <img src="./img/arrow-left.png" style="width:70%; height:70%">      
+            </div>`
+            ],
         introPredict: [
             `<div class='parent'>
                 <p><strong>Welcome to Guess the Feeling!</strong></p>
@@ -163,14 +164,15 @@ var textNew = {
             </div>`,
 
             `<div class='parent'>
-                <p>Sometimes the arrow will point left:</p>
-                <img src="./img/arrow-left.png" style"width:70%; height:70%">      
+                <p>Sometimes the arrow will point down:</p>
+                <img src="./img/arrow-down.png" style="width:70%; height:70%">      
             </div>`,
 
             `<div class='parent'>
-                <p>Sometimes the arrow will point down:</p>
-                <img src="./img/arrow-down.png" style="width:70%; height:70%">      
-            </div>`],
+                <p>Sometimes the arrow will point left:</p>
+                <img src="./img/arrow-left.png" style="width:70%; height:70%">      
+            </div>`
+            ],
 
             postPredict: [
             `<div class='parent'>
@@ -946,7 +948,7 @@ let timeline;
 
 
 if (randomAssignment === 1) {
-  timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
+  timeline = [exp.preview, exp.readyPlay, exp.task, exp.demographics];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
   timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.taskPredict, exp.demographics];
