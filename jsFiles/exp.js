@@ -937,6 +937,15 @@ if (randomAssignment === 1) {
         data_string: ()=>jsPsych.data.get().csv()
     };
 
+    p.end = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: '<p>Thank you! Please press the button to submit your response and exit the page. </p>',
+        choices: ['Submit!'],
+        on_finish: (data) => {
+            saveSurveyData(data); 
+            },
+        };
+
     return p;
 
 }());
@@ -948,10 +957,10 @@ let timeline;
 
 
 if (randomAssignment === 1) {
-   timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
+   timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics, exp.end];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
-  timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.taskPredict, exp.demographics];
+  timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.taskPredict, exp.demographics, exp.end];
 
 }
 
