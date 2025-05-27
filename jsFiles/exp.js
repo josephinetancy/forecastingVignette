@@ -616,7 +616,7 @@ const spinnerTrialData = createSpinnerTrialData();
         choices: "NO_KEYS",
         trial_duration: 5000,
         response_ends_trial: false,
-        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability')},
+        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), jsPsych.timelineVariable('uniformity'), jsPsych.timelineVariable('cardinality'), jsPsych.timelineVariable('sectors')},
         on_finish: function(data) {
             data.round = round;
         }
@@ -644,7 +644,7 @@ let secondPreview = true;
         choices: "NO_KEYS",
         trial_duration: 5000,
         response_ends_trial: false,
-        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability')},
+        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), jsPsych.timelineVariable('uniformity'), jsPsych.timelineVariable('cardinality'), jsPsych.timelineVariable('sectors')},
         on_finish: function(data) {
             data.round = round;
             secondPreview = true;
@@ -661,7 +661,7 @@ let secondPreview = true;
             return scoreTracker
         },
         random_prob: jsPsych.timelineVariable('label'),
-        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability')},
+        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), jsPsych.timelineVariable('uniformity'), jsPsych.timelineVariable('cardinality'), jsPsych.timelineVariable('sectors')},
         on_finish: function(data) {
             data.round = round;
             scoreTracker = data.score
@@ -714,7 +714,7 @@ const staticSpin = {
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
+        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), jsPsych.timelineVariable('uniformity'), jsPsych.timelineVariable('cardinality'), jsPsych.timelineVariable('sectors')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
@@ -733,7 +733,7 @@ const staticSpin = {
         ],
         randomize_question_order: false,
         scale_width: 600,
-        data: {v: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), mi: jsPsych.timelineVariable('mi')},
+        data: {ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd'), reliability: jsPsych.timelineVariable('reliability'), jsPsych.timelineVariable('uniformity'), jsPsych.timelineVariable('cardinality'), jsPsych.timelineVariable('sectors')},
         on_finish: function(data) {
             data.round = round;
             let scoreArray = jsPsych.data.get().select('score').values;
