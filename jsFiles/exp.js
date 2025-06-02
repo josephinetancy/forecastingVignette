@@ -680,7 +680,6 @@ data: function() {
     points: sectors.map(s => s.points)
   };
 },        on_finish: function(data) {
-            data.round = 0;
         }
     };
 
@@ -751,7 +750,7 @@ data: function() {
   };
 },          on_finish: function(data) {
             data.round = round;
-             scoreTracker = data.score;
+            scoreTracker = data.score;
         }
     };
 
