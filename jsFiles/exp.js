@@ -21,18 +21,17 @@ const exp = (function() {
 
 var textNew = {
     game: [2].includes(randomAssignment) ? 'Guess the Feeling' : 'Spin the Wheel',
-    attnchk1: [2].includes(randomAssignment) ? 'a participant' : 'you',
-    their: [2].includes(randomAssignment) ? 'their' : 'your',
+    attnchk1: [2].includes(randomAssignment) ? 'a wheel' : 'you',
+    their: [2].includes(randomAssignment) ? 'the' : 'your',
     s: [2].includes(randomAssignment) ? 's' : '',
 }
 
     const html = {
         introPlay: [
             `<div class='parent'>
-                <p><strong>Welcome to Spin the Wheel!</strong></p>
+                <p><strong>Welcome!</strong></p>
                 <p>In Spin the Wheel, you'll spin a series of prize wheels.</p>
                 <p>With each spin, you'll earn points.</p>
-                <p>Your goal is to earn as many points as possible!</p>
             </div>`,
 
             `<div class='parent'>
@@ -102,14 +101,13 @@ var textNew = {
             ],
         introPredict: [
             `<div class='parent'>
-                <p><strong>Welcome to Guess the Feeling!</strong></p>
-                <p>In Guess the Feeling, you'll see a series of prize wheels that another participant will spin.</p>
-                <p>The participant will spin the wheel and earn points.</p>
-                <p>Your goal is to guess how they'll feel while spinning the wheel.</p>
+                <p><strong>Welcome to Feel the Spin!</strong></p>
+                <p> This game involves a series of prize wheels that players will spin.</p>
+                <p>Players will spin the wheels and earn points.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>Each wheel that a participant spins is divided into 10 wedges, like this:</p>
+                <p>Each wheel is divided into 10 wedges, like this:</p>
                 <img src="./img/arrow-up.png" style="width:70%; height:70%">
             </div>`,
 
@@ -120,8 +118,8 @@ var textNew = {
             </div>`,
 
             `<div class='parent'>
-                <p>The number on the activated wedge is added to the participant's total score.</p>
-                <p>In this example, the participant gained 1 point.</p>
+                <p>The number on the activated wedge is added to the player's total score.</p>
+                <p>In this example, the player gained 1 point.</p>
                 <img src="./img/standard-outcome.png" style="width:70%; height:70%">
             </div>`,
 
@@ -176,23 +174,30 @@ var textNew = {
 
             postPredict: [
             `<div class='parent'>
-                <p>Participants will spin the wheel by grabbing it with their cursor and giving it a spin.</p>
+                <p>The wheel is spun by grabbing the cursor and giving it a spin.</p>
                 <p>Watch the animation below to see how it's done.</p>
                 <img src="./img/spin-gif.gif" style="width:70%; height:70%">
             </div>`,
 
             `<div class='parent'>
-                <p>Throughout Guess the Feeling, you'll answer questions about how a participant might feel.</p>
-                <p>Specifically, you'll report how <strong>immersed</strong> and <strong>engaged</strong> you think they feel while spinning each wheel.<br>
-            </div>`,      
-
-            `<div class='parent'>
-                <p>You're ready to start playing Guess the Feeling!</p>
-                <p>To practice, you'll play as if you were a participant for the first two wheels. </p>
+                <p>To get a feel for the game, you'll practice spinning two example wheels.</p>
                 <p>Continue to the next screen to begin.</p>
             </div>`,      
         ],
 
+        goalPredict: [
+            `<div class='parent'>
+                <p>Your goal is to guess what other players feel after spinning the wheel.</p>
+                <p>Continue to the next screen to begin.</p>
+            </div>`,      
+        ],
+
+        goalPlay: [
+            `<div class='parent'>
+            <p>Your goal is to earn as many points as possible!</p>
+            <p>Continue to the next screen to begin.</p>
+            </div>`,      
+        ],
 
         postPlay: [
             `<div class='parent'>
@@ -215,14 +220,14 @@ var textNew = {
 
         readyPlay: [
             `<div class='parent'>
-             <p>You're now ready to play Spin the Wheel!</p> 
+             <p>You're now ready to play Feel the Spin!</p> 
              <p> Click "Next" to continue. </p>
         </div>`
         ],
 
         readyPredict: [
             `<div class='parent'>
-             <p>You're now ready to play Guess the Feeling!</p> 
+             <p>You're now ready to play Feel the Spin!</p> 
              <p> Click "Next" to continue. </p>
         </div>`
         ],
@@ -236,7 +241,7 @@ var textNew = {
 
         postTaskPredict: [
             `<div class='parent'>
-                <p>Guess the Feeling is now complete!</p>
+                <p>The game is now complete!</p>
                 <p>To finish this study, please continue to answer a few final questions.</p>
             </div>`
         ],
@@ -261,12 +266,6 @@ var textNew = {
 
 
 let correctAnswers = [`100%`, `80%`, `40%`, `10%`];
-
-if (randomAssignment === 2) {
-  correctAnswers.push(`Guess what participants might feel from spinning the wheel.`);
-} else {
-  correctAnswers.push(`Spin the wheel and earn points.`);
-}
 
     const errorMessage = {
         type: jsPsychInstructions,
@@ -301,11 +300,6 @@ if (randomAssignment === 2) {
                 name: `attnCh4`, 
                 options: ['100%', '80%', '40%', '10%'],
             },
-            {
-                prompt: `What is your goal?`, 
-                name: `attnChk5`, 
-                options: [`Spin the wheel and earn points.`,`Guess what participants might feel from spinning the wheel.`],
-            },
         ],
         scale_width: 500,
         on_finish: (data) => {
@@ -313,6 +307,39 @@ if (randomAssignment === 2) {
               data.totalErrors = totalErrors;
         },
     };
+
+let correctAnswers1;
+
+if (randomAssignment === 2) {
+  correctAnswers1 = `Guess what players might feel from spinning the wheel.`;
+} else {
+  correctAnswers1 = `Spin the wheel and earn points.`;
+}
+
+    const errorMessage1 = {
+        type: jsPsychInstructions,
+        pages: [`<div class='parent'><p>You provided the wrong answer.<br>To make sure you understand the game, please continue to re-read the instructions.</p></div>`],
+        show_clickable_nav: true,
+        allow_keys: false,
+    };
+
+const attnChk1 = {
+    type: jsPsychSurveyMultiChoice,
+    preamble: `<div class='parent'><p>Please answer the question.</p></div>`,
+    questions: [
+        {
+            prompt: `What is your goal?`, 
+            name: `attnChk5`, 
+            options: [`Spin the wheel and earn points.`, `Guess what players might feel from spinning the wheel.`],
+        },
+    ],
+    scale_width: 500,
+    on_finish: (data) => {
+        const response = data.response.attnChk5;
+        data.correct = response === correctAnswers1;
+        data.totalErrors = response === correctAnswers1 ? 0 : 1;
+    },
+};
 
     const conditionalNode = {
       timeline: [errorMessage],
@@ -338,6 +365,14 @@ if (randomAssignment === 2) {
       },
     };
 
+    p.instLoopPredict1 = {
+      timeline: [attnChk1, conditionalNode],
+      loop_function: () => {
+        const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
+        return fail;
+      },
+    };
+
     p.postPlay = {
         type: jsPsychInstructions,
         pages: html.postPlay,
@@ -349,6 +384,22 @@ if (randomAssignment === 2) {
     p.postPredict = {
         type: jsPsychInstructions,
         pages: html.postPredict,
+        show_clickable_nav: true,
+        post_trial_gap: 500,
+        allow_keys: false,
+    };
+
+    p.goalPlay = {
+        type: jsPsychInstructions,
+        pages: html.goalPlay,
+        show_clickable_nav: true,
+        post_trial_gap: 500,
+        allow_keys: false,
+    };
+
+    p.goalPredict = {
+        type: jsPsychInstructions,
+        pages: html.goalPredict,
         show_clickable_nav: true,
         post_trial_gap: 500,
         allow_keys: false,
@@ -627,7 +678,7 @@ data: function() {
     points: sectors.map(s => s.points)
   };
 },        on_finish: function(data) {
-            data.round = round;
+            data.round = 0;
         }
     };
 
@@ -639,7 +690,7 @@ let secondPreview = true;
             let pct = jsPsych.timelineVariable('label');
             let html = `<div class="pFlip-style">
   <p style="font-size:30px;">
-    <strong><u><p>${textNew.game}</p> <p>Practice Round</u></strong></p>
+    <strong><u><p>Practice Round</u></strong></p>
   </p>
   <p style="font-size:100px;">
     <strong>${pct}</strong>
@@ -699,21 +750,26 @@ data: function() {
 
 const staticSpin = {
   type: jsPsychSurveyLikert,
-  preamble:  function() {
-   let pct = jsPsych.timelineVariable('label');
-    let html = `
-    <p style="font-size:30px;">
-    <strong>${pct} chance of standard outcome</strong>
+preamble: function() {
+  let pct = jsPsych.timelineVariable('label');
+  return `
     <div style="text-align:center;">
-      <canvas id="staticWheelCanvas" width="475" height="475" style="border:1px solid #ccc; margin-bottom: 30px;"></canvas>
-      <div style="font-size: 18px; margin-bottom: 20px;">
+      <div style="font-size:24px; margin-bottom: 10px;">
+        <strong>${pct} chance of standard outcome</strong>
       </div>
-    </div>`;
-     return html;
-        },
+      <canvas id="staticWheelCanvas" width="475" height="475" style="border:1px solid #ccc; margin-bottom: 10px;"></canvas>
+    </div>
+  `;
+},
   questions: [
-    {prompt: `To what extent do you think a typical participant will feel <b>immersed</b> and <b>engaged</b> when spinning this wheel?`,
+    {prompt: `To what extent do you think people will feel <b>immersed</b> and <b>absorbed</b> when spinning this wheel?`,
       name: 'predicted_flow',
+      labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely'],
+      required: true,
+      horizontal: true
+    },
+    {prompt: `To what extent do you think people will <b>like</b> spinning this wheel?`,
+      name: 'predicted_enjoy',
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely'],
       required: true,
       horizontal: true
@@ -745,7 +801,7 @@ const staticSpin = {
     const flowMeasure = {
         type: jsPsychSurveyLikert,
         questions: [
-            {prompt: `During the last round of Spin the Wheel,<br>to what extent did you feel <b>immersed</b> and <b>engaged</b> in what you were doing?`,
+            {prompt: `During the last round of Spin the Wheel,<br>to what extent did you feel <b>immersed</b> and <b>absorbed</b> in what you were doing?`,
             name: `flow`,
             labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']},
         ],
@@ -762,7 +818,7 @@ const staticSpin = {
     points: sectors.map(s => s.points)
   };
 },          on_finish: function(data) {
-            data.round = round;
+            data.round++;
             let scoreArray = jsPsych.data.get().select('score').values;
             data.score = scoreArray[scoreArray.length - 1];
             saveSurveyData(data);
@@ -770,12 +826,12 @@ const staticSpin = {
     };
 
     // trial: happiness DV
-    const happinessMeasure = {
+    const enjoymentMeasure = {
         type: jsPsychSurveyLikert,
         questions: [
-            {prompt: `How <b>happy</b> are you right now?`,
+            {prompt: `How much did you like Spinning the Wheel?`,
             name: `happiness`,
-            labels: ['0<br>Very unhappy', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Very happy']},
+            labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']},
         ],
         randomize_question_order: false,
         scale_width: 600,
@@ -816,7 +872,7 @@ const spinBlocks = [];
 
 for (let i = 0; i < nRepeats; i++) {
     spinBlocks.push({
-        timeline: [preSpin, spin, flowMeasure],
+        timeline: [preSpin, spin, flowMeasure, enjoymentMeasure],
         timeline_variables: [createSpinnerTrialData()]
     });
 }
@@ -1015,7 +1071,7 @@ if (randomAssignment === 1) {
    timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
-  timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.readyPredict, exp.taskPredict, exp.demographics, exp.save_data, exp.end];
+  timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.goalPredict, exp.instLoopPredict1, exp.readyPredict, exp.taskPredict, exp.demographics, exp.save_data, exp.end];
 
 }
 
