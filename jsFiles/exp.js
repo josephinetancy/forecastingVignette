@@ -750,6 +750,7 @@ data: function() {
   };
 },          on_finish: function(data) {
             data.round = round;
+            console.log(round);
             scoreTracker = data.score;
         }
     };
@@ -798,7 +799,10 @@ preamble: function() {
     drawWheelOnce(canvas, sectors);
   },
   on_finish: function (data) {
-    data.round++;
+    round++;
+    console.log(round)
+    data.round = round;
+    console.log(data.round);
     saveSurveyData(data);
     console.log(data)
   },
@@ -837,10 +841,8 @@ preamble: function() {
 
   on_finish: function(data) {
     // Optional: only increment if data.round is already defined
-    if (typeof data.round === 'number') {
-      data.round++;
-    }
-
+    round++;
+    console.log(round);
     // Add last score if available
     let scoreArray = jsPsych.data.get().select('score').values;
     data.score = scoreArray[scoreArray.length - 1];
@@ -852,6 +854,7 @@ preamble: function() {
 
     // Save via your custom function
     saveSurveyData(data);
+    data.round = round;
   }
 };
 
@@ -880,7 +883,7 @@ preamble: function() {
             let scoreArray = jsPsych.data.get().select('score').values;
             data.score = scoreArray[scoreArray.length - 2];
             saveSurveyData(data);
- //           round++;
+ //           data.round++;
         }
     };
 
