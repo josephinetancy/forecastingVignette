@@ -29,10 +29,10 @@ var textNew = {
     const html = {
         introPlay: [
             `<div class='parent'>
-                <p><strong>Welcome!</strong></p>
-                <p>In Spin the Wheel, you'll spin a series of prize wheels.</p>
-                <p>With each spin, you'll earn points.</p>
-            </div>`,
+                <p><strong>Welcome to Feel the Spin!</strong></p>
+               <p>This game involves a series of prize wheels that you will spin.</p>
+                <p>You will spin the wheels and earn points.</p>
+             </div>`,
 
             `<div class='parent'>
                 <p>Each wheel is divided into 10 wedges, like this:</p>
@@ -102,7 +102,7 @@ var textNew = {
         introPredict: [
             `<div class='parent'>
                 <p><strong>Welcome to Feel the Spin!</strong></p>
-                <p> This game involves a series of prize wheels that players will spin.</p>
+                <p>This game involves a series of prize wheels that players will spin.</p>
                 <p>Players will spin the wheels and earn points.</p>
             </div>`,
 
@@ -194,7 +194,7 @@ var textNew = {
 
         goalPlay: [
             `<div class='parent'>
-            <p>Your goal is to earn as many points as possible!</p>
+            <p>Your goal is to earn as many points as possible.</p>
             <p>Continue to the next screen to begin.</p>
             </div>`,      
         ],
@@ -207,15 +207,9 @@ var textNew = {
             </div>`,
 
             `<div class='parent'>
-                <p>Throughout Spin the Wheel, you'll answer questions about how you feel.</p>
-                <p>Specifically, you'll report how <strong>immersed and engaged</strong> you feel while spinning each wheel.<br>
-            </div>`,      
-
-            `<div class='parent'>
-                <p>You're ready to start playing Spin the Wheel!</p>
-                <p>You'll practice with the first two wheels. </p>
+                <p>To get a feel for the game, you'll practice spinning two example wheels.</p>
                 <p>Continue to the next screen to begin.</p>
-            </div>`,      
+            </div>`,     
         ],
 
         readyPlay: [
@@ -234,7 +228,7 @@ var textNew = {
 
         postTaskPlay: [
             `<div class='parent'>
-                <p>Spin the Wheel is now complete!</p>
+                <p>The game is now complete!</p>
                 <p>To finish this study, please continue to answer a few final questions.</p>
             </div>`
         ],
@@ -366,6 +360,14 @@ const attnChk1 = {
     };
 
     p.instLoopPredict1 = {
+      timeline: [attnChk1, conditionalNode],
+      loop_function: () => {
+        const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
+        return fail;
+      },
+    };
+
+    p.instLoopPlay1 = {
       timeline: [attnChk1, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
@@ -742,8 +744,7 @@ data: function() {
   };
 },          on_finish: function(data) {
             data.round = round;
-            scoreTracker = data.score
-            scoreTracker = 0; 
+             scoreTracker = data.score;
         }
     };
 
@@ -1068,7 +1069,7 @@ let timeline;
 
 
 if (randomAssignment === 1) {
-   timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
+   timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
   timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.goalPredict, exp.instLoopPredict1, exp.readyPredict, exp.taskPredict, exp.demographics, exp.save_data, exp.end];
