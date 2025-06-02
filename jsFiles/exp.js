@@ -654,7 +654,7 @@ const spinnerTrialData = createSpinnerTrialData();
         ]; */
 
     let scoreTracker = 0; // track current score
-    let round = 1;  // track current round
+    let round = 0;  // track current round
 
     const preSpin = {
         type: jsPsychHtmlKeyboardResponse,
@@ -799,6 +799,7 @@ preamble: function() {
     drawWheelOnce(canvas, sectors);
   },
   on_finish: function (data) {
+    data.round++;
     saveSurveyData(data);
     console.log(data)
   },
@@ -850,8 +851,6 @@ preamble: function() {
     data.flow = response.flow;
     data.enjoy = response.enjoy;
 
-
-
     // Save via your custom function
     saveSurveyData(data);
   }
@@ -882,7 +881,7 @@ preamble: function() {
             let scoreArray = jsPsych.data.get().select('score').values;
             data.score = scoreArray[scoreArray.length - 2];
             saveSurveyData(data);
-            round++;
+ //           round++;
         }
     };
 
@@ -899,7 +898,7 @@ const previewBlock2 = {
 };
 
 // for actual task
-const nRepeats = 3;
+const nRepeats = 18;
 const spinBlocks = [];
 
 for (let i = 0; i < nRepeats; i++) {
