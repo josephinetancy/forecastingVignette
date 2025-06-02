@@ -194,7 +194,7 @@ var textNew = {
 
         goalPlay: [
             `<div class='parent'>
-            <p>Your goal is to earn as many points as possible.</p>
+            <p>Your goal is to spin the wheel and earn as many points as possible.</p>
             <p>Continue to the next screen to begin.</p>
             </div>`,      
         ],
@@ -684,6 +684,13 @@ data: function() {
         }
     };
 
+const resetScoreTracker = {
+  type: jsPsychCallFunction,
+  func: () => {
+    scoreTracker = 0;
+  }
+};
+
 
 let secondPreview = true; 
     const preSpinPractice = {
@@ -799,32 +806,56 @@ preamble: function() {
 
 
     // trial: flow DV
-    const flowMeasure = {
-        type: jsPsychSurveyLikert,
-        questions: [
-            {prompt: `During the last round of Spin the Wheel,<br>to what extent did you feel <b>immersed</b> and <b>absorbed</b> in what you were doing?`,
-            name: `flow`,
-            labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']},
-        ],
-        randomize_question_order: false,
-        scale_width: 600,
- data: function() {
-  const sectors = jsPsych.timelineVariable('sectors');
-  return {
-    ev: jsPsych.timelineVariable('ev'),
-    sd: jsPsych.timelineVariable('sd'),
-    reliability: jsPsych.timelineVariable('reliability'),
-    uniformity: jsPsych.timelineVariable('uniformity'),
-    cardinality: jsPsych.timelineVariable('cardinality'),
-    points: sectors.map(s => s.points)
-  };
-},          on_finish: function(data) {
-            data.round++;
-            let scoreArray = jsPsych.data.get().select('score').values;
-            data.score = scoreArray[scoreArray.length - 1];
-            saveSurveyData(data);
-        }
+ const flowMeasure = {
+  type: jsPsychSurveyLikert,
+  questions: [
+    {
+      prompt: `During the last round of Spin the Wheel,<br>to what extent did you feel <b>immersed</b> and <b>absorbed</b> in what you were doing?`,
+      name: `flow`,
+      labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']
+    },
+    {
+      prompt: `How much did you <b>like</b> Spinning the Wheel?`,
+      name: `enjoy`,
+      labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']
+    }
+  ],
+  randomize_question_order: false,
+  scale_width: 600,
+
+  data: function() {
+    const sectors = jsPsych.timelineVariable('sectors');
+    return {
+      ev: jsPsych.timelineVariable('ev'),
+      sd: jsPsych.timelineVariable('sd'),
+      reliability: jsPsych.timelineVariable('reliability'),
+      uniformity: jsPsych.timelineVariable('uniformity'),
+      cardinality: jsPsych.timelineVariable('cardinality'),
+      points: sectors.map(s => s.points)
     };
+  },
+
+  on_finish: function(data) {
+    // Optional: only increment if data.round is already defined
+    if (typeof data.round === 'number') {
+      data.round++;
+    }
+
+    // Add last score if available
+    let scoreArray = jsPsych.data.get().select('score').values;
+    data.score = scoreArray[scoreArray.length - 1];
+
+    // Save flow and enjoy into their own top-level fields
+    const response = data.response || {};
+    data.flow = response.flow;
+    data.enjoy = response.enjoy;
+
+
+
+    // Save via your custom function
+    saveSurveyData(data);
+  }
+};
 
     // trial: happiness DV
     const enjoymentMeasure = {
@@ -863,7 +894,7 @@ const previewBlock1 = {
 };
 
 const previewBlock2 = {
-  timeline: [preSpinPractice, spin],
+  timeline: [resetScoreTracker, preSpinPractice, spin],
   timeline_variables: [previewWheel2Data]
 };
 
@@ -872,12 +903,19 @@ const nRepeats = 3;
 const spinBlocks = [];
 
 for (let i = 0; i < nRepeats; i++) {
-    spinBlocks.push({
-        timeline: [preSpin, spin, flowMeasure, enjoymentMeasure],
-        timeline_variables: [createSpinnerTrialData()]
-    });
-}
+  const blockTimeline = [];
 
+  if (i === 0) {
+    blockTimeline.push(resetScoreTracker); // only for the first block
+  }
+
+  blockTimeline.push(preSpin, spin, flowMeasure);
+
+  spinBlocks.push({
+    timeline: blockTimeline,
+    timeline_variables: [createSpinnerTrialData()]
+  });
+}
 
 p.preview = {
     timeline: [previewBlock1, previewBlock2],
