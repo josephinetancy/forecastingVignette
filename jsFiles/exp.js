@@ -901,7 +901,7 @@ const previewBlock2 = {
 };
 
 // for actual task
-const nRepeats = 3;
+const nRepeats = 18;
 const spinBlocks = [];
 
 for (let i = 0; i < nRepeats; i++) {
