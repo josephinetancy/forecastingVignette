@@ -3,7 +3,6 @@
  const randomAssignment = Math.floor(Math.random() * 2) + 1; 
 // const randomAssignment = 2;
 
-console.log(randomAssignment) 
 //1 = play, 2 = predict
 
 
@@ -750,7 +749,6 @@ data: function() {
   };
 },          on_finish: function(data) {
             data.round = round;
-            console.log(round);
             scoreTracker = data.score;
         }
     };
@@ -800,11 +798,9 @@ preamble: function() {
   },
   on_finish: function (data) {
     round++;
-    console.log(round)
     data.round = round;
-    console.log(data.round);
     saveSurveyData(data);
-    console.log(data)
+    data.trial_Name = 'PredictedFlow'; 
   },
 };
 
@@ -842,7 +838,6 @@ preamble: function() {
   on_finish: function(data) {
     // Optional: only increment if data.round is already defined
     round++;
-    console.log(round);
     // Add last score if available
     let scoreArray = jsPsych.data.get().select('score').values;
     data.score = scoreArray[scoreArray.length - 1];
@@ -855,6 +850,10 @@ preamble: function() {
     // Save via your custom function
     saveSurveyData(data);
     data.round = round;
+    data.outcomes_wedges = jsPsych.data.get().last(2).values()[0].outcomes_wedges;
+    data.outcomes_points = jsPsych.data.get().last(2).values()[0].outcomes_points;
+    data.trial_Name = 'FlowMeasure'; 
+
   }
 };
 
@@ -1108,7 +1107,7 @@ let timeline;
 
 
 if (randomAssignment === 1) {
-   timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
+   timeline = [exp.task, exp.demographics, exp.save_data, exp.end];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
   timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.goalPredict, exp.instLoopPredict1, exp.readyPredict, exp.taskPredict, exp.demographics, exp.save_data, exp.end];
