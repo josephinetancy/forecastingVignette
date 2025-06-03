@@ -306,7 +306,7 @@ let correctAnswers = [`100%`, `80%`, `40%`, `10%`];
 let correctAnswers1;
 
 if (randomAssignment === 2) {
-  correctAnswers1 = `Guess what players might feel from spinning the wheel.`;
+  correctAnswers1 = `Guess how an average person would feel while spinning the wheel.`;
 } else {
   correctAnswers1 = `Spin the wheel and earn points.`;
 }
