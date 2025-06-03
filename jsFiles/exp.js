@@ -29,8 +29,7 @@ var textNew = {
         introPlay: [
             `<div class='parent'>
                 <p><strong>Welcome to Feel the Spin!</strong></p>
-               <p>This game involves a series of prize wheels that you will spin.</p>
-                <p>You will spin the wheels and earn points.</p>
+               <p>This game involves a series of prize wheels, which you will spin to earn points.</p>
              </div>`,
 
             `<div class='parent'>
@@ -101,8 +100,7 @@ var textNew = {
         introPredict: [
             `<div class='parent'>
                 <p><strong>Welcome to Feel the Spin!</strong></p>
-                <p>This game involves a series of prize wheels that players will spin.</p>
-                <p>Players will spin the wheels and earn points.</p>
+                <p>This game involves a series of prize wheels, which players spin to earn points.</p>
             </div>`,
 
             `<div class='parent'>
@@ -186,14 +184,18 @@ var textNew = {
 
         goalPredict: [
             `<div class='parent'>
-                <p>Your goal is to guess what other players feel after spinning the wheel.</p>
+                <p>Your goal of Feel the Spin is to guess how an average person would feel while spinning different prize wheels. </p>
+                <p>You will see a variety of wheels, each with its own set of values and probability of a standard outcome. </p>
+                <p>For each wheel, your job is to guess how an average person would feel while spinning it—simply provide your best guess about the typical experience.</p>
                 <p>Continue to the next screen to begin.</p>
             </div>`,      
         ],
 
         goalPlay: [
             `<div class='parent'>
-            <p>Your goal is to spin the wheel and earn as many points as possible.</p>
+            <p>Your goal of Feel the Spin is to spin the wheels and earn as many points as possible.</p>
+            <p>You will see a variety of wheels, each with its own set of values and probability of a standard outcome. </p>
+            <p>For each wheel, your job is to spin the wheel and earn as many points as possible.</p>
             <p>Continue to the next screen to begin.</p>
             </div>`,      
         ],
@@ -323,7 +325,7 @@ const attnChk1 = {
         {
             prompt: `What is your goal?`, 
             name: `attnChk5`, 
-            options: [`Spin the wheel and earn points.`, `Guess what players might feel from spinning the wheel.`],
+            options: [`Spin the wheel and earn points.`, `Guess how an average person would feel while spinning the wheel.`],
         },
     ],
     scale_width: 500,
@@ -768,13 +770,13 @@ preamble: function() {
   `;
 },
   questions: [
-    {prompt: `To what extent do you think people will feel <b>immersed</b> and <b>absorbed</b> when spinning this wheel?`,
+    {prompt: `To what extent do you think an average person would feel <b>immersed</b> and <b>absorbed</b> when spinning this wheel?`,
       name: 'predicted_flow',
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely'],
       required: true,
       horizontal: true
     },
-    {prompt: `To what extent do you think people will <b>like</b> spinning this wheel?`,
+    {prompt: `To what extent do you think an average person would <b>like</b> spinning this wheel?`,
       name: 'predicted_enjoy',
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely'],
       required: true,
@@ -1107,7 +1109,7 @@ let timeline;
 
 
 if (randomAssignment === 1) {
-   timeline = [exp.task, exp.demographics, exp.save_data, exp.end];
+   timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
   timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.goalPredict, exp.instLoopPredict1, exp.readyPredict, exp.taskPredict, exp.demographics, exp.save_data, exp.end];
