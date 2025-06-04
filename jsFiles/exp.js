@@ -957,7 +957,7 @@ p.task = {
 
 
 
-const nRepeatsStatic = 3;
+const nRepeatsStatic = 18;
 const staticSpinBlocks = [];
 
 for (let i = 0; i < nRepeatsStatic; i++) {
