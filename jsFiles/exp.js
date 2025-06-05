@@ -1135,7 +1135,7 @@ let timeline;
 
 
 if (randomAssignment === 1) {
-    timeline = [exp.consent, exp.instLoopPlay, exp.postPlay, exp.preview, exp.task, exp.demographics, exp.save_data, exp.end];
+    timeline = [exp.consent, exp.instLoopPlay, exp.postPlay, exp.preview,  exp.goalPlay, exp.instLoopPlay, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
    //timeline = [exp.consent, exp.instLoopPlay, exp.postPlay, exp.preview, exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
