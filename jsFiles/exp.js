@@ -184,7 +184,7 @@ var textNew = {
 
         goalPredict: [
             `<div class='parentGoal'>
-                <p>Your goal of Feel the Spin is to guess how an average person would feel while spinning different prize wheels. </p>
+                <p>Your goal in Feel the Spin is to guess how an average person would feel while spinning different prize wheels. </p>
                 <p>You will see a variety of wheels, each with its own set of values and probability of a standard outcome. </p>
                 <p>For each wheel, your job is to guess how an average person would feel while spinning it&mdash;simply provide your best guess about the typical experience.</p>
                 <p>Continue to the next screen to begin.</p>
@@ -193,7 +193,7 @@ var textNew = {
 
         goalPlay: [
             `<div class='parentGoal'>
-            <p>Your goal of Feel the Spin is to spin the wheels and earn as many points as possible.</p>
+            <p>Your goal in Feel the Spin is to spin the wheels and earn as many points as possible.</p>
             <p>You will see a variety of wheels, each with its own set of values and probability of a standard outcome. </p>
             <p>For each wheel, your job is to spin the wheel and earn as many points as possible.</p>
             <p>Continue to the next screen to begin.</p>
@@ -605,7 +605,6 @@ const reliabilityOptions = [
         { reliability: 0.40, label: '40%' },
         { reliability: 0.30, label: '30%' },
         { reliability: 0.20, label: '20%' },
-        { reliability: 0.10, label: '10%' }
     ];
 
 
@@ -656,8 +655,8 @@ const previewWheel2Data = {
   sd: calculateSD(previewNumbers),
   uniformity: calculateUniformity(previewNumbers),
   cardinality: calculateCardinality(previewNumbers),
-  reliability: 0.1,
-  label: '10%',
+  reliability: 0.2,
+  label: '20%',
   arrangement: '1'.repeat(20)
 };
 
@@ -731,7 +730,7 @@ let secondPreview = true;
     <strong>${pct}</strong>
   </p>
   <p>
-    Chance of standard outcome
+    chance of standard outcome
   </p>
 </div>`;
             return html;
@@ -1135,7 +1134,7 @@ let timeline;
 
 
 if (randomAssignment === 1) {
-    timeline = [exp.consent, exp.instLoopPlay, exp.postPlay, exp.preview,  exp.goalPlay, exp.instLoopPlay, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
+    timeline = [exp.consent, exp.instLoopPlay, exp.postPlay, exp.preview,  exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
    //timeline = [exp.consent, exp.instLoopPlay, exp.postPlay, exp.preview, exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
