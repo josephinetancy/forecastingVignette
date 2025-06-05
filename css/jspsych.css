@@ -619,6 +619,12 @@
     width: 850px;
 }
 
+.parentGoal {
+    position: relative;
+    width: 950px;
+}
+
+
 #jspsych-canvas-button-response-stimulus {
   display: inline-flex;
   position: relative;

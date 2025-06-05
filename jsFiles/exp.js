@@ -183,16 +183,16 @@ var textNew = {
         ],
 
         goalPredict: [
-            `<div class='parent'>
+            `<div class='parentGoal'>
                 <p>Your goal of Feel the Spin is to guess how an average person would feel while spinning different prize wheels. </p>
                 <p>You will see a variety of wheels, each with its own set of values and probability of a standard outcome. </p>
-                <p>For each wheel, your job is to guess how an average person would feel while spinning it—simply provide your best guess about the typical experience.</p>
+                <p>For each wheel, your job is to guess how an average person would feel while spinning it&mdash;simply provide your best guess about the typical experience.</p>
                 <p>Continue to the next screen to begin.</p>
             </div>`,      
         ],
 
         goalPlay: [
-            `<div class='parent'>
+            `<div class='parentGoal'>
             <p>Your goal of Feel the Spin is to spin the wheels and earn as many points as possible.</p>
             <p>You will see a variety of wheels, each with its own set of values and probability of a standard outcome. </p>
             <p>For each wheel, your job is to spin the wheel and earn as many points as possible.</p>
@@ -787,16 +787,16 @@ const staticSpin = {
 preamble: function() {
   let pct = jsPsych.timelineVariable('label');
   return `
-    <div style="text-align:center;">
-      <div style="font-size:24px; margin-bottom: 10px;">
-        <strong>${pct} chance of standard outcome</strong>
-      </div>
-      <canvas id="staticWheelCanvas" width="475" height="475" style="border:1px solid #ccc; margin-bottom: 10px;"></canvas>
-    </div>
+<div style="text-align:center;">
+  <canvas id="staticWheelCanvas" width="475" height="475" style="border:1px solid #ccc; margin-bottom: 10px;"></canvas>
+  <div style="margin-top: 10px;">
+    <strong>${pct} chance of standard outcome</strong>
+  </div>
+</div>
   `;
 },
   questions: [
-    {prompt: `To what extent do you think an average person would feel <b>immersed</b> and <b>absorbed</b> when spinning this wheel?`,
+    {prompt: `To what extent do you think an average person would feel <b>immersed</b> and <b>absorbed</b> spinning this wheel?`,
       name: 'predicted_flow',
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely'],
       required: true,
@@ -1138,7 +1138,7 @@ if (randomAssignment === 1) {
    timeline = [exp.consent, exp.instLoopPlay, exp.postPlay, exp.preview, exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
-  timeline = [exp.consent, exp.instLoopPredict, exp.postPredict, exp.preview, exp.goalPredict, exp.instLoopPredict1, exp.readyPredict, exp.taskPredict, exp.demographics, exp.save_data, exp.end];
+  timeline = [exp.goalPredict, exp.instLoopPredict1, exp.readyPredict, exp.taskPredict, exp.demographics, exp.save_data, exp.end];
 
 }
 
