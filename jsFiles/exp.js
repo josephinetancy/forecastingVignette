@@ -286,7 +286,7 @@ var textNew = {
     };
 
 
-let correctAnswers = [`100%`, `80%`, `40%`, `10%`];
+let correctAnswers = [`100%`, `80%`, `40%`, `20%`];
 
     const errorMessage = {
         type: jsPsychInstructions,
@@ -304,22 +304,22 @@ let correctAnswers = [`100%`, `80%`, `40%`, `10%`];
             {
                 prompt: `If ${textNew.attnchk1} land${textNew.s} on a 9 and there's a 100% chance of a standard outcome, what are ${textNew.their} chances of earning 9 points?`, 
                 name: `attnChk1`, 
-                options: ['100%', '80%', '40%', '10%'],
+                options: ['100%', '80%', '40%', '20%'],
             },
             {
                 prompt: `If ${textNew.attnchk1} land${textNew.s} on a 9 and there's a 80% chance of a standard outcome, what are ${textNew.their} chances of earning 9 points?`, 
                 name: `attnChk2`, 
-                options: ['100%', '80%', '40%', '10%'],
+                options: ['100%', '80%', '40%', '20%'],
             },
             {
                 prompt: `If ${textNew.attnchk1} land${textNew.s} on a 9 and there's a 40% chance of a standard outcome, what are ${textNew.their} chances of earning 9 points?`, 
                 name: `attnCh3`, 
-                options: ['100%', '80%', '40%', '10%'],
+                options: ['100%', '80%', '40%', '20%'],
             },
             {
-                prompt: `If ${textNew.attnchk1} land${textNew.s} on a 9 and there's a 10% chance of a standard outcome, what are ${textNew.their} chances of earning 9 points?`, 
+                prompt: `If ${textNew.attnchk1} land${textNew.s} on a 9 and there's a 20% chance of a standard outcome, what are ${textNew.their} chances of earning 9 points?`, 
                 name: `attnCh4`, 
-                options: ['100%', '80%', '40%', '10%'],
+                options: ['100%', '80%', '40%', '20%'],
             },
         ],
         scale_width: 500,
