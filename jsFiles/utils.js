@@ -271,17 +271,17 @@ const getIndex = (direction_idx) => {
 
       // TEXT
       ctx.translate(rad, rad);
-      ctx.rotate( (ang + arc / .5) + arc );
+      ctx.rotate( (ang + arc / 1) + arc );
       ctx.textAlign = "center";
       ctx.fillStyle = 'white';
       ctx.strokeStyle = 'black';
       ctx.lineWidth = 5;
       if (isSpinning && i == sector) {
-        ctx.font = "bolder 80px sans-serif"
+        ctx.font = "bolder 90px sans-serif"
         ctx.strokeText(sectors[i].label, 0, -140);
         ctx.fillText(sectors[i].label, 0, -140);
       } else {
-        ctx.font = "bolder 50px sans-serif"
+        ctx.font = "bolder 60px sans-serif"
         ctx.strokeText(sectors[i].label, 0, -150);
         ctx.fillText(sectors[i].label, 0, -150);
       }
@@ -344,12 +344,12 @@ function drawWheelOnce(canvas, sectors) {
 
     // --- TEXT ---
     ctx.translate(rad, rad);
-    ctx.rotate( (ang + arc / .5) + arc );
+    ctx.rotate( (ang + arc / 1) + arc );
     ctx.textAlign = 'center';
     ctx.fillStyle = 'white';
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 5;
-    ctx.font = 'bolder 50px sans-serif';
+    ctx.font = 'bolder 60px sans-serif';
     ctx.strokeText(sector.label, 0, -rad * 0.6);
     ctx.fillText(sector.label, 0, -rad * 0.6);
 

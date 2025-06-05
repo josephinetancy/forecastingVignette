@@ -33,7 +33,7 @@ var textNew = {
              </div>`,
 
             `<div class='parent'>
-                <p>Each wheel is divided into 10 wedges, like this:</p>
+                <p>Each wheel is divided into 6 wedges, like this:</p>
                 <img src="./img/arrow-up.png" style="width:70%; height:70%">
             </div>`,
 
@@ -45,7 +45,7 @@ var textNew = {
 
             `<div class='parent'>
                 <p>The number on the activated wedge is added to your total score.</p>
-                <p>In this example, you'd gain 1 point.</p>
+                <p>In this example, you'd gain 5 points.</p>
                 <img src="./img/standard-outcome.png" style="width:70%; height:70%">
             </div>`,
 
@@ -104,7 +104,7 @@ var textNew = {
             </div>`,
 
             `<div class='parent'>
-                <p>Each wheel is divided into 10 wedges, like this:</p>
+                <p>Each wheel is divided into 6 wedges, like this:</p>
                 <img src="./img/arrow-up.png" style="width:70%; height:70%">
             </div>`,
 
@@ -116,7 +116,7 @@ var textNew = {
 
             `<div class='parent'>
                 <p>The number on the activated wedge is added to the player's total score.</p>
-                <p>In this example, the player gained 1 point.</p>
+                <p>In this example, the player gained 5 points.</p>
                 <img src="./img/standard-outcome.png" style="width:70%; height:70%">
             </div>`,
 
@@ -547,7 +547,7 @@ function sample(array, size, replace = false, probs = null) {
 
 function generateWedges() {
     const n_numbers = 20;
-    const n_wedges = 10;
+    const n_wedges = 6;
     const superset = Array.from({ length: n_numbers }, (_, i) => i + 1);
     const cardinality = sample([...Array(n_wedges - 1).keys()].map(x => x + 2), 1)[0]; // cardinality is always more than 2
     const subset = sample([...superset], cardinality, false);
@@ -556,7 +556,7 @@ function generateWedges() {
     const n_remainder = n_wedges - cardinality;
     let final_set;
 
-   if (cardinality === 10) {
+   if (cardinality === 6) {
         final_set = subset.slice().sort((a, b) => a - b);
     } else {
         const remainder = sample([...subset], n_remainder, true, probs);
@@ -635,7 +635,7 @@ function createSpinnerTrialData() {
 
 /* for preview */
 
-const previewNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const previewNumbers = [1, 2, 3, 4, 5, 6];
 
 const previewSectors = mapToWedges(previewNumbers);
 
@@ -1135,10 +1135,12 @@ let timeline;
 
 
 if (randomAssignment === 1) {
-   timeline = [exp.consent, exp.instLoopPlay, exp.postPlay, exp.preview, exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
+    timeline = [exp.instLoopPlay, exp.postPlay, exp.preview, exp.task, exp.demographics, exp.save_data, exp.end];
+   //timeline = [exp.consent, exp.instLoopPlay, exp.postPlay, exp.preview, exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
-  timeline = [exp.consent, exp.instLoopPredict, exp.postPredict, exp.preview, exp.goalPredict, exp.instLoopPredict1, exp.readyPredict, exp.taskPredict, exp.demographics, exp.save_data, exp.end];
+      timeline = [exp.consent, exp.instLoopPredict, exp.postPredict, exp.preview, exp.goalPredict, exp.instLoopPredict1, exp.readyPredict, exp.taskPredict, exp.demographics, exp.save_data, exp.end];
+ //timeline = [exp.taskPredict, exp.demographics, exp.save_data, exp.end];
 
 }
 
