@@ -817,6 +817,7 @@ preamble: function() {
       horizontal: true
     } */
   ],
+  scale_width: 600,
   data: function() {
   const sectors = jsPsych.timelineVariable('sectors');
   return {
