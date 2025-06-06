@@ -804,7 +804,7 @@ preamble: function() {
   `;
 },
   questions: [
-    {prompt: `To what extent do you think an average person would feel <b>immersed</b> and <b>absorbed</b> spinning this wheel?`,
+    {prompt: `To what extent do you think an average person would feel <b>immersed and absorbed</b> spinning this wheel?`,
       name: 'predicted_flow',
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely'],
       required: true,
@@ -846,7 +846,7 @@ preamble: function() {
   type: jsPsychSurveyLikert,
   questions: [
     {
-      prompt: `To what extent did you feel <b>immersed</b> and <b>absorbed</b> spinning the last wheel?`,
+      prompt: `To what extent did you feel <b>immersed and absorbed</b> spinning the last wheel?`,
       name: `flow`,
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']
     },
