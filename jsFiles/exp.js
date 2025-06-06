@@ -546,7 +546,7 @@ function sample(array, size, replace = false, probs = null) {
 };
 
 function generateWedges() {
-    const n_numbers = 20;
+    const n_numbers = 10;
     const n_wedges = 6;
     const superset = Array.from({ length: n_numbers }, (_, i) => i + 1);
     const cardinality = sample([...Array(n_wedges - 1).keys()].map(x => x + 2), 1)[0]; // cardinality is always more than 2
@@ -801,12 +801,12 @@ preamble: function() {
       required: true,
       horizontal: true
     },
-    {prompt: `To what extent do you think an average person would <b>like</b> spinning this wheel?`,
+ /*   {prompt: `To what extent do you think an average person would <b>like</b> spinning this wheel?`,
       name: 'predicted_enjoy',
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely'],
       required: true,
       horizontal: true
-    }
+    } */
   ],
   data: function() {
   const sectors = jsPsych.timelineVariable('sectors');
@@ -841,11 +841,12 @@ preamble: function() {
       name: `flow`,
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']
     },
+    /*
     {
       prompt: `How much did you <b>like</b> Spinning the Wheel?`,
       name: `enjoy`,
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']
-    }
+    } */
   ],
   randomize_question_order: false,
   scale_width: 600,
@@ -872,7 +873,7 @@ preamble: function() {
     // Save flow and enjoy into their own top-level fields
     const response = data.response || {};
     data.flow = response.flow;
-    data.enjoy = response.enjoy;
+  //  data.enjoy = response.enjoy;
 
     // Save via your custom function
     saveSurveyData(data);
@@ -885,6 +886,7 @@ preamble: function() {
 };
 
     // trial: happiness DV
+/*
     const enjoymentMeasure = {
         type: jsPsychSurveyLikert,
         questions: [
@@ -911,7 +913,7 @@ preamble: function() {
             saveSurveyData(data);
  //           data.round++;
         }
-    };
+    }; */
 
 
 //for preview
@@ -1109,7 +1111,7 @@ if (randomAssignment === 1) {
     p.save_data = {
         type: jsPsychPipe,
         action: "save",
-        experiment_id: "pcwikhaNQSsy",
+        experiment_id: "133taaH9iM67",
         filename: filename,
         data_string: ()=>jsPsych.data.get().csv()
     };
