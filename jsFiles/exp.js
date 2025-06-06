@@ -186,7 +186,7 @@ var textNew = {
             `<div class='parentGoal'>
                 <p>Your goal in Feel the Spin is to guess how an average person would feel while spinning different prize wheels. </p>
                 <p>You will see a variety of wheels, each with its own set of values and probability of a standard outcome. </p>
-                <p>For each wheel, your job is to guess how an average person would feel while spinning it&mdash;simply provide your best guess about the typical experience.</p>
+                <p>For each wheel, your job is to guess how <b>immersed</b> and <b>absorbed</b> an average person would feel while spinning it&mdash;simply provide your best guess about the typical experience.</p>
                 <p>Continue to the next screen to begin.</p>
             </div>`,      
         ],
@@ -194,8 +194,8 @@ var textNew = {
         goalPlay: [
             `<div class='parentGoal'>
             <p>Your goal in Feel the Spin is to spin the wheels and earn as many points as possible.</p>
-            <p>You will see a variety of wheels, each with its own set of values and probability of a standard outcome. </p>
-            <p>For each wheel, your job is to spin the wheel and earn as many points as possible.</p>
+            <p>You will see a variety of wheels, each with its own set of values and probability of a standard outcome. For each wheel, your job is to spin the wheel and earn as many points as possible.</p>
+            <p>Also, after each wheel, you will describe your feelings. Specifically, you will report how <b>immersed</b> and <b>absorbed</b> you felt spinning each wheel.</p>
             <p>Continue to the next screen to begin.</p>
             </div>`,      
         ],
@@ -846,7 +846,7 @@ preamble: function() {
   type: jsPsychSurveyLikert,
   questions: [
     {
-      prompt: `During the last round of Spin the Wheel,<br>to what extent did you feel <b>immersed</b> and <b>absorbed</b> in what you were doing?`,
+      prompt: `To what extent did you feel <b>immersed</b> and <b>absorbed</b> spinning the last wheel?`,
       name: `flow`,
       labels: ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely']
     },
