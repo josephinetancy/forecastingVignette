@@ -184,7 +184,7 @@ var textNew = {
 
         goalPredict: [
             `<div class='parentGoal'>
-                <p>Your goal in Feel the Spin is to guess how an average person would feel while spinning different prize wheels. </p>
+                <p>Your goal in Feel the Spin is to guess how an average person would feel while spinning different wheels. </p>
                 <p>You will see a variety of wheels, each with its own set of values and probability of a standard outcome. </p>
                 <p>For each wheel, your job is to guess how <b>immersed and absorbed</b> an average person would feel while spinning it&mdash;simply provide your best guess about the typical experience.</p>
                 <p>Continue to the next screen to begin.</p>
