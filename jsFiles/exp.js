@@ -485,7 +485,7 @@ const attnChk1 = {
   seven:     { color: "#00fe21", font: 'white', label: "7",  points: 7 },
   eight:     { color: "#007f0e", font: 'white', label: "8",  points: 8 },
   nine:      { color: "#0094fe", font: 'white', label: "9",  points: 9 },
-/*  ten:       { color: "#00497e", font: 'white', label: "10", points: 10 },
+  ten:       { color: "#00497e", font: 'white', label: "10", points: 10 },
   eleven:    { color: "#0026ff", font: 'white', label: "11", points: 11 },
   twelve:    { color: "#001280", font: 'white', label: "12", points: 12 },
   thirteen:  { color: "#e6194b", font: 'white', label: "13", points: 13 },
@@ -495,7 +495,7 @@ const attnChk1 = {
   seventeen: { color: "#f58231", font: 'white', label: "17", points: 17 },
   eighteen:  { color: "#911eb4", font: 'white', label: "18", points: 18 },
   nineteen:  { color: "#46f0f0", font: 'white', label: "19", points: 19 },
-  twenty:    { color: "#f032e6", font: 'white', label: "20", points: 20 } */
+  twenty:    { color: "#f032e6", font: 'white', label: "20", points: 20 } 
 };
 
 
@@ -565,7 +565,7 @@ function generateWedges() {
     return final_set;
 }
 
-/*
+
 function mapToWedges(numbers) {
     const numberNames = [
         'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
@@ -573,15 +573,16 @@ function mapToWedges(numbers) {
         'seventeen', 'eighteen', 'nineteen', 'twenty'
     ];
     return numbers.map(num => wedges[numberNames[num - 1]]);
-} */
+} 
 
+/*
 function mapToWedges(numbers) {
     const numberNames = [
         'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'
     ];
     return numbers.map(num => wedges[numberNames[num - 1]]);
 }
-
+*/
 function calculateEV(numbers) {
     const sum = numbers.reduce((a, b) => a + b, 0);
     return sum / numbers.length;
