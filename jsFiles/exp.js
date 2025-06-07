@@ -638,7 +638,7 @@ function createSpinnerTrialData() {
 
 /* for preview */
 
-const previewNumbers = [1, 2, 3, 4, 5, 6];
+const previewNumbers = [1, 3, 4, 6, 7, 9];
 
 const previewSectors = mapToWedges(previewNumbers);
 
