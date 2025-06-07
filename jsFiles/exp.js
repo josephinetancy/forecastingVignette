@@ -463,40 +463,35 @@ const attnChk1 = {
     *
     */
 
-/*
 
-    let colors = [
-     //   ["#D4A373", "#81B29A", "#E07A5F", "#3D405B"], 
-        ["#6A9FB5", "#F4D35E", "#EE964B", "#736CED"], 
-        ["#EF476F", "#FFD166", "#06D6A0", "#118AB2"]
-    ];
+    let colors = ["#E63946","#F1A208","#2EC4B6","#3D348B","#FF6B6B","#6A4C93","#06D6A0","#118AB2","#8338EC"];
 
     colors = jsPsych.randomization.repeat(colors, 1);
-*/
+
     // define each wedge
 
     const wedges = {
-  one:       { color: "#fe0000", font: 'white', label: "1",  points: 1 },
-  two:       { color: "#800001", font: 'white', label: "2",  points: 2 },
-  three:     { color: "#fe6a00", font: 'white', label: "3",  points: 3 },
-  four:      { color: "#803400", font: 'white', label: "4",  points: 4 },
-  five:      { color: "#ffd800", font: 'white', label: "5",  points: 5 },
-  six:       { color: "#806b00", font: 'white', label: "6",  points: 6 },
-  seven:     { color: "#00fe21", font: 'white', label: "7",  points: 7 },
-  eight:     { color: "#007f0e", font: 'white', label: "8",  points: 8 },
-  nine:      { color: "#0094fe", font: 'white', label: "9",  points: 9 },
-  ten:       { color: "#00497e", font: 'white', label: "10", points: 10 },
-  eleven:    { color: "#0026ff", font: 'white', label: "11", points: 11 },
-  twelve:    { color: "#001280", font: 'white', label: "12", points: 12 },
-  thirteen:  { color: "#e6194b", font: 'white', label: "13", points: 13 },
-  fourteen:  { color: "#3cb44b", font: 'white', label: "14", points: 14 },
-  fifteen:   { color: "#838996", font: 'white', label: "15", points: 15 },
-  sixteen:   { color: "#4363d8", font: 'white', label: "16", points: 16 },
-  seventeen: { color: "#f58231", font: 'white', label: "17", points: 17 },
-  eighteen:  { color: "#911eb4", font: 'white', label: "18", points: 18 },
-  nineteen:  { color: "#46f0f0", font: 'white', label: "19", points: 19 },
-  twenty:    { color: "#f032e6", font: 'white', label: "20", points: 20 } 
-};
+      one:       { color: colors[0], font: 'white', label: "1",  points: 1 },
+      two:       { color: colors[1], font: 'white', label: "2",  points: 2 },
+      three:     { color: colors[2], font: 'white', label: "3",  points: 3 },
+      four:      { color: colors[3], font: 'white', label: "4",  points: 4 },
+      five:      { color: colors[4], font: 'white', label: "5",  points: 5 },
+      six:       { color: colors[5], font: 'white', label: "6",  points: 6 },
+      seven:     { color: colors[6], font: 'white', label: "7",  points: 7 },
+      eight:     { color: colors[7], font: 'white', label: "8",  points: 8 },
+      nine:      { color: colors[8], font: 'white', label: "9",  points: 9 },
+      ten:       { color: "#00497e", font: 'white', label: "10", points: 10 },
+      eleven:    { color: "#0026ff", font: 'white', label: "11", points: 11 },
+      twelve:    { color: "#001280", font: 'white', label: "12", points: 12 },
+      thirteen:  { color: "#e6194b", font: 'white', label: "13", points: 13 },
+      fourteen:  { color: "#3cb44b", font: 'white', label: "14", points: 14 },
+      fifteen:   { color: "#838996", font: 'white', label: "15", points: 15 },
+      sixteen:   { color: "#4363d8", font: 'white', label: "16", points: 16 },
+      seventeen: { color: "#f58231", font: 'white', label: "17", points: 17 },
+      eighteen:  { color: "#911eb4", font: 'white', label: "18", points: 18 },
+      nineteen:  { color: "#46f0f0", font: 'white', label: "19", points: 19 },
+      twenty:    { color: "#f032e6", font: 'white', label: "20", points: 20 } 
+    };
 
 
 /*
