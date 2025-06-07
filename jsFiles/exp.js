@@ -464,7 +464,7 @@ const attnChk1 = {
     */
 
 
-    let colors = ["#E63946","#F1A208","#2EC4B6","#3D348B","#FF6B6B","#6A4C93","#06D6A0","#118AB2","#8338EC"];
+    let colors = ["#1F77B4","#FF7F0E","#2CA02C","#D62728","#9467BD","#8C564B","#E377C2","#17BECF","#7F7F7F"];
 
     colors = jsPsych.randomization.repeat(colors, 1);
 
