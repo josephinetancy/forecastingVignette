@@ -1,6 +1,6 @@
 
 
- const randomAssignment = Math.floor(Math.random() * 2) + 1; 
+const randomAssignment = Math.floor(Math.random() * 2) + 1; 
 // const randomAssignment = 2;
 
 //1 = play, 2 = predict
@@ -28,74 +28,13 @@ var textNew = {
     const html = {
         introPlay: [
             `<div class='parent'>
-                <p><strong>Welcome to Feel the Spin!</strong></p>
-               <p>This game involves a series of prize wheels, which you will spin to earn points.</p>
+                <p><strong>Welcome to being a Manager!</strong></p>
+               <p>This game involves you imagining yourself as a manager. </p>
              </div>`,
 
             `<div class='parent'>
-                <p>Each wheel is divided into 6 wedges, like this:</p>
-                <img src="./img/arrow-up.png" style="width:70%; height:70%">
+                <p>You'll read some scenerios where you'll decide which option will make your employees have highest performance, highest flow </p>
             </div>`,
-
-            `<div class='parent'>
-                <p>When a wheel stops spinning, one of the wedges will activate.</p>
-                <p>The activated wedge will turn black, like this:</p>
-                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
-            </div>`,
-
-            `<div class='parent'>
-                <p>The number on the activated wedge is added to your total score.</p>
-                <p>In this example, you'd gain 5 points.</p>
-                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
-            </div>`,
-
-            `<div class='parent'>
-                <p>Typically, the wedge that lands on the arrow will activate.</p>
-                <p>This is called a "standard outcome."</p>
-                <p>Below is an example of a standard outcome.</p>
-                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
-            </div>`,
-
-            `<div class='parent'>
-                <p>Occasionally, a random wedge will activate instead.</p>
-                <p>This is called a "random outcome."</p>
-                <p>Here's an example of a random outcome:</p>
-                <img src="./img/random-outcome.png" style="width:70%; height:70%">
-            </div>`,
-
-            `<div class='parent'>
-                <p>The chance of a standard outcome changes from wheel to wheel.</p>
-            </div>`,
-
-            `<div class='parent'>
-                <p>The chance of a standard outcome is displayed before each wheel.</p>
-                <p>For example, this message means that the next wheel has a 75% chance of a standard outcome and a 25% chance of a random outcome.</p>
-                <img src="./img/outcome-75.png" style="width:70%; height:70%">      
-            </div>`,
-
-            `<div class='parent'>
-                <p>After each spin, the arrow at the center of the wheel will change directions.</p>
-            </div>`,
-
-            `<div class='parent'>
-                <p>Sometimes the arrow will point up:</p>
-                <img src="./img/arrow-up.png" style="width:70%; height:70%">      
-            </div>`,
-
-            `<div class='parent'>
-                <p>Sometimes the arrow will point right:</p>
-                <img src="./img/arrow-right.png" style="width:70%; height:70%">      
-            </div>`,
-
-            `<div class='parent'>
-                <p>Sometimes the arrow will point down:</p>
-                <img src="./img/arrow-down.png" style="width:70%; height:70%">      
-            </div>`,
-
-            `<div class='parent'>
-                <p>Sometimes the arrow will point left:</p>
-                <img src="./img/arrow-left.png" style="width:70%; height:70%">      
-            </div>`
             ],
         introPredict: [
             `<div class='parent'>
@@ -344,6 +283,414 @@ if (randomAssignment === 2) {
         allow_keys: false,
     };
 
+
+var bonus_question = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: function() {
+        return `
+            <style>
+                .question-container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    font-family: Arial, sans-serif;
+                }
+                
+                .question-text {
+                    font-size: 18px;
+                    margin-bottom: 30px;
+                    text-align: center;
+                }
+                
+                .percentage-fill {
+                    font-weight: bold;
+                    color: #333;
+                }
+                
+                .slider-container {
+                    margin: 30px 0;
+                    position: relative;
+                }
+                
+                .color-bar {
+                    width: 100%;
+                    height: 20px;
+                    margin-bottom: 10px;
+                    border: 1px solid #ccc;
+                    position: relative;
+                    border-radius: 4px;
+                    overflow: hidden;
+                }
+                
+                .red-portion {
+                    height: 100%;
+                    background-color: #ff4444;
+                    float: left;
+                    width: 0%;
+                    transition: width 0.1s ease;
+                }
+                
+                .green-portion {
+                    height: 100%;
+                    background-color: #44ff44;
+                    float: left;
+                    width: 100%;
+                    transition: width 0.1s ease;
+                }
+                
+                .slider {
+                    width: 100%;
+                    height: 25px;
+                    -webkit-appearance: none;
+                    appearance: none;
+                    background: #ddd;
+                    outline: none;
+                    border-radius: 15px;
+                }
+                
+                .slider::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    width: 25px;
+                    height: 25px;
+                    background: #04AA6D;
+                    cursor: pointer;
+                    border-radius: 50%;
+                }
+                
+                .slider::-moz-range-thumb {
+                    width: 25px;
+                    height: 25px;
+                    background: #04AA6D;
+                    cursor: pointer;
+                    border-radius: 50%;
+                    border: none;
+                }
+                
+                .slider-labels {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 5px;
+                    font-size: 14px;
+                    color: #666;
+                }
+                
+                .continue-btn {
+                    margin-top: 30px;
+                    padding: 12px 30px;
+                    font-size: 16px;
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+                
+                .continue-btn:hover {
+                    background-color: #0056b3;
+                }
+            </style>
+            
+            <div class="question-container">
+                <div class="question-text">
+                    <p>To make my employees as engaged as possible, I would make only  </p>
+                    <p>the top <span class="percentage-fill" id="percentage-display">50</span>% receive a bonus.</p>
+                </div>
+                
+                <div class="slider-container">
+                    <div class="color-bar">
+                        <div class="red-portion" id="red-portion"></div>
+                        <div class="green-portion" id="green-portion"></div>
+                    </div>
+                    
+                    <input type="range" 
+                           min="0" 
+                           max="100" 
+                           value="50" 
+                           class="slider" 
+                           id="bonus-slider">
+                    
+                    <div class="slider-labels">
+                        <span>0%</span>
+                        <span>50%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <script>
+                const slider = document.getElementById('bonus-slider');
+                const percentageDisplay = document.getElementById('percentage-display');
+                const redPortion = document.getElementById('red-portion');
+                const greenPortion = document.getElementById('green-portion');
+                
+                function updateDisplay() {
+                    const value = slider.value;
+                    percentageDisplay.textContent = value;
+                    redPortion.style.width = value + '%';
+                    greenPortion.style.width = (100 - value) + '%';
+                }
+                
+                slider.addEventListener('input', updateDisplay);
+                
+                // Store the slider value for data collection
+                window.bonusSliderValue = slider.value;
+                slider.addEventListener('change', function() {
+                    window.bonusSliderValue = this.value;
+                });
+                
+                // Initialize display
+                updateDisplay();
+            </script>
+        `;
+    },
+    choices: ['Continue'],
+    on_finish: function(data) {
+        // Add the slider value to the trial data
+        data.bonus_percentage = window.bonusSliderValue;
+    }
+};
+
+var sliderQuestion = {
+    type: jsPsychSurveyHtmlForm,
+    html: `
+        <style>
+            .question-container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                font-family: Arial, sans-serif;
+            }
+            
+            .question-text {
+                font-size: 18px;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            
+            .percentage-fill {
+                font-weight: bold;
+                color: #333;
+            }
+
+            .top-percentage-fill {
+                font-weight: bold;
+                color: #333;
+            }
+
+            
+            .slider-container {
+                margin: 30px 0;
+                position: relative;
+            }
+            
+            .brace-container {
+                width: 100%;
+                height: 60px;
+                margin-bottom: 10px;
+                position: relative;
+                display: flex;
+            }
+            
+            .brace-section {
+                position: relative;
+                height: 100%;
+                transition: width 0.1s ease;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .left-brace {
+                width: 50%;
+                border-right: 2px solid #ccc;
+            }
+            
+            .right-brace {
+                width: 50%;
+            }
+            
+            .brace-label {
+                font-size: 14px;
+                font-weight: bold;
+                margin-bottom: 5px;
+                color: #333;
+            }
+            
+            .slider-wrapper {
+                position: relative;
+                width: 100%;
+            }
+            
+            .slider {
+                width: 100%;
+                height: 25px;
+                -webkit-appearance: none;
+                appearance: none;
+                background: transparent;
+                outline: none;
+                border-radius: 15px;
+                position: relative;
+                z-index: 2;
+            }
+            
+            .slider-track {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 25px;
+                border-radius: 15px;
+                display: flex;
+                z-index: 1;
+            }
+            
+            .track-red {
+                height: 100%;
+                background-color: #ff4444;
+                border-radius: 15px 0 0 15px;
+                transition: width 0.1s ease;
+                width: 50%;
+            }
+            
+            .track-green {
+                height: 100%;
+                background-color: #44ff44;
+                border-radius: 0 15px 15px 0;
+                transition: width 0.1s ease;
+                width: 50%;
+            }
+            
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 35px;
+                height: 35px;
+                background: #FFD700;
+                cursor: pointer;
+                border-radius: 50%;
+                border: 3px solid white;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+            }
+            
+            .slider::-moz-range-thumb {
+                width: 35px;
+                height: 35px;
+                background: #FFD700;
+                cursor: pointer;
+                border-radius: 50%;
+                border: 3px solid white;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+            }
+            
+            .slider-labels {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 5px;
+                font-size: 14px;
+                color: #666;
+            }
+        </style>
+        
+        <div class="question-container">
+            <div class="question-text">
+                To make my employees as engaged as possible, I would make only the top
+                <span class="top-percentage-fill" id="top-percentage-display">50</span>% receive a bonus and the bottom 
+                <span class="percentage-fill" id="percentage-display">50</span>% to not receive the bonus.
+            </div>
+            
+            <div class="slider-container">
+                <div class="brace-container">
+                    <div class="brace-section left-brace" id="left-brace">
+                        <div class="brace-label" id="bottom-label">Bottom 50%</div>
+                    </div>
+                    <div class="brace-section right-brace" id="right-brace">
+                        <div class="brace-label" id="top-label">Top 50%</div>
+                    </div>
+                </div>
+                
+                <div class="slider-wrapper">
+                    <div class="slider-track">
+                        <div class="track-red" id="track-red"></div>
+                        <div class="track-green" id="track-green"></div>
+                    </div>
+                    <input type="range" 
+                           min="0" 
+                           max="100" 
+                           value="50" 
+                           class="slider" 
+                           id="bonus-slider"
+                           name="bonus_percentage">
+                </div>
+                
+                <div class="slider-labels">
+                    <span>0%</span>
+                    <span>50%</span>
+                    <span>100%</span>
+                </div>
+            </div>
+        </div>
+    `,
+    button_label: 'Continue',
+    on_load: function() {
+        // Wait for the DOM to be ready, then initialize the slider functionality
+        setTimeout(function() {
+            const slider = document.getElementById('bonus-slider');
+            const percentageDisplay = document.getElementById('percentage-display');
+            const topPercentageDisplay = document.getElementById('top-percentage-display');
+            const leftBrace = document.getElementById('left-brace');
+            const rightBrace = document.getElementById('right-brace');
+            const bottomLabel = document.getElementById('bottom-label');
+            const topLabel = document.getElementById('top-label');
+            const trackRed = document.getElementById('track-red');
+            const trackGreen = document.getElementById('track-green');
+            
+            function updateDisplay() {
+                const value = parseInt(slider.value);
+                const bottomPercentage = value;
+                const topPercentage = 100 - value;
+                
+                // Update the question text
+                percentageDisplay.textContent = bottomPercentage;
+                topPercentageDisplay.textContent = topPercentage;
+                
+                // Update brace widths
+                leftBrace.style.width = bottomPercentage + '%';
+                rightBrace.style.width = topPercentage + '%';
+                
+                // Update labels
+                bottomLabel.textContent = `Bottom ${bottomPercentage}%`;
+                topLabel.textContent = `Top ${topPercentage}%`;
+                
+                // Update slider track colors
+                trackRed.style.width = bottomPercentage + '%';
+                trackGreen.style.width = topPercentage + '%';
+                
+                // Hide labels and braces when percentage is 0
+                if (bottomPercentage === 0) {
+                    leftBrace.style.opacity = '0.3';
+                } else {
+                    leftBrace.style.opacity = '1';
+                }
+                
+                if (topPercentage === 0) {
+                    rightBrace.style.opacity = '0.3';
+                } else {
+                    rightBrace.style.opacity = '1';
+                }
+            }
+            
+            // Add event listeners
+            slider.addEventListener('input', updateDisplay);
+            slider.addEventListener('change', updateDisplay);
+            
+            // Initialize display
+            updateDisplay();
+        }, 100);
+    }
+};
+
 const attnChk1 = {
     type: jsPsychSurveyMultiChoice,
     preamble: `<div class='parent'><p>Please answer the question.</p></div>`,
@@ -371,7 +718,7 @@ const attnChk1 = {
     };
 
     p.instLoopPredict = {
-      timeline: [introPredict, attnChk, conditionalNode],
+      timeline: [sliderQuestion, introPredict, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
@@ -379,7 +726,8 @@ const attnChk1 = {
     };
 
     p.instLoopPlay = {
-      timeline: [introPlay, attnChk, conditionalNode],
+    //timeline: [introPlay, sliderQuestion, attnChk, conditionalNode],
+      timeline: [sliderQuestion, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
@@ -1141,11 +1489,11 @@ let timeline;
 
 
 if (randomAssignment === 1) {
-    timeline = [exp.consent, exp.instLoopPlay, exp.postPlay, exp.preview,  exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
+    timeline = [exp.instLoopPlay, exp.postPlay, exp.preview,  exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
    //timeline = [exp.consent, exp.instLoopPlay, exp.postPlay, exp.preview, exp.goalPlay, exp.instLoopPlay1, exp.readyPlay, exp.task, exp.demographics, exp.save_data, exp.end];
  // [exp.instLoopPlay, exp.postPlay, exp.preview, exp.readyPlay, exp.task, exp.demographics];
 } else {
-      timeline = [exp.consent, exp.instLoopPredict, exp.postPredict, exp.preview, exp.goalPredict, exp.instLoopPredict1, exp.readyPredict, exp.taskPredict, exp.demographics, exp.save_data, exp.end];
+      timeline = [exp.instLoopPredict, exp.postPredict, exp.preview, exp.goalPredict, exp.instLoopPredict1, exp.readyPredict, exp.taskPredict, exp.demographics, exp.save_data, exp.end];
  //timeline = [exp.taskPredict, exp.demographics, exp.save_data, exp.end];
 
 }
