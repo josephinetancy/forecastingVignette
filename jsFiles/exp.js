@@ -219,11 +219,10 @@ if (randomAssignment === 2) {
         allow_keys: false,
     };
 
-
-var bonus_question = {
-    type: jsPsychHtmlButtonResponse,
-    stimulus: function() {
-        return `
+function createSliderQuestion(customHTML) {
+    return {
+        type: jsPsychSurveyHtmlForm,
+        html: `
             <style>
                 .question-container {
                     max-width: 600px;
@@ -242,36 +241,54 @@ var bonus_question = {
                     font-weight: bold;
                     color: #333;
                 }
+
+                .top-percentage-fill {
+                    font-weight: bold;
+                    color: #333;
+                }
                 
                 .slider-container {
                     margin: 30px 0;
                     position: relative;
                 }
                 
-                .color-bar {
+                .brace-container {
                     width: 100%;
-                    height: 20px;
+                    height: 60px;
                     margin-bottom: 10px;
-                    border: 1px solid #ccc;
                     position: relative;
-                    border-radius: 4px;
-                    overflow: hidden;
+                    display: flex;
                 }
                 
-                .red-portion {
+                .brace-section {
+                    position: relative;
                     height: 100%;
-                    background-color: #ff4444;
-                    float: left;
-                    width: 0%;
                     transition: width 0.1s ease;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
                 }
                 
-                .green-portion {
-                    height: 100%;
-                    background-color: #44ff44;
-                    float: left;
+                .left-brace {
+                    width: 50%;
+                    border-right: 2px solid #ccc;
+                }
+                
+                .right-brace {
+                    width: 50%;
+                }
+                
+                .brace-label {
+                    font-size: 14px;
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                    color: #333;
+                }
+                
+                .slider-wrapper {
+                    position: relative;
                     width: 100%;
-                    transition: width 0.1s ease;
                 }
                 
                 .slider {
@@ -279,28 +296,60 @@ var bonus_question = {
                     height: 25px;
                     -webkit-appearance: none;
                     appearance: none;
-                    background: #ddd;
+                    background: transparent;
                     outline: none;
                     border-radius: 15px;
+                    position: relative;
+                    z-index: 2;
+                }
+                
+                .slider-track {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 25px;
+                    border-radius: 15px;
+                    display: flex;
+                    z-index: 1;
+                }
+                
+                .track-red {
+                    height: 100%;
+                    background-color: #ff4444;
+                    border-radius: 15px 0 0 15px;
+                    transition: width 0.1s ease;
+                    width: 50%;
+                }
+                
+                .track-green {
+                    height: 100%;
+                    background-color: #44ff44;
+                    border-radius: 0 15px 15px 0;
+                    transition: width 0.1s ease;
+                    width: 50%;
                 }
                 
                 .slider::-webkit-slider-thumb {
                     -webkit-appearance: none;
                     appearance: none;
-                    width: 25px;
-                    height: 25px;
-                    background: #04AA6D;
+                    width: 35px;
+                    height: 35px;
+                    background: #FFD700;
                     cursor: pointer;
                     border-radius: 50%;
+                    border: 3px solid white;
+                    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
                 }
                 
                 .slider::-moz-range-thumb {
-                    width: 25px;
-                    height: 25px;
-                    background: #04AA6D;
+                    width: 35px;
+                    height: 35px;
+                    background: #FFD700;
                     cursor: pointer;
                     border-radius: 50%;
-                    border: none;
+                    border: 3px solid white;
+                    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
                 }
                 
                 .slider-labels {
@@ -310,41 +359,36 @@ var bonus_question = {
                     font-size: 14px;
                     color: #666;
                 }
-                
-                .continue-btn {
-                    margin-top: 30px;
-                    padding: 12px 30px;
-                    font-size: 16px;
-                    background-color: #007bff;
-                    color: white;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                }
-                
-                .continue-btn:hover {
-                    background-color: #0056b3;
-                }
             </style>
             
             <div class="question-container">
                 <div class="question-text">
-                    <p>To make my employees as engaged as possible, I would make only  </p>
-                    <p>the top <span class="percentage-fill" id="percentage-display">50</span>% receive a bonus.</p>
+                    ${customHTML}
                 </div>
                 
                 <div class="slider-container">
-                    <div class="color-bar">
-                        <div class="red-portion" id="red-portion"></div>
-                        <div class="green-portion" id="green-portion"></div>
+                    <div class="brace-container">
+                        <div class="brace-section left-brace" id="left-brace">
+                            <div class="brace-label" id="bottom-label">Bottom 50%</div>
+                        </div>
+                        <div class="brace-section right-brace" id="right-brace">
+                            <div class="brace-label" id="top-label">Top 50%</div>
+                        </div>
                     </div>
                     
-                    <input type="range" 
-                           min="0" 
-                           max="100" 
-                           value="50" 
-                           class="slider" 
-                           id="bonus-slider">
+                    <div class="slider-wrapper">
+                        <div class="slider-track">
+                            <div class="track-red" id="track-red"></div>
+                            <div class="track-green" id="track-green"></div>
+                        </div>
+                        <input type="range" 
+                               min="0" 
+                               max="100" 
+                               value="50" 
+                               class="slider" 
+                               id="bonus-slider"
+                               name="bonus_percentage">
+                    </div>
                     
                     <div class="slider-labels">
                         <span>0%</span>
@@ -353,279 +397,99 @@ var bonus_question = {
                     </div>
                 </div>
             </div>
-            
-            <script>
+        `,
+        button_label: 'Continue',
+        on_load: function() {
+            setTimeout(function() {
                 const slider = document.getElementById('bonus-slider');
                 const percentageDisplay = document.getElementById('percentage-display');
-                const redPortion = document.getElementById('red-portion');
-                const greenPortion = document.getElementById('green-portion');
+                const topPercentageDisplay = document.getElementById('top-percentage-display');
+                const leftBrace = document.getElementById('left-brace');
+                const rightBrace = document.getElementById('right-brace');
+                const bottomLabel = document.getElementById('bottom-label');
+                const topLabel = document.getElementById('top-label');
+                const trackRed = document.getElementById('track-red');
+                const trackGreen = document.getElementById('track-green');
                 
                 function updateDisplay() {
-                    const value = slider.value;
-                    percentageDisplay.textContent = value;
-                    redPortion.style.width = value + '%';
-                    greenPortion.style.width = (100 - value) + '%';
+                    const value = parseInt(slider.value);
+                    const bottomPercentage = value;
+                    const topPercentage = 100 - value;
+                    
+                    // Update the question text
+                    if (percentageDisplay) {
+                        percentageDisplay.textContent = bottomPercentage;
+                    }
+                    if (topPercentageDisplay) {
+                        topPercentageDisplay.textContent = topPercentage;
+                    }
+                    
+                    // Update brace widths
+                    leftBrace.style.width = bottomPercentage + '%';
+                    rightBrace.style.width = topPercentage + '%';
+                    
+                    // Update labels
+                    bottomLabel.textContent = `Bottom ${bottomPercentage}%`;
+                    topLabel.textContent = `Top ${topPercentage}%`;
+                    
+                    // Update slider track colors
+                    trackRed.style.width = bottomPercentage + '%';
+                    trackGreen.style.width = topPercentage + '%';
+                    
+                    // Hide labels and braces when percentage is 0
+                    if (bottomPercentage === 0) {
+                        leftBrace.style.opacity = '0.3';
+                    } else {
+                        leftBrace.style.opacity = '1';
+                    }
+                    
+                    if (topPercentage === 0) {
+                        rightBrace.style.opacity = '0.3';
+                    } else {
+                        rightBrace.style.opacity = '1';
+                    }
                 }
                 
+                // Add event listeners
                 slider.addEventListener('input', updateDisplay);
-                
-                // Store the slider value for data collection
-                window.bonusSliderValue = slider.value;
-                slider.addEventListener('change', function() {
-                    window.bonusSliderValue = this.value;
-                });
+                slider.addEventListener('change', updateDisplay);
                 
                 // Initialize display
                 updateDisplay();
-            </script>
-        `;
-    },
-    choices: ['Continue'],
-    on_finish: function(data) {
-        // Add the slider value to the trial data
-        data.bonus_percentage = window.bonusSliderValue;
-    }
-};
+            }, 100);
+        }
+    };
+}
 
-var sliderQuestion = {
-    type: jsPsychSurveyHtmlForm,
-    html: `
-        <style>
-            .question-container {
-                max-width: 600px;
-                margin: 0 auto;
-                padding: 20px;
-                font-family: Arial, sans-serif;
-            }
-            
-            .question-text {
-                font-size: 18px;
-                margin-bottom: 30px;
-                text-align: center;
-            }
-            
-            .percentage-fill {
-                font-weight: bold;
-                color: #333;
-            }
 
-            .top-percentage-fill {
-                font-weight: bold;
-                color: #333;
-            }
+// Question 1 - Original format
+var sliderQuestion1 = createSliderQuestion(`
+    To make my employees as engaged as possible, I would make the top
+    <span class="top-percentage-fill" id="top-percentage-display">50</span>% receive a star delivery and the bottom 
+    <span class="percentage-fill" id="percentage-display">50</span>% to not receive a star delivery.
+`);
 
-            
-            .slider-container {
-                margin: 30px 0;
-                position: relative;
-            }
-            
-            .brace-container {
-                width: 100%;
-                height: 60px;
-                margin-bottom: 10px;
-                position: relative;
-                display: flex;
-            }
-            
-            .brace-section {
-                position: relative;
-                height: 100%;
-                transition: width 0.1s ease;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .left-brace {
-                width: 50%;
-                border-right: 2px solid #ccc;
-            }
-            
-            .right-brace {
-                width: 50%;
-            }
-            
-            .brace-label {
-                font-size: 14px;
-                font-weight: bold;
-                margin-bottom: 5px;
-                color: #333;
-            }
-            
-            .slider-wrapper {
-                position: relative;
-                width: 100%;
-            }
-            
-            .slider {
-                width: 100%;
-                height: 25px;
-                -webkit-appearance: none;
-                appearance: none;
-                background: transparent;
-                outline: none;
-                border-radius: 15px;
-                position: relative;
-                z-index: 2;
-            }
-            
-            .slider-track {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 25px;
-                border-radius: 15px;
-                display: flex;
-                z-index: 1;
-            }
-            
-            .track-red {
-                height: 100%;
-                background-color: #ff4444;
-                border-radius: 15px 0 0 15px;
-                transition: width 0.1s ease;
-                width: 50%;
-            }
-            
-            .track-green {
-                height: 100%;
-                background-color: #44ff44;
-                border-radius: 0 15px 15px 0;
-                transition: width 0.1s ease;
-                width: 50%;
-            }
-            
-            .slider::-webkit-slider-thumb {
-                -webkit-appearance: none;
-                appearance: none;
-                width: 35px;
-                height: 35px;
-                background: #FFD700;
-                cursor: pointer;
-                border-radius: 50%;
-                border: 3px solid white;
-                box-shadow: 0 3px 6px rgba(0,0,0,0.4);
-            }
-            
-            .slider::-moz-range-thumb {
-                width: 35px;
-                height: 35px;
-                background: #FFD700;
-                cursor: pointer;
-                border-radius: 50%;
-                border: 3px solid white;
-                box-shadow: 0 3px 6px rgba(0,0,0,0.4);
-            }
-            
-            .slider-labels {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 5px;
-                font-size: 14px;
-                color: #666;
-            }
-        </style>
-        
-        <div class="question-container">
-            <div class="question-text">
-                To make my employees as engaged as possible, I would make the top
-                <span class="top-percentage-fill" id="top-percentage-display">50</span>% receive a star delivery and the bottom 
-                <span class="percentage-fill" id="percentage-display">50</span>% to not receive a star delivery.
-            </div>
-            
-            <div class="slider-container">
-                <div class="brace-container">
-                    <div class="brace-section left-brace" id="left-brace">
-                        <div class="brace-label" id="bottom-label">Bottom 50%</div>
-                    </div>
-                    <div class="brace-section right-brace" id="right-brace">
-                        <div class="brace-label" id="top-label">Top 50%</div>
-                    </div>
-                </div>
-                
-                <div class="slider-wrapper">
-                    <div class="slider-track">
-                        <div class="track-red" id="track-red"></div>
-                        <div class="track-green" id="track-green"></div>
-                    </div>
-                    <input type="range" 
-                           min="0" 
-                           max="100" 
-                           value="50" 
-                           class="slider" 
-                           id="bonus-slider"
-                           name="bonus_percentage">
-                </div>
-                
-                <div class="slider-labels">
-                    <span>0%</span>
-                    <span>50%</span>
-                    <span>100%</span>
-                </div>
-            </div>
-        </div>
-    `,
-    button_label: 'Continue',
-    on_load: function() {
-        // Wait for the DOM to be ready, then initialize the slider functionality
-        setTimeout(function() {
-            const slider = document.getElementById('bonus-slider');
-            const percentageDisplay = document.getElementById('percentage-display');
-            const topPercentageDisplay = document.getElementById('top-percentage-display');
-            const leftBrace = document.getElementById('left-brace');
-            const rightBrace = document.getElementById('right-brace');
-            const bottomLabel = document.getElementById('bottom-label');
-            const topLabel = document.getElementById('top-label');
-            const trackRed = document.getElementById('track-red');
-            const trackGreen = document.getElementById('track-green');
-            
-            function updateDisplay() {
-                const value = parseInt(slider.value);
-                const bottomPercentage = value;
-                const topPercentage = 100 - value;
-                
-                // Update the question text
-                percentageDisplay.textContent = bottomPercentage;
-                topPercentageDisplay.textContent = topPercentage;
-                
-                // Update brace widths
-                leftBrace.style.width = bottomPercentage + '%';
-                rightBrace.style.width = topPercentage + '%';
-                
-                // Update labels
-                bottomLabel.textContent = `Bottom ${bottomPercentage}%`;
-                topLabel.textContent = `Top ${topPercentage}%`;
-                
-                // Update slider track colors
-                trackRed.style.width = bottomPercentage + '%';
-                trackGreen.style.width = topPercentage + '%';
-                
-                // Hide labels and braces when percentage is 0
-                if (bottomPercentage === 0) {
-                    leftBrace.style.opacity = '0.3';
-                } else {
-                    leftBrace.style.opacity = '1';
-                }
-                
-                if (topPercentage === 0) {
-                    rightBrace.style.opacity = '0.3';
-                } else {
-                    rightBrace.style.opacity = '1';
-                }
-            }
-            
-            // Add event listeners
-            slider.addEventListener('input', updateDisplay);
-            slider.addEventListener('change', updateDisplay);
-            
-            // Initialize display
-            updateDisplay();
-        }, 100);
-    }
-};
+// Question 2 - Bonus probability format
+var sliderQuestion2 = createSliderQuestion(`
+    <p>To make my employees work as hard as possible, I would make the star delivery drivers have a
+    <span class="percentage-fill" id="percentage-display">50</span>% chance of earning a bonus and a 
+    <span class="top-percentage-fill" id="top-percentage-display">50</span>% chance of not earning a bonus.</p>
+`);
+
+// Question 3 - Different context
+var sliderQuestion3 = createSliderQuestion(`
+    <p>For optimal team performance, I believe</p>
+    <p><span class="percentage-fill" id="percentage-display">50</span>% of drivers should receive immediate rewards while 
+    <span class="top-percentage-fill" id="top-percentage-display">50</span>% should receive delayed recognition.</p>
+`);
+
+// Question 4 - Another different format
+var sliderQuestion4 = createSliderQuestion(`
+    When distributing quarterly bonuses, I would allocate 
+    <span class="percentage-fill" id="percentage-display">50</span>% to performance-based rewards and 
+    <span class="top-percentage-fill" id="top-percentage-display">50</span>% to team collaboration bonuses.
+`);
+
 
 const attnChk1 = {
     type: jsPsychSurveyMultiChoice,
@@ -654,7 +518,7 @@ const attnChk1 = {
     };
 
     p.instLoopPredict = {
-      timeline: [introPlay, sliderQuestion, attnChk, conditionalNode],
+      timeline: [introPlay, sliderQuestion1, sliderQuestion2, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
@@ -663,7 +527,7 @@ const attnChk1 = {
 
     p.instLoopPlay = {
     //timeline: [introPlay, sliderQuestion, attnChk, conditionalNode],
-      timeline: [introPlay, sliderQuestion, attnChk, conditionalNode],
+      timeline: [introPlay, sliderQuestion1, sliderQuestion2, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
