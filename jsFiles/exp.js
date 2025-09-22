@@ -28,84 +28,28 @@ var textNew = {
     const html = {
         introPlay: [
             `<div class='parent'>
-                <p><strong>Welcome to being a Manager!</strong></p>
+                <p><strong>Welcome to the Manager Challenge!</strong></p>
                <p>This game involves you imagining yourself as a manager. </p>
              </div>`,
 
             `<div class='parent'>
-                <p>You'll read some scenerios where you'll decide which option will make your employees have highest performance, highest flow </p>
-            </div>`,
-            ],
-        introPredict: [
+                <p>Your task is to maximize performance and engagement through strategic bonus decisions. </p>
+             </div>`,
+
+
             `<div class='parent'>
-                <p><strong>Welcome to Feel the Spin!</strong></p>
-                <p>This game involves a series of prize wheels, which players spin to earn points.</p>
+                <p>You'll read some real work-life scenerios where you'll choose the bonus strategy that you think will drive the highest employee performance and engagement. </p>
             </div>`,
 
             `<div class='parent'>
-                <p>Each wheel is divided into 6 wedges, like this:</p>
-                <img src="./img/arrow-up.png" style="width:70%; height:70%">
+                <p>Imagine that you're a manager of a food delivery app, like UberEats or DoorDash.</p>
             </div>`,
 
             `<div class='parent'>
-                <p>When a wheel stops spinning, one of the wedges will activate.</p>
-                <p>The activated wedge will turn black, like this:</p>
-                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
+            <p>Your company wants to reward the best drivers as "Star Delivery Drivers".</p>
+<p>Only drivers who earn the Star Delivery status will receive a bonus.</p>
+<p>On the next page, you'll decide what percentage of drivers should receive this designation.</p>
             </div>`,
-
-            `<div class='parent'>
-                <p>The number on the activated wedge is added to the player's total score.</p>
-                <p>In this example, the player gained 5 points.</p>
-                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
-            </div>`,
-
-            `<div class='parent'>
-                <p>Typically, the wedge that lands on the arrow will activate.</p>
-                <p>This is called a "standard outcome."</p>
-                <p>Below is an example of a standard outcome.</p>
-                <img src="./img/standard-outcome.png" style="width:70%; height:70%">
-            </div>`,
-
-            `<div class='parent'>
-                <p>Occasionally, a random wedge will activate instead.</p>
-                <p>This is called a "random outcome."</p>
-                <p>Here's an example of a random outcome:</p>
-                <img src="./img/random-outcome.png" style="width:70%; height:70%">
-            </div>`,
-
-            `<div class='parent'>
-                <p>The chance of a standard outcome changes from wheel to wheel.</p>
-            </div>`,
-
-            `<div class='parent'>
-                <p>The chance of a standard outcome is displayed before each wheel.</p>
-                <p>For example, this message means that the next wheel has a 75% chance of a standard outcome and a 25% chance of a random outcome.</p>
-                <img src="./img/outcome-75.png" style="width:70%; height:70%">      
-            </div>`,
-
-            `<div class='parent'>
-                <p>After each spin, the arrow at the center of the wheel will change directions.</p>
-            </div>`,
-
-            `<div class='parent'>
-                <p>Sometimes the arrow will point up:</p>
-                <img src="./img/arrow-up.png" style="width:70%; height:70%">      
-            </div>`,
-
-            `<div class='parent'>
-                <p>Sometimes the arrow will point right:</p>
-                <img src="./img/arrow-right.png" style="width:70%; height:70%">      
-            </div>`,
-
-            `<div class='parent'>
-                <p>Sometimes the arrow will point down:</p>
-                <img src="./img/arrow-down.png" style="width:70%; height:70%">      
-            </div>`,
-
-            `<div class='parent'>
-                <p>Sometimes the arrow will point left:</p>
-                <img src="./img/arrow-left.png" style="width:70%; height:70%">      
-            </div>`
             ],
 
             postPredict: [
@@ -207,14 +151,6 @@ var textNew = {
     <p>If you agree to participate, press the "Next" button to indicate that you consent to participate in the study.</p>`
 
 
-
-    const introPredict = {
-        type: jsPsychInstructions,
-        pages: html.introPredict,
-        show_clickable_nav: true,
-        post_trial_gap: 500,
-        allow_keys: false,
-    };
 
     const introPlay = {
         type: jsPsychInstructions,
@@ -595,9 +531,9 @@ var sliderQuestion = {
         
         <div class="question-container">
             <div class="question-text">
-                To make my employees as engaged as possible, I would make only the top
-                <span class="top-percentage-fill" id="top-percentage-display">50</span>% receive a bonus and the bottom 
-                <span class="percentage-fill" id="percentage-display">50</span>% to not receive the bonus.
+                To make my employees as engaged as possible, I would make the top
+                <span class="top-percentage-fill" id="top-percentage-display">50</span>% receive a star delivery and the bottom 
+                <span class="percentage-fill" id="percentage-display">50</span>% to not receive a star delivery.
             </div>
             
             <div class="slider-container">
@@ -718,7 +654,7 @@ const attnChk1 = {
     };
 
     p.instLoopPredict = {
-      timeline: [sliderQuestion, introPredict, attnChk, conditionalNode],
+      timeline: [introPlay, sliderQuestion, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
@@ -727,7 +663,7 @@ const attnChk1 = {
 
     p.instLoopPlay = {
     //timeline: [introPlay, sliderQuestion, attnChk, conditionalNode],
-      timeline: [sliderQuestion, attnChk, conditionalNode],
+      timeline: [introPlay, sliderQuestion, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
