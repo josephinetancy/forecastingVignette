@@ -33,7 +33,7 @@ var textNew = {
              </div>`,
 
             `<div class='parent'>
-                <p>Your task is to maximize performance and engagement through strategic bonus decisions. </p>
+                <p>Your task is to maximize your employees' performance and engagement by developing a bonus strategy. </p>
              </div>`,
 
 
@@ -42,13 +42,17 @@ var textNew = {
             </div>`,
 
             `<div class='parent'>
+                <p>Scenario 1: Manager of a food delivery app.</p>
+            </div>`,
+
+            `<div class='parent'>
                 <p>Imagine that you're a manager of a food delivery app, like UberEats or DoorDash.</p>
             </div>`,
 
             `<div class='parent'>
             <p>Your company wants to reward the best drivers as "Star Delivery Drivers".</p>
-<p>Only drivers who earn the Star Delivery status will receive a bonus.</p>
-<p>On the next page, you'll decide what percentage of drivers should receive this designation.</p>
+<p>Only drivers who are "Star Delivery Drivers" may receive a bonus.</p>
+<p>On the next page, you'll decide what percentage of drivers should be a "Star Delivery Driver". </p>
             </div>`,
             ],
 
@@ -219,7 +223,7 @@ if (randomAssignment === 2) {
         allow_keys: false,
     };
 
-function createSliderQuestion(customHTML) {
+function createSliderQuestion(customHTML, questionId) {
     return {
         type: jsPsychSurveyHtmlForm,
         html: `
@@ -399,6 +403,9 @@ function createSliderQuestion(customHTML) {
             </div>
         `,
         button_label: 'Continue',
+        data: {
+            question: questionId
+        },
         on_load: function() {
             setTimeout(function() {
                 const slider = document.getElementById('bonus-slider');
@@ -457,38 +464,50 @@ function createSliderQuestion(customHTML) {
                 // Initialize display
                 updateDisplay();
             }, 100);
+        },
+        on_finish: function(data) {
+            // Calculate both percentages and add them to the data
+            const sliderValue = parseInt(data.response.bonus_percentage);
+            const bottomPercentage = sliderValue;
+            const topPercentage = 100 - sliderValue;
+            
+            // Add custom data fields
+            data.question_id = questionId;
+            data.bottom_percentage = bottomPercentage;
+            data.top_percentage = topPercentage;
+            data.slider_value = sliderValue;
         }
     };
 }
 
-
 // Question 1 - Original format
 var sliderQuestion1 = createSliderQuestion(`
     To make my employees as engaged as possible, I would make the top
-    <span class="top-percentage-fill" id="top-percentage-display">50</span>% receive a star delivery and the bottom 
-    <span class="percentage-fill" id="percentage-display">50</span>% to not receive a star delivery.
-`);
+    <span class="top-percentage-fill" id="top-percentage-display">50</span>% of drivers be Star Delivery Drivers and the bottom 
+    <span class="percentage-fill" id="percentage-display">50</span>% to not be Star Delivery Drivers.
+`, 'engaged');
+
 
 // Question 2 - Bonus probability format
 var sliderQuestion2 = createSliderQuestion(`
-    <p>To make my employees work as hard as possible, I would make the star delivery drivers have a
-    <span class="percentage-fill" id="percentage-display">50</span>% chance of earning a bonus and a 
-    <span class="top-percentage-fill" id="top-percentage-display">50</span>% chance of not earning a bonus.</p>
-`);
+     To make the drivers work as hard as possible, I would make the top
+    <span class="top-percentage-fill" id="top-percentage-display">50</span>% of drivers be Star Delivery Drivers and the bottom 
+    <span class="percentage-fill" id="percentage-display">50</span>% of drivers to not be Star Delivery Drivers.
+    `, 'workHard');
 
 // Question 3 - Different context
 var sliderQuestion3 = createSliderQuestion(`
     <p>For optimal team performance, I believe</p>
     <p><span class="percentage-fill" id="percentage-display">50</span>% of drivers should receive immediate rewards while 
     <span class="top-percentage-fill" id="top-percentage-display">50</span>% should receive delayed recognition.</p>
-`);
+`, 'THREE');
 
 // Question 4 - Another different format
 var sliderQuestion4 = createSliderQuestion(`
     When distributing quarterly bonuses, I would allocate 
     <span class="percentage-fill" id="percentage-display">50</span>% to performance-based rewards and 
     <span class="top-percentage-fill" id="top-percentage-display">50</span>% to team collaboration bonuses.
-`);
+`, 'FOUR');
 
 
 const attnChk1 = {
