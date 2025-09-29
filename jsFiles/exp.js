@@ -29,16 +29,16 @@ var textNew = {
         introPlay: [
             `<div class='parent'>
                 <p><strong>Welcome to the Manager Challenge!</strong></p>
-               <p>This game involves you imagining yourself as a manager. </p>
+               <p>This game involves you imagining yourself as a manager in an organization. </p>
              </div>`,
 
             `<div class='parent'>
-                <p>Your task is to maximize your employees' performance and engagement by developing a bonus strategy. </p>
+                <p>Your task is to create an incentive program. Your goal of the incentive program is to maximize your employees' job performance and engagement. </p>
              </div>`,
 
 
             `<div class='parent'>
-                <p>You'll read some real work-life scenerios where you'll choose the bonus strategy that you think will drive the highest employee performance and engagement. </p>
+                <p>You'll read 5 real work-life scenerios where you'll choose the bonus strategy that you think will drive the highest employee performance and engagement. </p>
             </div>`,
 
             `<div class='parent'>
@@ -46,7 +46,8 @@ var textNew = {
             </div>`,
 
             `<div class='parent'>
-                <p>Imagine that you're a manager of a food delivery app, like UberEats or DoorDash.</p>
+                <p>Imagine that you're a manager of FoodFast, a food delivery app, like UberEats or DoorDash.</p>
+                <img src="./img/foodfast.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
