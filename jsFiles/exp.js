@@ -224,7 +224,7 @@ if (randomAssignment === 2) {
         allow_keys: false,
     };
 
-function createEmailSliderQuestion(customHTML, questionId) {
+function createEmailSliderQuestion(customHTML, questionId, hiddenText) {
     return {
         type: jsPsychSurveyHtmlForm,
         html: `
@@ -287,6 +287,17 @@ function createEmailSliderQuestion(customHTML, questionId) {
                     margin: 20px 0;
                 }
                 
+                .hidden-text {
+                    font-size: 16px;
+                    margin: 20px 0;
+                    opacity: 0;
+                    transition: opacity 0.5s ease;
+                }
+                
+                .hidden-text.revealed {
+                    opacity: 1;
+                }
+                
                 .percentage-fill {
                     font-weight: bold;
                     color: #1a73e8;
@@ -300,6 +311,41 @@ function createEmailSliderQuestion(customHTML, questionId) {
                 .slider-container {
                     margin: 30px 0;
                     position: relative;
+                }
+                
+                .instruction-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(33, 150, 243, 0.9);
+                    z-index: 10;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 8px;
+                    cursor: crosshair;
+                    transition: opacity 0.3s ease;
+                }
+                
+                .instruction-overlay:hover {
+                    background-color: rgba(33, 150, 243, 0.95);
+                }
+                
+                .instruction-text {
+                    color: white;
+                    font-size: 18px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+                
+                .instruction-subtext {
+                    color: rgba(255, 255, 255, 0.9);
+                    font-size: 14px;
+                    text-align: center;
                 }
                 
                 .brace-container {
@@ -416,24 +462,29 @@ function createEmailSliderQuestion(customHTML, questionId) {
                     <div class="email-fields">
                         <div class="email-field">
                             <span class="email-field-label">To:</span>
-                            <input type="text" class="email-field-input" value="team@company.com" readonly>
+                            <input type="text" class="email-field-input" value="team@fastfood.com" readonly>
                         </div>
                         <div class="email-field">
                             <span class="email-field-label">Subject:</span>
-                            <input type="text" class="email-field-input" value="Employee Engagement Strategy" readonly>
+                            <input type="text" class="email-field-input" value="Driver Incentive Program" readonly>
                         </div>
                     </div>
                     
                     <div class="email-body">
                         <div class="email-content">
                             <p>Hi Team,</p>
-                            <p>I wanted to share my thoughts on our employee engagement strategy:</p>
+                            <p>I wanted to share my thoughts on our driver incentive program:</p>
                             
                             <div class="question-text">
                                 ${customHTML}
                             </div>
                             
-                            <div class="slider-container">
+                            <div class="slider-container" id="slider-container">
+                                <div class="instruction-overlay" id="instruction-overlay">
+                                    <div class="instruction-text">Click where you want to set the slider</div>
+                                    <div class="instruction-subtext">Your click position will determine the initial percentage</div>
+                                </div>
+                                
                                 <div class="brace-container">
                                     <div class="brace-section left-brace" id="left-brace">
                                         <div class="brace-label" id="bottom-label">Bottom 50%</div>
@@ -464,6 +515,10 @@ function createEmailSliderQuestion(customHTML, questionId) {
                                 </div>
                             </div>
                             
+                            <div class="hidden-text" id="hidden-text">
+                                ${hiddenText}
+                            </div>
+                            
                             <p>Best regards,<br>
                             [Your Name]</p>
                         </div>
@@ -477,6 +532,8 @@ function createEmailSliderQuestion(customHTML, questionId) {
         },
         on_load: function() {
             setTimeout(function() {
+                console.log("Loading slider question...");
+                
                 const slider = document.getElementById('bonus-slider');
                 const percentageDisplay = document.getElementById('percentage-display');
                 const topPercentageDisplay = document.getElementById('top-percentage-display');
@@ -486,13 +543,50 @@ function createEmailSliderQuestion(customHTML, questionId) {
                 const topLabel = document.getElementById('top-label');
                 const trackRed = document.getElementById('track-red');
                 const trackGreen = document.getElementById('track-green');
+                const instructionOverlay = document.getElementById('instruction-overlay');
+                const hiddenText = document.getElementById('hidden-text');
+                
+                // Click position determines slider value
+                if (instructionOverlay) {
+                    instructionOverlay.addEventListener('click', function(event) {
+                        // Get click position relative to the overlay
+                        const rect = instructionOverlay.getBoundingClientRect();
+                        const clickX = event.clientX - rect.left;
+                        const overlayWidth = rect.width;
+                        
+                        // Calculate percentage based on click position (0-100)
+                        const percentage = Math.round((clickX / overlayWidth) * 100);
+                        
+                        // Ensure percentage is within bounds
+                        const boundedPercentage = Math.max(0, Math.min(100, percentage));
+                        
+                        console.log(`Click position: ${clickX}px, Overlay width: ${overlayWidth}px, Percentage: ${boundedPercentage}%`);
+                        
+                        // Set slider value to clicked percentage
+                        if (slider) {
+                            slider.value = boundedPercentage;
+                            updateDisplay(); // Update the display immediately
+                        }
+                        
+                        // Hide overlay
+                        instructionOverlay.style.display = 'none';
+                        
+                        // Reveal hidden text with fade-in effect
+                        if (hiddenText) {
+                            hiddenText.classList.add('revealed');
+                        }
+                        
+                        console.log("Instruction overlay dismissed, slider set to:", boundedPercentage + "%, hidden text revealed");
+                    });
+                }
                 
                 function updateDisplay() {
+                    if (!slider) return;
+                    
                     const value = parseInt(slider.value);
                     const bottomPercentage = value;
                     const topPercentage = 100 - value;
                     
-                    // Update the question text
                     if (percentageDisplay) {
                         percentageDisplay.textContent = bottomPercentage;
                     }
@@ -500,47 +594,36 @@ function createEmailSliderQuestion(customHTML, questionId) {
                         topPercentageDisplay.textContent = topPercentage;
                     }
                     
-                    // Update brace widths
-                    leftBrace.style.width = bottomPercentage + '%';
-                    rightBrace.style.width = topPercentage + '%';
+                    if (leftBrace) leftBrace.style.width = bottomPercentage + '%';
+                    if (rightBrace) rightBrace.style.width = topPercentage + '%';
                     
-                    // Update labels
-                    bottomLabel.textContent = `Bottom ${bottomPercentage}%`;
-                    topLabel.textContent = `Top ${topPercentage}%`;
+                    if (bottomLabel) bottomLabel.textContent = `Bottom ${bottomPercentage}%`;
+                    if (topLabel) topLabel.textContent = `Top ${topPercentage}%`;
                     
-                    // Update slider track colors
-                    trackRed.style.width = bottomPercentage + '%';
-                    trackGreen.style.width = topPercentage + '%';
+                    if (trackRed) trackRed.style.width = bottomPercentage + '%';
+                    if (trackGreen) trackGreen.style.width = topPercentage + '%';
                     
-                    // Hide labels and braces when percentage is 0
-                    if (bottomPercentage === 0) {
-                        leftBrace.style.opacity = '0.3';
-                    } else {
-                        leftBrace.style.opacity = '1';
+                    if (leftBrace) {
+                        leftBrace.style.opacity = bottomPercentage === 0 ? '0.3' : '1';
                     }
-                    
-                    if (topPercentage === 0) {
-                        rightBrace.style.opacity = '0.3';
-                    } else {
-                        rightBrace.style.opacity = '1';
+                    if (rightBrace) {
+                        rightBrace.style.opacity = topPercentage === 0 ? '0.3' : '1';
                     }
                 }
                 
-                // Add event listeners
-                slider.addEventListener('input', updateDisplay);
-                slider.addEventListener('change', updateDisplay);
+                if (slider) {
+                    slider.addEventListener('input', updateDisplay);
+                    slider.addEventListener('change', updateDisplay);
+                }
                 
-                // Initialize display
                 updateDisplay();
             }, 100);
         },
         on_finish: function(data) {
-            // Calculate both percentages and add them to the data
             const sliderValue = parseInt(data.response.bonus_percentage);
             const bottomPercentage = sliderValue;
             const topPercentage = 100 - sliderValue;
             
-            // Add custom data fields
             data.question_id = questionId;
             data.bottom_percentage = bottomPercentage;
             data.top_percentage = topPercentage;
@@ -549,20 +632,18 @@ function createEmailSliderQuestion(customHTML, questionId) {
     };
 }
 
-// Question 1 - Original format
-var sliderQuestion1 = createEmailSliderQuestion(`
-    To make my employees as engaged as possible, I would make the top
-    <span class="top-percentage-fill" id="top-percentage-display">50</span>% of drivers be Star Delivery Drivers and the bottom 
-    <span class="percentage-fill" id="percentage-display">50</span>% to not be Star Delivery Drivers.
-`, 'engaged');
+// Updated question calls with separated text
+var sliderQuestion1 = createEmailSliderQuestion(
+    `<b>To make my employees as engaged as possible,</b>`, 
+    'engaged',
+    `I would make the top <span class="top-percentage-fill" id="top-percentage-display">50</span>% of drivers be Star Delivery Drivers and the bottom <span class="percentage-fill" id="percentage-display">50</span>% to not be Star Delivery Drivers.`
+);
 
-// Question 2 - Bonus probability format
-var sliderQuestion2 = createEmailSliderQuestion(`
-     To make the drivers work as hard as possible, I would make the top
-    <span class="top-percentage-fill" id="top-percentage-display">50</span>% of drivers be Star Delivery Drivers and the bottom 
-    <span class="percentage-fill" id="percentage-display">50</span>% of drivers to not be Star Delivery Drivers.
-`, 'workHard');
-
+var sliderQuestion2 = createEmailSliderQuestion(
+    `To make the drivers work as hard as possible,`, 
+    'workHard',
+    `I would make the top <span class="top-percentage-fill" id="top-percentage-display">50</span>% of drivers be Star Delivery Drivers and the bottom <span class="percentage-fill" id="percentage-display">50</span>% of drivers to not be Star Delivery Drivers.`
+);
 // Question 3 - Different context
 var sliderQuestion3 = createEmailSliderQuestion(`
     <p>For optimal team performance, I believe</p>
