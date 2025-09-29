@@ -224,32 +224,77 @@ if (randomAssignment === 2) {
         allow_keys: false,
     };
 
-function createSliderQuestion(customHTML, questionId) {
+function createEmailSliderQuestion(customHTML, questionId) {
     return {
         type: jsPsychSurveyHtmlForm,
         html: `
             <style>
-                .question-container {
-                    max-width: 600px;
+                .email-container {
+                    max-width: 800px;
                     margin: 0 auto;
+                    background: #f5f5f5;
                     padding: 20px;
                     font-family: Arial, sans-serif;
                 }
                 
+                .email-window {
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                }
+                
+                .email-fields {
+                    padding: 15px 20px;
+                    background: #fafafa;
+                    border-bottom: 1px solid #e9ecef;
+                }
+                
+                .email-field {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 8px;
+                    font-size: 14px;
+                }
+                
+                .email-field-label {
+                    width: 60px;
+                    color: #666;
+                    font-weight: 500;
+                }
+                
+                .email-field-input {
+                    flex: 1;
+                    padding: 4px 8px;
+                    border: 1px solid #ddd;
+                    border-radius: 3px;
+                }
+                
+                .email-body {
+                    padding: 20px;
+                    min-height: 300px;
+                    background: white;
+                }
+                
+                .email-content {
+                    font-size: 16px;
+                    line-height: 1.5;
+                }
+                
                 .question-text {
-                    font-size: 18px;
-                    margin-bottom: 30px;
-                    text-align: center;
+                    font-size: 16px;
+                    margin: 20px 0;
                 }
                 
                 .percentage-fill {
                     font-weight: bold;
-                    color: #333;
+                    color: #1a73e8;
                 }
 
                 .top-percentage-fill {
                     font-weight: bold;
-                    color: #333;
+                    color: #1a73e8;
                 }
                 
                 .slider-container {
@@ -366,39 +411,62 @@ function createSliderQuestion(customHTML, questionId) {
                 }
             </style>
             
-            <div class="question-container">
-                <div class="question-text">
-                    ${customHTML}
-                </div>
-                
-                <div class="slider-container">
-                    <div class="brace-container">
-                        <div class="brace-section left-brace" id="left-brace">
-                            <div class="brace-label" id="bottom-label">Bottom 50%</div>
+            <div class="email-container">
+                <div class="email-window">
+                    <div class="email-fields">
+                        <div class="email-field">
+                            <span class="email-field-label">To:</span>
+                            <input type="text" class="email-field-input" value="team@company.com" readonly>
                         </div>
-                        <div class="brace-section right-brace" id="right-brace">
-                            <div class="brace-label" id="top-label">Top 50%</div>
+                        <div class="email-field">
+                            <span class="email-field-label">Subject:</span>
+                            <input type="text" class="email-field-input" value="Employee Engagement Strategy" readonly>
                         </div>
                     </div>
                     
-                    <div class="slider-wrapper">
-                        <div class="slider-track">
-                            <div class="track-red" id="track-red"></div>
-                            <div class="track-green" id="track-green"></div>
+                    <div class="email-body">
+                        <div class="email-content">
+                            <p>Hi Team,</p>
+                            <p>I wanted to share my thoughts on our employee engagement strategy:</p>
+                            
+                            <div class="question-text">
+                                ${customHTML}
+                            </div>
+                            
+                            <div class="slider-container">
+                                <div class="brace-container">
+                                    <div class="brace-section left-brace" id="left-brace">
+                                        <div class="brace-label" id="bottom-label">Bottom 50%</div>
+                                    </div>
+                                    <div class="brace-section right-brace" id="right-brace">
+                                        <div class="brace-label" id="top-label">Top 50%</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="slider-wrapper">
+                                    <div class="slider-track">
+                                        <div class="track-red" id="track-red"></div>
+                                        <div class="track-green" id="track-green"></div>
+                                    </div>
+                                    <input type="range" 
+                                           min="0" 
+                                           max="100" 
+                                           value="50" 
+                                           class="slider" 
+                                           id="bonus-slider"
+                                           name="bonus_percentage">
+                                </div>
+                                
+                                <div class="slider-labels">
+                                    <span>0%</span>
+                                    <span>50%</span>
+                                    <span>100%</span>
+                                </div>
+                            </div>
+                            
+                            <p>Best regards,<br>
+                            [Your Name]</p>
                         </div>
-                        <input type="range" 
-                               min="0" 
-                               max="100" 
-                               value="50" 
-                               class="slider" 
-                               id="bonus-slider"
-                               name="bonus_percentage">
-                    </div>
-                    
-                    <div class="slider-labels">
-                        <span>0%</span>
-                        <span>50%</span>
-                        <span>100%</span>
                     </div>
                 </div>
             </div>
@@ -482,29 +550,28 @@ function createSliderQuestion(customHTML, questionId) {
 }
 
 // Question 1 - Original format
-var sliderQuestion1 = createSliderQuestion(`
+var sliderQuestion1 = createEmailSliderQuestion(`
     To make my employees as engaged as possible, I would make the top
     <span class="top-percentage-fill" id="top-percentage-display">50</span>% of drivers be Star Delivery Drivers and the bottom 
     <span class="percentage-fill" id="percentage-display">50</span>% to not be Star Delivery Drivers.
 `, 'engaged');
 
-
 // Question 2 - Bonus probability format
-var sliderQuestion2 = createSliderQuestion(`
+var sliderQuestion2 = createEmailSliderQuestion(`
      To make the drivers work as hard as possible, I would make the top
     <span class="top-percentage-fill" id="top-percentage-display">50</span>% of drivers be Star Delivery Drivers and the bottom 
     <span class="percentage-fill" id="percentage-display">50</span>% of drivers to not be Star Delivery Drivers.
-    `, 'workHard');
+`, 'workHard');
 
 // Question 3 - Different context
-var sliderQuestion3 = createSliderQuestion(`
+var sliderQuestion3 = createEmailSliderQuestion(`
     <p>For optimal team performance, I believe</p>
     <p><span class="percentage-fill" id="percentage-display">50</span>% of drivers should receive immediate rewards while 
     <span class="top-percentage-fill" id="top-percentage-display">50</span>% should receive delayed recognition.</p>
 `, 'THREE');
 
 // Question 4 - Another different format
-var sliderQuestion4 = createSliderQuestion(`
+var sliderQuestion4 = createEmailSliderQuestion(`
     When distributing quarterly bonuses, I would allocate 
     <span class="percentage-fill" id="percentage-display">50</span>% to performance-based rewards and 
     <span class="top-percentage-fill" id="top-percentage-display">50</span>% to team collaboration bonuses.
