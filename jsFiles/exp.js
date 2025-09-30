@@ -33,27 +33,46 @@ var textNew = {
              </div>`,
 
             `<div class='parent'>
-                <p>Your task is to create an incentive program. Your goal of the incentive program is to maximize your employees' job performance and engagement. </p>
-             </div>`,
-
-
-            `<div class='parent'>
-                <p>You'll read 5 real work-life scenerios where you'll choose the bonus strategy that you think will drive the highest employee performance and engagement. </p>
+                <p>You'll read 5 real work-life scenerios where you'll choose the incentive program that you think will maximize the highest employee performance and engagement. </p>
             </div>`,
 
             `<div class='parent'>
-                <p>Scenario 1: Manager of a food delivery app.</p>
-            </div>`,
-
-            `<div class='parent'>
-                <p>Imagine that you're a manager of FoodFast, a food delivery app, like UberEats or DoorDash.</p>
+                <p>Scenario 1: Star Delivery Driver program at FoodFast.</p>
                 <img src="./img/foodfast.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-            <p>Your company wants to reward the best drivers as "Star Delivery Drivers".</p>
-<p>Only drivers who are "Star Delivery Drivers" may receive a bonus.</p>
-<p>On the next page, you'll decide what percentage of drivers should be a "Star Delivery Driver". </p>
+                <p>FoodFast is a food delivery app like UberEats or Doordash. </p>
+                <img src="./img/foodfast.png" style="width:50%; height:50%">
+            </div>`,
+
+            `<div class='parent'>
+            <p>FoodFast wants to start a driver incentive program, called the "Star Delivery Driver Program".</p>
+            <p>The program designates some drivers as "Star Delivery Drivers", who may receive a bonus.</p>
+            </div>`,
+
+            `<div class='parent'>
+            <p>Your task is to create two versions of recommendations to your senior manager so the "Star Delivery Driver Program" meets its two objectives. </p> 
+            </div>`,
+
+            `<div class='parent'>
+            <p> The first objective is to maximize FoodFast's drivers' subjective experience of flow - the feeling of absorption and immersion in their task.  </p>
+            <p> Your senior manager wants to increase the drivers' feelings of engagement while driving. </p>
+            </div>`,
+
+            `<div class='parent'>
+            <p>The second objective is to maximize the drivers' performance. </p> 
+            <p>This includes on-time delivery speed, safety and service quality. </p>
+            </div>`,
+
+            `<div class='parent'>
+            <p> You'll decide the details of the program twice: first to optimize flow, and then to optimize performance.</p>
+            <p> The details you choose do not have to be the same for two versions. </p>
+            <p> You'll submit each set of recommendations separately. </p>
+            </div>`,
+
+            `<div class='parent'>
+            <p>On the next page, you'll send an email to your senior manager focused on optimizing the drivers' flow.</p>
             </div>`,
             ],
 
@@ -224,7 +243,7 @@ if (randomAssignment === 2) {
         allow_keys: false,
     };
 
-function createEmailSliderQuestion(customHTML, questionId, hiddenText) {
+function createTripleEmailSliderQuestion(questions, questionIds) {
     return {
         type: jsPsychSurveyHtmlForm,
         html: `
@@ -273,13 +292,23 @@ function createEmailSliderQuestion(customHTML, questionId, hiddenText) {
                 
                 .email-body {
                     padding: 20px;
-                    min-height: 300px;
+                    min-height: 500px;
                     background: white;
                 }
                 
                 .email-content {
                     font-size: 16px;
                     line-height: 1.5;
+                }
+                
+                .question-section {
+                    margin: 30px 0;
+                    padding: 20px 0;
+                    border-bottom: 1px solid #eee;
+                }
+                
+                .question-section:last-of-type {
+                    border-bottom: none;
                 }
                 
                 .question-text {
@@ -336,21 +365,21 @@ function createEmailSliderQuestion(customHTML, questionId, hiddenText) {
                 
                 .instruction-text {
                     color: white;
-                    font-size: 18px;
+                    font-size: 16px;
                     font-weight: bold;
                     text-align: center;
-                    margin-bottom: 10px;
+                    margin-bottom: 8px;
                 }
                 
                 .instruction-subtext {
                     color: rgba(255, 255, 255, 0.9);
-                    font-size: 14px;
+                    font-size: 12px;
                     text-align: center;
                 }
                 
                 .brace-container {
                     width: 100%;
-                    height: 60px;
+                    height: 50px;
                     margin-bottom: 10px;
                     position: relative;
                     display: flex;
@@ -376,7 +405,7 @@ function createEmailSliderQuestion(customHTML, questionId, hiddenText) {
                 }
                 
                 .brace-label {
-                    font-size: 14px;
+                    font-size: 12px;
                     font-weight: bold;
                     margin-bottom: 5px;
                     color: #333;
@@ -389,7 +418,7 @@ function createEmailSliderQuestion(customHTML, questionId, hiddenText) {
                 
                 .slider {
                     width: 100%;
-                    height: 25px;
+                    height: 20px;
                     -webkit-appearance: none;
                     appearance: none;
                     background: transparent;
@@ -404,7 +433,7 @@ function createEmailSliderQuestion(customHTML, questionId, hiddenText) {
                     top: 0;
                     left: 0;
                     width: 100%;
-                    height: 25px;
+                    height: 20px;
                     border-radius: 15px;
                     display: flex;
                     z-index: 1;
@@ -429,30 +458,30 @@ function createEmailSliderQuestion(customHTML, questionId, hiddenText) {
                 .slider::-webkit-slider-thumb {
                     -webkit-appearance: none;
                     appearance: none;
-                    width: 35px;
-                    height: 35px;
+                    width: 28px;
+                    height: 28px;
                     background: #FFD700;
                     cursor: pointer;
                     border-radius: 50%;
-                    border: 3px solid white;
-                    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+                    border: 2px solid white;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
                 }
                 
                 .slider::-moz-range-thumb {
-                    width: 35px;
-                    height: 35px;
+                    width: 28px;
+                    height: 28px;
                     background: #FFD700;
                     cursor: pointer;
                     border-radius: 50%;
-                    border: 3px solid white;
-                    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+                    border: 2px solid white;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
                 }
                 
                 .slider-labels {
                     display: flex;
                     justify-content: space-between;
                     margin-top: 5px;
-                    font-size: 14px;
+                    font-size: 12px;
                     color: #666;
                 }
             </style>
@@ -462,7 +491,7 @@ function createEmailSliderQuestion(customHTML, questionId, hiddenText) {
                     <div class="email-fields">
                         <div class="email-field">
                             <span class="email-field-label">To:</span>
-                            <input type="text" class="email-field-input" value="team@fastfood.com" readonly>
+                            <input type="text" class="email-field-input" value="team@foodfast.com" readonly>
                         </div>
                         <div class="email-field">
                             <span class="email-field-label">Subject:</span>
@@ -472,52 +501,55 @@ function createEmailSliderQuestion(customHTML, questionId, hiddenText) {
                     
                     <div class="email-body">
                         <div class="email-content">
-                            <p>Hi Team,</p>
-                            <p>I wanted to share my thoughts on our driver incentive program:</p>
-                            
-                            <div class="question-text">
-                                ${customHTML}
-                            </div>
-                            
-                            <div class="slider-container" id="slider-container">
-                                <div class="instruction-overlay" id="instruction-overlay">
-                                    <div class="instruction-text">Click where you want to set the slider</div>
-                                    <div class="instruction-subtext">Your click position will determine the initial percentage</div>
-                                </div>
-                                
-                                <div class="brace-container">
-                                    <div class="brace-section left-brace" id="left-brace">
-                                        <div class="brace-label" id="bottom-label">Bottom 50%</div>
+                            <p>Hi FoodFast Team,</p>
+                            <p>Here are my recommendations to optimize the drivers' flow.</p>
+                            ${questions.map((q, index) => `
+                                <div class="question-section">
+                                    <div class="question-text">
+                                        ${q.promptText}
                                     </div>
-                                    <div class="brace-section right-brace" id="right-brace">
-                                        <div class="brace-label" id="top-label">Top 50%</div>
+                                    
+                                    <div class="slider-container" id="slider-container-${index}">
+                                        <div class="instruction-overlay" id="instruction-overlay-${index}">
+                                            <div class="instruction-text">Click to set slider position</div>
+                                            <div class="instruction-subtext">Question ${index + 1} of ${questions.length}</div>
+                                        </div>
+                                        
+                                        <div class="brace-container">
+                                            <div class="brace-section left-brace" id="left-brace-${index}">
+                                                <div class="brace-label" id="bottom-label-${index}">Bottom 50%</div>
+                                            </div>
+                                            <div class="brace-section right-brace" id="right-brace-${index}">
+                                                <div class="brace-label" id="top-label-${index}">Top 50%</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="slider-wrapper">
+                                            <div class="slider-track">
+                                                <div class="track-red" id="track-red-${index}"></div>
+                                                <div class="track-green" id="track-green-${index}"></div>
+                                            </div>
+                                            <input type="range" 
+                                                   min="0" 
+                                                   max="100" 
+                                                   value="50" 
+                                                   class="slider" 
+                                                   id="bonus-slider-${index}"
+                                                   name="bonus_percentage_${questionIds[index]}">
+                                        </div>
+                                        
+                                        <div class="slider-labels">
+                                            <span>0%</span>
+                                            <span>50%</span>
+                                            <span>100%</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="hidden-text" id="hidden-text-${index}">
+                                        ${q.hiddenText}
                                     </div>
                                 </div>
-                                
-                                <div class="slider-wrapper">
-                                    <div class="slider-track">
-                                        <div class="track-red" id="track-red"></div>
-                                        <div class="track-green" id="track-green"></div>
-                                    </div>
-                                    <input type="range" 
-                                           min="0" 
-                                           max="100" 
-                                           value="50" 
-                                           class="slider" 
-                                           id="bonus-slider"
-                                           name="bonus_percentage">
-                                </div>
-                                
-                                <div class="slider-labels">
-                                    <span>0%</span>
-                                    <span>50%</span>
-                                    <span>100%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="hidden-text" id="hidden-text">
-                                ${hiddenText}
-                            </div>
+                            `).join('')}
                             
                             <p>Best regards,<br>
                             [Your Name]</p>
@@ -528,135 +560,120 @@ function createEmailSliderQuestion(customHTML, questionId, hiddenText) {
         `,
         button_label: 'Continue',
         data: {
-            question: questionId
+            questions: questionIds
         },
         on_load: function() {
             setTimeout(function() {
-                console.log("Loading slider question...");
+                console.log("Loading triple slider question...");
                 
-                const slider = document.getElementById('bonus-slider');
-                const percentageDisplay = document.getElementById('percentage-display');
-                const topPercentageDisplay = document.getElementById('top-percentage-display');
-                const leftBrace = document.getElementById('left-brace');
-                const rightBrace = document.getElementById('right-brace');
-                const bottomLabel = document.getElementById('bottom-label');
-                const topLabel = document.getElementById('top-label');
-                const trackRed = document.getElementById('track-red');
-                const trackGreen = document.getElementById('track-green');
-                const instructionOverlay = document.getElementById('instruction-overlay');
-                const hiddenText = document.getElementById('hidden-text');
-                
-                // Click position determines slider value
-                if (instructionOverlay) {
-                    instructionOverlay.addEventListener('click', function(event) {
-                        // Get click position relative to the overlay
-                        const rect = instructionOverlay.getBoundingClientRect();
-                        const clickX = event.clientX - rect.left;
-                        const overlayWidth = rect.width;
+                questions.forEach((q, index) => {
+                    const slider = document.getElementById(`bonus-slider-${index}`);
+                    const instructionOverlay = document.getElementById(`instruction-overlay-${index}`);
+                    const hiddenText = document.getElementById(`hidden-text-${index}`);
+                    
+                    if (instructionOverlay) {
+                        instructionOverlay.addEventListener('click', function(event) {
+                            const rect = instructionOverlay.getBoundingClientRect();
+                            const clickX = event.clientX - rect.left;
+                            const overlayWidth = rect.width;
+                            const percentage = Math.round((clickX / overlayWidth) * 100);
+                            const boundedPercentage = Math.max(0, Math.min(100, percentage));
+                            
+                            if (slider) {
+                                slider.value = boundedPercentage;
+                                updateDisplay(index);
+                            }
+                            
+                            instructionOverlay.style.display = 'none';
+                            
+                            if (hiddenText) {
+                                hiddenText.classList.add('revealed');
+                            }
+                            
+                            console.log(`Question ${index + 1} slider set to: ${boundedPercentage}%`);
+                        });
+                    }
+                    
+                    function updateDisplay(sliderIndex) {
+                        const currentSlider = document.getElementById(`bonus-slider-${sliderIndex}`);
+                        if (!currentSlider) return;
                         
-                        // Calculate percentage based on click position (0-100)
-                        const percentage = Math.round((clickX / overlayWidth) * 100);
+                        const value = parseInt(currentSlider.value);
+                        const bottomPercentage = value;
+                        const topPercentage = 100 - value;
                         
-                        // Ensure percentage is within bounds
-                        const boundedPercentage = Math.max(0, Math.min(100, percentage));
+                        const currentPercentageDisplay = document.getElementById(`percentage-display-${sliderIndex}`);
+                        const currentTopPercentageDisplay = document.getElementById(`top-percentage-display-${sliderIndex}`);
                         
-                        console.log(`Click position: ${clickX}px, Overlay width: ${overlayWidth}px, Percentage: ${boundedPercentage}%`);
-                        
-                        // Set slider value to clicked percentage
-                        if (slider) {
-                            slider.value = boundedPercentage;
-                            updateDisplay(); // Update the display immediately
+                        if (currentPercentageDisplay) {
+                            currentPercentageDisplay.textContent = bottomPercentage;
+                        }
+                        if (currentTopPercentageDisplay) {
+                            currentTopPercentageDisplay.textContent = topPercentage;
                         }
                         
-                        // Hide overlay
-                        instructionOverlay.style.display = 'none';
+                        const currentLeftBrace = document.getElementById(`left-brace-${sliderIndex}`);
+                        const currentRightBrace = document.getElementById(`right-brace-${sliderIndex}`);
+                        if (currentLeftBrace) currentLeftBrace.style.width = bottomPercentage + '%';
+                        if (currentRightBrace) currentRightBrace.style.width = topPercentage + '%';
                         
-                        // Reveal hidden text with fade-in effect
-                        if (hiddenText) {
-                            hiddenText.classList.add('revealed');
+                        const currentBottomLabel = document.getElementById(`bottom-label-${sliderIndex}`);
+                        const currentTopLabel = document.getElementById(`top-label-${sliderIndex}`);
+                        if (currentBottomLabel) currentBottomLabel.textContent = `Bottom ${bottomPercentage}%`;
+                        if (currentTopLabel) currentTopLabel.textContent = `Top ${topPercentage}%`;
+                        
+                        const currentTrackRed = document.getElementById(`track-red-${sliderIndex}`);
+                        const currentTrackGreen = document.getElementById(`track-green-${sliderIndex}`);
+                        if (currentTrackRed) currentTrackRed.style.width = bottomPercentage + '%';
+                        if (currentTrackGreen) currentTrackGreen.style.width = topPercentage + '%';
+                        
+                        if (currentLeftBrace) {
+                            currentLeftBrace.style.opacity = bottomPercentage === 0 ? '0.3' : '1';
                         }
-                        
-                        console.log("Instruction overlay dismissed, slider set to:", boundedPercentage + "%, hidden text revealed");
-                    });
-                }
-                
-                function updateDisplay() {
-                    if (!slider) return;
-                    
-                    const value = parseInt(slider.value);
-                    const bottomPercentage = value;
-                    const topPercentage = 100 - value;
-                    
-                    if (percentageDisplay) {
-                        percentageDisplay.textContent = bottomPercentage;
-                    }
-                    if (topPercentageDisplay) {
-                        topPercentageDisplay.textContent = topPercentage;
+                        if (currentRightBrace) {
+                            currentRightBrace.style.opacity = topPercentage === 0 ? '0.3' : '1';
+                        }
                     }
                     
-                    if (leftBrace) leftBrace.style.width = bottomPercentage + '%';
-                    if (rightBrace) rightBrace.style.width = topPercentage + '%';
-                    
-                    if (bottomLabel) bottomLabel.textContent = `Bottom ${bottomPercentage}%`;
-                    if (topLabel) topLabel.textContent = `Top ${topPercentage}%`;
-                    
-                    if (trackRed) trackRed.style.width = bottomPercentage + '%';
-                    if (trackGreen) trackGreen.style.width = topPercentage + '%';
-                    
-                    if (leftBrace) {
-                        leftBrace.style.opacity = bottomPercentage === 0 ? '0.3' : '1';
+                    if (slider) {
+                        slider.addEventListener('input', () => updateDisplay(index));
+                        slider.addEventListener('change', () => updateDisplay(index));
                     }
-                    if (rightBrace) {
-                        rightBrace.style.opacity = topPercentage === 0 ? '0.3' : '1';
-                    }
-                }
-                
-                if (slider) {
-                    slider.addEventListener('input', updateDisplay);
-                    slider.addEventListener('change', updateDisplay);
-                }
-                
-                updateDisplay();
+                    
+                    updateDisplay(index);
+                });
             }, 100);
         },
         on_finish: function(data) {
-            const sliderValue = parseInt(data.response.bonus_percentage);
-            const bottomPercentage = sliderValue;
-            const topPercentage = 100 - sliderValue;
-            
-            data.question_id = questionId;
-            data.bottom_percentage = bottomPercentage;
-            data.top_percentage = topPercentage;
-            data.slider_value = sliderValue;
+            // Add individual question data
+            questionIds.forEach((qId, index) => {
+                const sliderValue = parseInt(data.response[`bonus_percentage_${qId}`]);
+                const bottomPercentage = sliderValue;
+                const topPercentage = 100 - sliderValue;
+                
+                data[`${qId}_bottom_percentage`] = bottomPercentage;
+                data[`${qId}_top_percentage`] = topPercentage;
+                data[`${qId}_slider_value`] = sliderValue;
+            });
         }
     };
 }
 
-// Updated question calls with separated text
-var sliderQuestion1 = createEmailSliderQuestion(
-    `<b>To make my employees as engaged as possible,</b>`, 
-    'engaged',
-    `I would make the top <span class="top-percentage-fill" id="top-percentage-display">50</span>% of drivers be Star Delivery Drivers and the bottom <span class="percentage-fill" id="percentage-display">50</span>% to not be Star Delivery Drivers.`
-);
-
-var sliderQuestion2 = createEmailSliderQuestion(
-    `To make the drivers work as hard as possible,`, 
-    'workHard',
-    `I would make the top <span class="top-percentage-fill" id="top-percentage-display">50</span>% of drivers be Star Delivery Drivers and the bottom <span class="percentage-fill" id="percentage-display">50</span>% of drivers to not be Star Delivery Drivers.`
-);
-// Question 3 - Different context
-var sliderQuestion3 = createEmailSliderQuestion(`
-    <p>For optimal team performance, I believe</p>
-    <p><span class="percentage-fill" id="percentage-display">50</span>% of drivers should receive immediate rewards while 
-    <span class="top-percentage-fill" id="top-percentage-display">50</span>% should receive delayed recognition.</p>
-`, 'THREE');
-
-// Question 4 - Another different format
-var sliderQuestion4 = createEmailSliderQuestion(`
-    When distributing quarterly bonuses, I would allocate 
-    <span class="percentage-fill" id="percentage-display">50</span>% to performance-based rewards and 
-    <span class="top-percentage-fill" id="top-percentage-display">50</span>% to team collaboration bonuses.
-`, 'FOUR');
+// Usage example:
+var tripleSliderQuestion = createTripleEmailSliderQuestion([
+    {
+        promptText: "To make the drivers feel as immersed and as absorbed possible,",
+        hiddenText: `I would make the top <span class="top-percentage-fill" id="top-percentage-display-0">50</span>% of drivers be Star Delivery Drivers and the bottom <span class="percentage-fill" id="percentage-display-0">50</span>% to not be Star Delivery Drivers.`
+    },
+    {
+        promptText: "To make the drivers feel as immersed and as absorbed possible,",
+        hiddenText: `I would make all Star Delivery drivers be rewarded <span class="top-percentage-fill" id="top-percentage-display-1">50</span>% of the time and not <span class="percentage-fill" id="percentage-display-1">50</span>% at the time.`
+    },
+    {
+        promptText: "To optimize team performance,",
+        hiddenText: `I would make the top <span class="top-percentage-fill" id="top-percentage-display-2">50</span>% of drivers receive immediate rewards and the bottom <span class="percentage-fill" id="percentage-display-2">50</span>% receive delayed recognition.`
+    }
+], ['engaged', 'workHard', 'teamPerformance']);
 
 
 const attnChk1 = {
@@ -686,7 +703,7 @@ const attnChk1 = {
     };
 
     p.instLoopPredict = {
-      timeline: [introPlay, sliderQuestion1, sliderQuestion2, attnChk, conditionalNode],
+      timeline: [introPlay, tripleSliderQuestion, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
@@ -695,7 +712,7 @@ const attnChk1 = {
 
     p.instLoopPlay = {
     //timeline: [introPlay, sliderQuestion, attnChk, conditionalNode],
-      timeline: [introPlay, sliderQuestion1, sliderQuestion2, attnChk, conditionalNode],
+      timeline: [introPlay, tripleSliderQuestion, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
