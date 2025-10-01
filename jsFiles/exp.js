@@ -33,11 +33,7 @@ var textNew = {
              </div>`,
 
             `<div class='parent'>
-                <p>As a manager, your task is to design an employee incentive program in your organization. </p>
-            </div>`,
-
-            `<div class='parent'>
-                <p>You'll be designing the "FoodFast Stars" program at your organization, FoodFast.</p>
+                <p>You're the manager of FoodFast.</p>
                 <img src="./img/foodfast.png" style="width:50%; height:50%">
             </div>`,
 
@@ -53,17 +49,23 @@ var textNew = {
             </div>`,
 
             `<div class='parent'>
-            <p> Your task is to maximize FoodFast drivers' subjective experience of flow in their task.  </p>
+            <p> Your objective is to maximize FoodFast drivers' subjective experience of flow in their task.  </p>
             <p> This involves increasing the drivers' feelings of absorption and immersion, such that time flows by effortlessly for them. </p>
             </div>`,
 
-
             `<div class='parent'>
-            <p>On the next page, you'll send an email recommending a version of details that optimize the drivers' feelings of flow - the feelings of absorption and immersion. </p>
+            <p>To increase drivers' flow, you'll make two decisions about "FoodFast Stars." First, you'll choose what percentage of drivers will be designated as "FoodFast Stars."</p>
+            <p>For example, if you select 0%, then 0% of drivers will be designated as "FoodFast Stars."</p>
             </div>`,
 
             `<div class='parent'>
-            <p>You'll decide  send an email recommending a version of details that optimize the drivers' feelings of flow - the feelings of absorption and immersion. </p>
+            <p>Next, you'll decide the chance of earning a bonus once a driver is designated as a "FoodFast Star."</p>
+            <p>For example, you could set the chance to 0%, meaning that "FoodFast Stars" would have 0% of receiving a bonus.</p>
+            </div>`,
+
+
+            `<div class='parent'>
+            <p>On the next page, you'll send an email with your recommendations to optimize the drivers' feelings of flow - the feelings of absorption and immersion. </p>
             </div>`,
             ],
 
