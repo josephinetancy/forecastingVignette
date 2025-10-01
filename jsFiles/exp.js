@@ -29,50 +29,41 @@ var textNew = {
         introPlay: [
             `<div class='parent'>
                 <p><strong>Welcome to the Manager Challenge!</strong></p>
-               <p>This game involves you imagining yourself as a manager in an organization. </p>
+               <p>This game involves you imagining yourself as a manager of an organization. </p>
              </div>`,
 
             `<div class='parent'>
-                <p>You'll read 5 real work-life scenerios where you'll choose the incentive program that you think will maximize the highest employee performance and engagement. </p>
+                <p>As a manager, your task is to design an employee incentive program in your organization. </p>
             </div>`,
 
             `<div class='parent'>
-                <p>Scenario 1: Star Delivery Driver program at FoodFast.</p>
+                <p>You'll be designing the "FoodFast Stars" program at your organization, FoodFast.</p>
                 <img src="./img/foodfast.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-                <p>FoodFast is a food delivery app like UberEats or Doordash. </p>
+                <p>FoodFast is a food delivery app like UberEats or DoorDash. </p>
                 <img src="./img/foodfast.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-            <p>FoodFast wants to start a driver incentive program, called the "Star Delivery Driver Program".</p>
-            <p>The program designates some drivers as "Star Delivery Drivers", who may receive a bonus.</p>
+            <p>FoodFast is starting a driver incentive program, called "FoodFast Stars".</p>
+            <p>The program designates some drivers as "FoodFast Stars" who may receive a bonus.</p>
+            <img src="./img/foodfaststars.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-            <p>Your task is to create two versions of recommendations to your senior manager so the "Star Delivery Driver Program" meets its two objectives. </p> 
+            <p> Your task is to maximize FoodFast drivers' subjective experience of flow in their task.  </p>
+            <p> This involves increasing the drivers' feelings of absorption and immersion, such that time flows by effortlessly for them. </p>
+            </div>`,
+
+
+            `<div class='parent'>
+            <p>On the next page, you'll send an email recommending a version of details that optimize the drivers' feelings of flow - the feelings of absorption and immersion. </p>
             </div>`,
 
             `<div class='parent'>
-            <p> The first objective is to maximize FoodFast's drivers' subjective experience of flow - the feeling of absorption and immersion in their task.  </p>
-            <p> Your senior manager wants to increase the drivers' feelings of engagement while driving. </p>
-            </div>`,
-
-            `<div class='parent'>
-            <p>The second objective is to maximize the drivers' performance. </p> 
-            <p>This includes on-time delivery speed, safety and service quality. </p>
-            </div>`,
-
-            `<div class='parent'>
-            <p> You'll decide the details of the program twice: first to optimize flow, and then to optimize performance.</p>
-            <p> The details you choose do not have to be the same for two versions. </p>
-            <p> You'll submit each set of recommendations separately. </p>
-            </div>`,
-
-            `<div class='parent'>
-            <p>On the next page, you'll send an email to your senior manager focused on optimizing the drivers' flow.</p>
+            <p>You'll decide  send an email recommending a version of details that optimize the drivers' feelings of flow - the feelings of absorption and immersion. </p>
             </div>`,
             ],
 
@@ -243,7 +234,7 @@ if (randomAssignment === 2) {
         allow_keys: false,
     };
 
-function createTripleEmailSliderQuestion(questions, questionIds) {
+function createDualEmailSliderQuestion(questions, questionIds) {
     return {
         type: jsPsychSurveyHtmlForm,
         html: `
@@ -409,6 +400,7 @@ function createTripleEmailSliderQuestion(questions, questionIds) {
                     font-weight: bold;
                     margin-bottom: 5px;
                     color: #333;
+                    text-align: center;
                 }
                 
                 .slider-wrapper {
@@ -517,10 +509,14 @@ function createTripleEmailSliderQuestion(questions, questionIds) {
                                         
                                         <div class="brace-container">
                                             <div class="brace-section left-brace" id="left-brace-${index}">
-                                                <div class="brace-label" id="bottom-label-${index}">Bottom 50%</div>
+                                                <div class="brace-label" id="bottom-label-${index}">
+                                                    ${index === 1 ? '50% chance of not receiving the bonus' : 'Bottom 50%'}
+                                                </div>
                                             </div>
                                             <div class="brace-section right-brace" id="right-brace-${index}">
-                                                <div class="brace-label" id="top-label-${index}">Top 50%</div>
+                                                <div class="brace-label" id="top-label-${index}">
+                                                    ${index === 1 ? '50% chance of receiving the bonus' : 'Top 50%'}
+                                                </div>
                                             </div>
                                         </div>
                                         
@@ -564,7 +560,7 @@ function createTripleEmailSliderQuestion(questions, questionIds) {
         },
         on_load: function() {
             setTimeout(function() {
-                console.log("Loading triple slider question...");
+                console.log("Loading dual slider question...");
                 
                 questions.forEach((q, index) => {
                     const slider = document.getElementById(`bonus-slider-${index}`);
@@ -619,8 +615,17 @@ function createTripleEmailSliderQuestion(questions, questionIds) {
                         
                         const currentBottomLabel = document.getElementById(`bottom-label-${sliderIndex}`);
                         const currentTopLabel = document.getElementById(`top-label-${sliderIndex}`);
-                        if (currentBottomLabel) currentBottomLabel.textContent = `Bottom ${bottomPercentage}%`;
-                        if (currentTopLabel) currentTopLabel.textContent = `Top ${topPercentage}%`;
+                        
+                        // Different labels for different sliders
+                        if (sliderIndex === 1) {
+                            // Second slider: chance language
+                            if (currentBottomLabel) currentBottomLabel.textContent = `${bottomPercentage}% chance of not receiving the bonus`;
+                            if (currentTopLabel) currentTopLabel.textContent = `${topPercentage}% chance of receiving the bonus`;
+                        } else {
+                            // First slider: bottom/top language
+                            if (currentBottomLabel) currentBottomLabel.textContent = `Bottom ${bottomPercentage}%`;
+                            if (currentTopLabel) currentTopLabel.textContent = `Top ${topPercentage}%`;
+                        }
                         
                         const currentTrackRed = document.getElementById(`track-red-${sliderIndex}`);
                         const currentTrackGreen = document.getElementById(`track-green-${sliderIndex}`);
@@ -643,7 +648,7 @@ function createTripleEmailSliderQuestion(questions, questionIds) {
                     updateDisplay(index);
                 });
             }, 100);
-        },
+        },        
         on_finish: function(data) {
             // Add individual question data
             questionIds.forEach((qId, index) => {
@@ -657,23 +662,20 @@ function createTripleEmailSliderQuestion(questions, questionIds) {
             });
         }
     };
-}
+}  
+
 
 // Usage example:
-var tripleSliderQuestion = createTripleEmailSliderQuestion([
+var dualSliderQuestion = createDualEmailSliderQuestion([
     {
-        promptText: "To make the drivers feel as immersed and as absorbed possible,",
-        hiddenText: `I would make the top <span class="top-percentage-fill" id="top-percentage-display-0">50</span>% of drivers be Star Delivery Drivers and the bottom <span class="percentage-fill" id="percentage-display-0">50</span>% to not be Star Delivery Drivers.`
+        promptText: "To make drivers feel as engaged as possible,",
+        hiddenText: `I would make the top <span class="top-percentage-fill" id="top-percentage-display-0">50</span>% of drivers be FoodFast Stars and the bottom <span class="percentage-fill" id="percentage-display-0">50</span>% to not be FoodFast Stars.`
     },
     {
-        promptText: "To make the drivers feel as immersed and as absorbed possible,",
-        hiddenText: `I would make all Star Delivery drivers be rewarded <span class="top-percentage-fill" id="top-percentage-display-1">50</span>% of the time and not <span class="percentage-fill" id="percentage-display-1">50</span>% at the time.`
-    },
-    {
-        promptText: "To optimize team performance,",
-        hiddenText: `I would make the top <span class="top-percentage-fill" id="top-percentage-display-2">50</span>% of drivers receive immediate rewards and the bottom <span class="percentage-fill" id="percentage-display-2">50</span>% receive delayed recognition.`
+        promptText: "To make drivers feel as engaged as possible,",
+        hiddenText: `I would give each FoodFast Star a <span class="top-percentage-fill" id="top-percentage-display-1">50</span>% chance of receiving a bonus and a <span class="percentage-fill" id="percentage-display-1">50</span>% chance of not receiving a bonus.`
     }
-], ['engaged', 'workHard', 'teamPerformance']);
+], ['prior', 'posterior']);
 
 
 const attnChk1 = {
@@ -703,7 +705,7 @@ const attnChk1 = {
     };
 
     p.instLoopPredict = {
-      timeline: [introPlay, tripleSliderQuestion, attnChk, conditionalNode],
+      timeline: [introPlay, dualSliderQuestion, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
@@ -712,7 +714,7 @@ const attnChk1 = {
 
     p.instLoopPlay = {
     //timeline: [introPlay, sliderQuestion, attnChk, conditionalNode],
-      timeline: [introPlay, tripleSliderQuestion, attnChk, conditionalNode],
+      timeline: [introPlay, dualSliderQuestion, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
