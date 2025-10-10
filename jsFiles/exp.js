@@ -54,39 +54,39 @@ var textNew = {
             </div>`,
 
             `<div class='parent'>
-            <p>Each day, FoodFast will recognize top-performing as <strong> "FoodFast Stars".</strong></p>
-            <p>A certain percentage of top-performing drivers will earn this title daily based on their average driving time.</strong></p>
+            <p>Every day, FoodFast will recognize daily top-performing drivers as <strong> "FoodFast Stars".</strong></p>
+            <p>A certain percentage of top-performing drivers will earn this title based on their daily average driving time.</strong></p>
             </div>`,
 
             `<div class='parent'>
             <p>You'll decide what percentage of drivers will be recognized  as "FoodFast Stars" every day.</p>
-            <p>If you select 20%, then 20% of top performing drivers will be recognized as "FoodFast Stars." every day. </p>
-            <p>If you select 50%, then 50% of top performing drivers will be recognized  as "FoodFast Stars." every day. </p>
-            <p>If you select 80%, then 80% of top performing drivers will be recognized  as "FoodFast Stars." every day. </p>
+            <p>If you select 20%, then 20% of top performing drivers will be recognized as "FoodFast Stars" every day. </p>
+            <p>If you select 50%, then 50% of top performing drivers will be recognized  as "FoodFast Stars" every day. </p>
+            <p>If you select 80%, then 80% of top performing drivers will be recognized  as "FoodFast Stars" every day. </p>
             </div>`,
 
             `<div class='parent'>
-            <p>Each day, "FoodFast Stars" have a chance of earning a bonus. </strong></p>
+            <p>Every day, each "FoodFast Star" has a chance of earning a bonus. </strong></p>
             <img src="./img/foodfaststars.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-            <p>You'll decide the chances of a "FoodFast Star" earning the bonus. </p>
-            <p>If you select 20%, then every "FoodFast Star" will have 20% chance of earning the bonus. </p>
-            <p>If you select 50%, then every "FoodFast Star" will have 50% chance of earning the bonus.</p>
-            <p>If you select 80%, then every "FoodFast Star" will have 80% chance of earning the bonus. </p>
+            <p>You'll decide the chances of every "FoodFast Star" earning the bonus. </p>
+            <p>If you select 20%, then every "FoodFast Star" will have a 20% chance of earning the bonus. </p>
+            <p>If you select 50%, then every "FoodFast Star" will have a 50% chance of earning the bonus.</p>
+            <p>If you select 80%, then every "FoodFast Star" will have a 80% chance of earning the bonus. </p>
             </div>`,
 
             `<div class='parent'>
-            <p>Each day, <b>Non-</b>"FoodFast Stars" have a chance of earning a bonus. </strong></p>
+            <p>Every day, <b>Non-</b>"FoodFast Stars" also have a chance of earning a bonus. </strong></p>
             <img src="./img/foodfaststars.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-             <p>Lastly, you'll decide the chances of a <b>Non-</b>"FoodFast Star" earning the bonus. </p>
-            <p>If you select 20%, then every <b>Non-</b>"FoodFast Star" will have 20% chance of earning the bonus. </p>
-            <p>If you select 50%, then every <b>Non-</b>"FoodFast Star" will have 50% chance of earning the bonus.</p>
-            <p>If you select 80%, then every <b>Non-</b>"FoodFast Star" will have 80% chance of earning the bonus. </p>
+             <p>You'll decide the chances of evert <b>Non-</b>"FoodFast Star" earning the bonus. </p>
+            <p>If you select 20%, then every <b>Non-</b>"FoodFast Star" will have a 20% chance of earning the bonus. </p>
+            <p>If you select 50%, then every <b>Non-</b>"FoodFast Star" will have a 50% chance of earning the bonus.</p>
+            <p>If you select 80%, then every <b>Non-</b>"FoodFast Star" will have a 80% chance of earning the bonus. </p>
             </div>`,
 
 
