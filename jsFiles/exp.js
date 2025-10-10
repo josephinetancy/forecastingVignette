@@ -42,25 +42,51 @@ var textNew = {
                 <img src="./img/foodfast.png" style="width:50%; height:50%">
             </div>`,
 
+
             `<div class='parent'>
-            <p>FoodFast is starting a driver incentive program, called "FoodFast Stars".</p>
-            <p>The program designates some drivers as "FoodFast Stars" who may receive a bonus.</p>
+            <p>FoodFast is launching a new driver incentive program, called <strong> "FoodFast Stars".</strong></p>
             <img src="./img/foodfaststars.png" style="width:50%; height:50%">
             </div>`,
 
             `<div class='parent'>
-            <p> Your objective is to maximize FoodFast drivers' subjective experience of flow in their task.  </p>
-            <p> This involves increasing the drivers' feelings of absorption and immersion, such that time flows by effortlessly for them. </p>
+            <p> Your objective: <strong> maximize FoodFast drivers experience of flow. </strong> </p>
+            <p> In other words, help FoodFast drivers "get in the zone", where they'll be totally engaged and engrossed in their work, so much so that time seems to fly by.</p>
             </div>`,
 
             `<div class='parent'>
-            <p>To increase drivers' flow, you'll make two decisions about "FoodFast Stars." First, you'll choose what percentage of drivers will be designated as "FoodFast Stars."</p>
-            <p>For example, if you select 0%, then 0% of drivers will be designated as "FoodFast Stars."</p>
+            <p>Each day, FoodFast will recognize top-performing as <strong> "FoodFast Stars".</strong></p>
+            <p>A certain percentage of top-performing drivers will earn this title daily based on their average driving time.</strong></p>
             </div>`,
 
             `<div class='parent'>
-            <p>Next, you'll decide the chance of earning a bonus once a driver is designated as a "FoodFast Star."</p>
-            <p>For example, you could set the chance to 0%, meaning that "FoodFast Stars" would have 0% of receiving a bonus.</p>
+            <p>You'll decide what percentage of drivers will be recognized  as "FoodFast Stars" every day.</p>
+            <p>If you select 20%, then 20% of top performing drivers will be recognized as "FoodFast Stars." every day. </p>
+            <p>If you select 50%, then 50% of top performing drivers will be recognized  as "FoodFast Stars." every day. </p>
+            <p>If you select 80%, then 80% of top performing drivers will be recognized  as "FoodFast Stars." every day. </p>
+            </div>`,
+
+            `<div class='parent'>
+            <p>Each day, "FoodFast Stars" have a chance of earning a bonus. </strong></p>
+            <img src="./img/foodfaststars.png" style="width:50%; height:50%">
+            </div>`,
+
+            `<div class='parent'>
+            <p>You'll decide the chances of a "FoodFast Star" earning the bonus. </p>
+            <p>If you select 20%, then every "FoodFast Star" will have 20% chance of earning the bonus. </p>
+            <p>If you select 50%, then every "FoodFast Star" will have 50% chance of earning the bonus.</p>
+            <p>If you select 80%, then every "FoodFast Star" will have 80% chance of earning the bonus. </p>
+            </div>`,
+
+            `<div class='parent'>
+            <p>Each day, <b>Non-</b>"FoodFast Stars" have a chance of earning a bonus. </strong></p>
+            <img src="./img/foodfaststars.png" style="width:50%; height:50%">
+            </div>`,
+
+            `<div class='parent'>
+             <p>Lastly, you'll decide the chances of a <b>Non-</b>"FoodFast Star" earning the bonus. </p>
+            <p>If you select 20%, then every <b>Non-</b>"FoodFast Star" will have 20% chance of earning the bonus. </p>
+            <p>If you select 50%, then every <b>Non-</b>"FoodFast Star" will have 50% chance of earning the bonus.</p>
+            <p>If you select 80%, then every <b>Non-</b>"FoodFast Star" will have 80% chance of earning the bonus. </p>
             </div>`,
 
 
@@ -236,7 +262,7 @@ if (randomAssignment === 2) {
         allow_keys: false,
     };
 
-function createDualEmailSliderQuestion(questions, questionIds) {
+function createTripleEmailSliderQuestion(questions, questionIds) {
     return {
         type: jsPsychSurveyHtmlForm,
         html: `
@@ -330,27 +356,28 @@ function createDualEmailSliderQuestion(questions, questionIds) {
                     color: #1a73e8;
                 }
                 
-                .slider-container {
-                    margin: 30px 0;
-                    position: relative;
-                }
-                
-                .instruction-overlay {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(33, 150, 243, 0.9);
-                    z-index: 10;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 8px;
-                    cursor: crosshair;
-                    transition: opacity 0.3s ease;
-                }
+.slider-container {
+    margin: 30px 0;
+    position: relative;
+    padding-top: 30px; /* Add space for the label */
+}
+
+.instruction-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(33, 150, 243, 0.9);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: crosshair;
+    transition: opacity 0.3s ease;
+}
                 
                 .instruction-overlay:hover {
                     background-color: rgba(33, 150, 243, 0.95);
@@ -370,44 +397,21 @@ function createDualEmailSliderQuestion(questions, questionIds) {
                     text-align: center;
                 }
                 
-                .brace-container {
-                    width: 100%;
-                    height: 50px;
-                    margin-bottom: 10px;
-                    position: relative;
-                    display: flex;
-                }
-                
-                .brace-section {
-                    position: relative;
-                    height: 100%;
-                    transition: width 0.1s ease;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                }
-                
-                .left-brace {
-                    width: 50%;
-                    border-right: 2px solid #ccc;
-                }
-                
-                .right-brace {
-                    width: 50%;
-                }
-                
-                .brace-label {
-                    font-size: 12px;
-                    font-weight: bold;
-                    margin-bottom: 5px;
-                    color: #333;
-                    text-align: center;
-                }
-                
                 .slider-wrapper {
                     position: relative;
                     width: 100%;
+                }
+                
+                .slider-label {
+                    position: absolute;
+                    top: -25px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: #333;
+                    pointer-events: none;
+                    transform: translateX(-50%);
+                    white-space: nowrap;
+                    z-index: 5;
                 }
                 
                 .slider {
@@ -449,6 +453,14 @@ function createDualEmailSliderQuestion(questions, questionIds) {
                     width: 50%;
                 }
                 
+                .track-grey {
+                    height: 100%;
+                    background-color: #888888;
+                    border-radius: 15px;
+                    transition: width 0.1s ease;
+                    width: 100%;
+                }
+                
                 .slider::-webkit-slider-thumb {
                     -webkit-appearance: none;
                     appearance: none;
@@ -470,14 +482,6 @@ function createDualEmailSliderQuestion(questions, questionIds) {
                     border: 2px solid white;
                     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
                 }
-                
-                .slider-labels {
-                    display: flex;
-                    justify-content: space-between;
-                    margin-top: 5px;
-                    font-size: 12px;
-                    color: #666;
-                }
             </style>
             
             <div class="email-container">
@@ -486,7 +490,7 @@ function createDualEmailSliderQuestion(questions, questionIds) {
                         <div class="email-field">
                             <span class="email-field-label">To:</span>
                             <input type="text" class="email-field-input" value="team@foodfast.com" readonly>
-                        </div>
+                            </div>
                         <div class="email-field">
                             <span class="email-field-label">Subject:</span>
                             <input type="text" class="email-field-input" value="Driver Incentive Program" readonly>
@@ -509,23 +513,15 @@ function createDualEmailSliderQuestion(questions, questionIds) {
                                             <div class="instruction-subtext">Question ${index + 1} of ${questions.length}</div>
                                         </div>
                                         
-                                        <div class="brace-container">
-                                            <div class="brace-section left-brace" id="left-brace-${index}">
-                                                <div class="brace-label" id="bottom-label-${index}">
-                                                    ${index === 1 ? '50% chance of not receiving the bonus' : 'Bottom 50%'}
-                                                </div>
-                                            </div>
-                                            <div class="brace-section right-brace" id="right-brace-${index}">
-                                                <div class="brace-label" id="top-label-${index}">
-                                                    ${index === 1 ? '50% chance of receiving the bonus' : 'Top 50%'}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
                                         <div class="slider-wrapper">
+                                            <div class="slider-label" id="slider-label-${index}">Top 50%</div>
                                             <div class="slider-track">
-                                                <div class="track-red" id="track-red-${index}"></div>
-                                                <div class="track-green" id="track-green-${index}"></div>
+                                                ${index === 0 ? `
+                                                    <div class="track-red" id="track-red-${index}"></div>
+                                                    <div class="track-green" id="track-green-${index}"></div>
+                                                ` : `
+                                                    <div class="track-grey" id="track-grey-${index}"></div>
+                                                `}
                                             </div>
                                             <input type="range" 
                                                    min="0" 
@@ -534,12 +530,6 @@ function createDualEmailSliderQuestion(questions, questionIds) {
                                                    class="slider" 
                                                    id="bonus-slider-${index}"
                                                    name="bonus_percentage_${questionIds[index]}">
-                                        </div>
-                                        
-                                        <div class="slider-labels">
-                                            <span>0%</span>
-                                            <span>50%</span>
-                                            <span>100%</span>
                                         </div>
                                     </div>
                                     
@@ -568,6 +558,7 @@ function createDualEmailSliderQuestion(questions, questionIds) {
                     const slider = document.getElementById(`bonus-slider-${index}`);
                     const instructionOverlay = document.getElementById(`instruction-overlay-${index}`);
                     const hiddenText = document.getElementById(`hidden-text-${index}`);
+                    const sliderLabel = document.getElementById(`slider-label-${index}`);
                     
                     if (instructionOverlay) {
                         instructionOverlay.addEventListener('click', function(event) {
@@ -592,55 +583,50 @@ function createDualEmailSliderQuestion(questions, questionIds) {
                         });
                     }
                     
-                    function updateDisplay(sliderIndex) {
-                        const currentSlider = document.getElementById(`bonus-slider-${sliderIndex}`);
-                        if (!currentSlider) return;
-                        
-                        const value = parseInt(currentSlider.value);
-                        const bottomPercentage = value;
-                        const topPercentage = 100 - value;
-                        
-                        const currentPercentageDisplay = document.getElementById(`percentage-display-${sliderIndex}`);
-                        const currentTopPercentageDisplay = document.getElementById(`top-percentage-display-${sliderIndex}`);
-                        
-                        if (currentPercentageDisplay) {
-                            currentPercentageDisplay.textContent = bottomPercentage;
-                        }
-                        if (currentTopPercentageDisplay) {
-                            currentTopPercentageDisplay.textContent = topPercentage;
-                        }
-                        
-                        const currentLeftBrace = document.getElementById(`left-brace-${sliderIndex}`);
-                        const currentRightBrace = document.getElementById(`right-brace-${sliderIndex}`);
-                        if (currentLeftBrace) currentLeftBrace.style.width = bottomPercentage + '%';
-                        if (currentRightBrace) currentRightBrace.style.width = topPercentage + '%';
-                        
-                        const currentBottomLabel = document.getElementById(`bottom-label-${sliderIndex}`);
-                        const currentTopLabel = document.getElementById(`top-label-${sliderIndex}`);
-                        
-                        // Different labels for different sliders
-                        if (sliderIndex === 1) {
-                            // Second slider: chance language
-                            if (currentBottomLabel) currentBottomLabel.textContent = `${bottomPercentage}% chance of not receiving the bonus`;
-                            if (currentTopLabel) currentTopLabel.textContent = `${topPercentage}% chance of receiving the bonus`;
-                        } else {
-                            // First slider: bottom/top language
-                            if (currentBottomLabel) currentBottomLabel.textContent = `Bottom ${bottomPercentage}%`;
-                            if (currentTopLabel) currentTopLabel.textContent = `Top ${topPercentage}%`;
-                        }
-                        
-                        const currentTrackRed = document.getElementById(`track-red-${sliderIndex}`);
-                        const currentTrackGreen = document.getElementById(`track-green-${sliderIndex}`);
-                        if (currentTrackRed) currentTrackRed.style.width = bottomPercentage + '%';
-                        if (currentTrackGreen) currentTrackGreen.style.width = topPercentage + '%';
-                        
-                        if (currentLeftBrace) {
-                            currentLeftBrace.style.opacity = bottomPercentage === 0 ? '0.3' : '1';
-                        }
-                        if (currentRightBrace) {
-                            currentRightBrace.style.opacity = topPercentage === 0 ? '0.3' : '1';
-                        }
-                    }
+function updateDisplay(sliderIndex) {
+    const currentSlider = document.getElementById(`bonus-slider-${sliderIndex}`);
+    if (!currentSlider) return;
+    
+    const value = parseInt(currentSlider.value);
+    const topPercentage = 100 - value;  // This is what goes in the hidden text
+    const sliderPercentage = value;     // This is the slider position (bottom percentage)
+    
+    // Update hidden text percentage
+    const currentTopPercentageDisplay = document.getElementById(`top-percentage-display-${sliderIndex}`);
+    if (currentTopPercentageDisplay) {
+        // ONLY CHANGE: Use sliderPercentage for sliders 1 and 2, topPercentage for slider 0
+        currentTopPercentageDisplay.textContent = (sliderIndex === 1 || sliderIndex === 2) ? sliderPercentage : topPercentage;
+    }
+    
+    // Update slider label - different text for different sliders
+const currentSliderLabel = document.getElementById(`slider-label-${sliderIndex}`);
+if (currentSliderLabel) {
+    if (sliderIndex === 1 || sliderIndex === 2) {
+        // Second and third sliders: show chance percentage
+        currentSliderLabel.textContent = `${sliderPercentage}% chance`;
+    } else {
+        // First slider: show top percentage
+        currentSliderLabel.textContent = `Top ${topPercentage}%`;
+    }
+}
+    
+    // Position the label above the slider thumb
+    const sliderRect = currentSlider.getBoundingClientRect();
+    const sliderWidth = sliderRect.width;
+    const thumbPosition = (sliderPercentage / 100) * sliderWidth;
+    if (currentSliderLabel) {
+        currentSliderLabel.style.left = thumbPosition + 'px';
+    }
+    
+    // Update track colors - only for first slider
+    if (sliderIndex === 0) {
+        const currentTrackRed = document.getElementById(`track-red-${sliderIndex}`);
+        const currentTrackGreen = document.getElementById(`track-green-${sliderIndex}`);
+        if (currentTrackRed) currentTrackRed.style.width = sliderPercentage + '%';
+        if (currentTrackGreen) currentTrackGreen.style.width = topPercentage + '%';
+    }
+    // Grey sliders (2nd and 3rd) don't need color updates since they're solid grey
+}
                     
                     if (slider) {
                         slider.addEventListener('input', () => updateDisplay(index));
@@ -664,20 +650,25 @@ function createDualEmailSliderQuestion(questions, questionIds) {
             });
         }
     };
-}  
+}
+
 
 
 // Usage example:
-var dualSliderQuestion = createDualEmailSliderQuestion([
+var tripleSliderQuestion = createTripleEmailSliderQuestion([
     {
-        promptText: "To make drivers feel as engaged as possible,",
-        hiddenText: `I would make the top <span class="top-percentage-fill" id="top-percentage-display-0">50</span>% of drivers be FoodFast Stars and the bottom <span class="percentage-fill" id="percentage-display-0">50</span>% to not be FoodFast Stars.`
+        promptText: "To make drivers feel as immersed and engaged as possible,",
+        hiddenText: `The top <span class="top-percentage-fill" id="top-percentage-display-0">50</span>% of top performing drivers every day should be FoodFast Stars.`
     },
     {
-        promptText: "To make drivers feel as engaged as possible,",
-        hiddenText: `I would give each FoodFast Star a <span class="top-percentage-fill" id="top-percentage-display-1">50</span>% chance of receiving a bonus and a <span class="percentage-fill" id="percentage-display-1">50</span>% chance of not receiving a bonus.`
+        promptText: "",
+        hiddenText: `FoodFast Stars should have <span class="percentage-fill" id="top-percentage-display-1">50</span>% chance of receiving a bonus each time they are recognized as a FoodFast Star.`
+    },
+    {
+        promptText: "",
+        hiddenText: `Non-FoodFast Stars should have a <span class="percentage-fill" id="top-percentage-display-2">50</span>% chance of receiving a bonus each time each time they are NOT recognized as a FoodFast Star.`
     }
-], ['prior', 'posterior']);
+], ['prior', 'posterior', 'posterior2']);
 
 
 const attnChk1 = {
@@ -707,7 +698,7 @@ const attnChk1 = {
     };
 
     p.instLoopPredict = {
-      timeline: [introPlay, dualSliderQuestion, attnChk, conditionalNode],
+      timeline: [introPlay, tripleSliderQuestion, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
@@ -716,7 +707,7 @@ const attnChk1 = {
 
     p.instLoopPlay = {
     //timeline: [introPlay, sliderQuestion, attnChk, conditionalNode],
-      timeline: [introPlay, dualSliderQuestion, attnChk, conditionalNode],
+      timeline: [introPlay, tripleSliderQuestion, attnChk, conditionalNode],
       loop_function: () => {
         const fail = jsPsych.data.get().last(2).select('totalErrors').sum() > 0 ? true : false;
         return fail;
